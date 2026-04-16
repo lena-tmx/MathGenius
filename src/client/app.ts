@@ -1443,25 +1443,23 @@ function renderShell(): void {
   document.title = t.documentTitle;
   dom.html.lang = state.language;
   dom.languageSwitcher.setAttribute("aria-label", t.languageSwitcherLabel);
-  dom.languageCurrentLabel.textContent = state.language === "en" ? "🇬🇧 EN" : "🇩🇪 DE";
-  dom.languageToggleButton.setAttribute("aria-label", state.language === "en" ? "English" : "Deutsch");
-  dom.languageOptionEnglish.parentElement?.toggleAttribute("hidden", state.language === "en");
-  dom.languageOptionGerman.parentElement?.toggleAttribute("hidden", state.language === "de");
-  if (dom.navHome) {
-    dom.navHome.textContent = t.navHome;
-  }
-  if (dom.navTopics) {
-    dom.navTopics.textContent = t.navLearn;
-  }
-  if (dom.navPlan) {
-    dom.navPlan.textContent = t.navPlan;
-  }
-  if (dom.navGymi) {
-    dom.navGymi.textContent = t.navGymi;
-  }
+  dom.langActiveButton.textContent = state.language === "en" ? "🇬🇧" : "🇩🇪";
+  dom.langActiveButton.setAttribute("aria-label", state.language === "en" ? "English" : "Deutsch");
+  dom.langOtherButton.textContent = state.language === "en" ? "🇩🇪" : "🇬🇧";
+  dom.langOtherButton.setAttribute("aria-label", state.language === "en" ? "Deutsch" : "English");
+  dom.navHome.textContent = t.navHome;
+  dom.navTopics.textContent = t.navLearn;
+  dom.navPlan.textContent = t.navPlan;
+  dom.navGymi.textContent = t.navGymi;
+  dom.navHome.hidden = true;
+  dom.navTopics.hidden = true;
+  dom.navPlan.hidden = true;
   dom.openAuthButton.textContent = state.account && state.authToken ? t.logoutButton : t.loginButton;
   dom.openProfileButton.textContent = t.avatarProfile;
   dom.avatarLogoutButton.textContent = t.avatarLogout;
+  dom.topicsCount.textContent = String(getTracks().length);
+  dom.practiceCount.textContent = String(getMockExams().length);
+  dom.trackCount.textContent = String(getTracks().length);
   dom.views.forEach((view) => view.classList.toggle("active", view.dataset.view === state.currentView));
   dom.avatarShell.hidden = true;
   renderAvatar();
@@ -1472,52 +1470,25 @@ function updateStaticTexts(): void {
   const t = translations[state.language];
   const home = homePageContent[state.language];
 
-  setText("#home-hero-title", home.hero.title);
-  setText("#home-hero-subtitle", home.hero.subtitle);
-  setText("#home-hero-lang-button", home.hero.primaryButton);
-  setText("#home-hero-kurz-button", home.hero.secondaryButton);
-  setText("#home-info-1", home.hero.infoCard[0]);
-  setText("#home-info-2", home.hero.infoCard[1]);
-  setText("#home-info-3", home.hero.infoCard[2]);
-  setText("#benefit-1-title", home.benefits[0].title);
-  setText("#benefit-1-text", home.benefits[0].text);
-  setText("#benefit-2-title", home.benefits[1].title);
-  setText("#benefit-2-text", home.benefits[1].text);
-  setText("#benefit-3-title", home.benefits[2].title);
-  setText("#benefit-3-text", home.benefits[2].text);
-  setText("#exam-lang-title", home.examCards.lang.title);
-  setText("#exam-lang-label", home.examCards.lang.label);
-  setText("#exam-lang-text", home.examCards.lang.text);
-  setText("#open-lang-track-button", home.examCards.lang.button);
-  setText("#exam-kurz-title", home.examCards.kurz.title);
-  setText("#exam-kurz-label", home.examCards.kurz.label);
-  setText("#exam-kurz-text", home.examCards.kurz.text);
-  setText("#open-kurz-track-button", home.examCards.kurz.button);
-  setText("#admission-eyebrow", home.admission.eyebrow);
-  setText("#admission-title", home.admission.title);
-  setText("#admission-text", home.admission.text);
-  setText("#admission-zap-title", home.admission.zapTitle);
-  setText("#admission-zap-text", home.admission.zapText);
-  setText("#admission-zap-link", home.admission.zapLink);
-  setText("#admission-brochure-link", home.admission.brochureLink);
-  setText("#admission-note", home.admission.note);
-  setText("#admission-lang-title", home.admission.langTitle);
-  setText("#admission-lang-text", home.admission.langText);
-  setText("#admission-lang-link", home.admission.langLink);
-  setText("#admission-kurz-title", home.admission.kurzTitle);
-  setText("#admission-kurz-text", home.admission.kurzText);
-  setText("#admission-kurz-link", home.admission.kurzLink);
-  setText("#admission-unter-title", home.admission.unterTitle);
-  setText("#admission-unter-text", home.admission.unterText);
-  setText("#admission-unter-link", home.admission.unterLink);
-  setText("#home-cta-title", home.cta.title);
-  setText("#home-cta-text", home.cta.text);
-  setText("#home-cta-lang-button", home.cta.langButton);
-  setText("#home-cta-kurz-button", home.cta.kurzButton);
-  setText("#home-footer-tagline", home.footer.tagline);
-  setText("#home-footer-official", home.footer.officialInfo);
-  setText("#home-footer-privacy", home.footer.privacy);
-  setText("#home-footer-contact", home.footer.contact);
+  setText(".view[data-view='home'] h1", t.homeTitle);
+  setText(".view[data-view='home'] .hero-text", t.homeText);
+  setText(".view[data-view='home'] .hero-actions .primary-button", t.homeOpenTopics);
+  setText(".view[data-view='home'] .hero-actions .secondary-button", t.homeCreateAccount);
+  setText(".view[data-view='home'] .panel-card-accent .panel-kicker", t.appIncludes);
+  setText(".view[data-view='home'] .panel-card-accent h2", t.appIncludesTitle);
+  setText("#focus-topic-description", t.appIncludesText);
+  setText(".view[data-view='home'] .hero-panel .panel-card:last-child .panel-kicker", t.currentLearner);
+  setText(".view[data-view='home'] .section-heading .eyebrow", t.mainSections);
+  setText(".view[data-view='home'] .section-heading h2", t.openSectionTitle);
+  setText(".view[data-view='home'] .section-heading p", t.openSectionText);
+  setText(".landing-card:nth-child(1) .panel-kicker", t.learnCardKicker);
+  setText(".landing-card:nth-child(1) h3", t.learnCardTitle);
+  setText(".landing-card:nth-child(1) p:nth-of-type(2)", t.learnCardText);
+  setText(".landing-card:nth-child(1) .primary-button", t.learnCardButton);
+  setText(".landing-card:nth-child(2) .panel-kicker", t.planCardKicker);
+  setText(".landing-card:nth-child(2) h3", t.planCardTitle);
+  setText(".landing-card:nth-child(2) p:nth-of-type(2)", t.planCardText);
+  setText(".landing-card:nth-child(2) .primary-button", t.planCardButton);
   setText(".view[data-view='topics'] .section-heading .eyebrow", t.topicsEyebrow);
   setText(".view[data-view='topics'] .section-heading h2", t.topicsTitle);
   setText(".view[data-view='topics'] .section-heading p", t.topicsText);
@@ -2010,8 +1981,11 @@ function navigateTo(viewName: ViewName): void {
 }
 
 function openExamTrack(trackId: string): void {
-  state.activeTrackId = trackId;
-  state.mockExamIndex = 0;
+  const exams = mockExamRecords;
+  const examIndex = exams.findIndex((exam) => exam.track_code === trackId);
+  if (examIndex >= 0) {
+    state.mockExamIndex = examIndex;
+  }
   navigateTo("gymi");
 }
 

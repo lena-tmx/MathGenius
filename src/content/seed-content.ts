@@ -121,8 +121,8 @@ export const seedMockExams: MockExam[] = [
     slug: "kurz-diagnostic",
     track_code: "kurz",
     title: "Mock Exam: Kurzgymi-Prüfung",
-    description: "A compact Kurzgymi set with algebra, ratios, and applied percentage problems under light time pressure.",
-    duration_minutes: 50,
+    description: "A starter mock exam covering calculations, fractions, word problems, and solution strategy.",
+    duration_minutes: 45,
     tasks: [
       "Simplify the expression: 3(2x - 5) - 2(x + 4).",
       "A map uses the scale 1:25 000. What real distance does 8 cm represent?",
@@ -133,7 +133,7 @@ export const seedMockExams: MockExam[] = [
     slug: "lang-foundation",
     track_code: "lang",
     title: "Mock Exam: Langgymi-Prüfung",
-    description: "A calmer Langgymi set focused on fractions, geometry, and neat step-by-step reasoning.",
+    description: "A sequence of tasks for core skills, reading accuracy, and clear written solutions.",
     duration_minutes: 40,
     tasks: [
       "Compare the fractions 3/4 and 5/8 without converting them to decimals.",
