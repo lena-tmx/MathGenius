@@ -1,6 +1,26 @@
 import { seedGymiTracks, seedMockExams, seedTopics } from "../content/seed-content.js";
 import { formatMathText } from "./math-text.js";
+import { LangGymiTopicPage } from "./lang-gymi-topic-page.js";
 import { SimplifyTermsCanvas } from "./simplify-terms-canvas.js";
+import { ExerciseWidget } from "./exercise-widget.js";
+const JSON_TOPICS = [
+    {
+        slug: "terme",
+        title_de: "Terme — ZAP-Aufgaben",
+        title_en: "Expressions — ZAP Tasks",
+        desc_de: "ggT, kgV, Terme einsetzen und geschickt rechnen — echte ZAP-Aufgaben.",
+        desc_en: "GCD, LCM, substitution and smart calculations — real ZAP tasks.",
+        path: "/content/exercises/terme.json"
+    },
+    {
+        slug: "gleichungen",
+        title_de: "Gleichungen lösen",
+        title_en: "Solve equations",
+        desc_de: "Lineare Gleichungen mit Klammern, mehreren Schritten und Brüchen.",
+        desc_en: "Linear equations with brackets, multiple steps, and fractions.",
+        path: "/content/exercises/gleichungen.json"
+    }
+];
 const homePageContent = {
     en: {
         hero: {
@@ -673,7 +693,7 @@ const dom = {
     openAuthButton: query("#open-auth-button"),
     languageToggleButton: query("#language-toggle-button"),
     languageCurrentLabel: query("#language-current-label"),
-    languageFlag: query("#csd-flag-container"),
+    languageFlag: queryOptional("#csd-flag-container"),
     languageOptionEnglish: query("#language-option-en"),
     languageOptionGerman: query("#language-option-de"),
     languageMenu: query("#language-menu"),
@@ -721,10 +741,13 @@ const dom = {
     savedPlanTopics: query("#saved-plan-topics"),
     progressRing: query(".progress-ring"),
     gymiTrackGrid: query("#gymi-track-grid"),
+    gymiTopicCards: query("#gymi-topic-cards"),
     mockExamTitle: query("#mock-exam-title"),
     mockExamDescription: query("#mock-exam-description"),
     mockExamTasks: query("#mock-exam-tasks"),
     switchExamButton: query("#switch-exam-button"),
+    langTopicPageRoot: query("#lang-topic-page-root"),
+    exerciseWidgetRoot: query("#exercise-widget-root"),
     signUpTab: query("#sign-up-tab-page"),
     logInTab: query("#log-in-tab-page"),
     authForm: query("#auth-form-page"),
@@ -829,12 +852,24 @@ const state = {
     authToken: initialAuthToken,
     account: initialAccount,
     profile: createEmptyProfile(),
-    activeTrackId: "lang"
+    activeTrackId: "lang",
+    activeExerciseTopic: null
 };
 let topicRecords = seedTopics.slice();
 let gymiTrackRecords = seedGymiTracks.slice();
 let mockExamRecords = seedMockExams.slice();
 const simplifyTermsCanvas = new SimplifyTermsCanvas(dom.topicCanvas);
+const langGymiTopicPage = new LangGymiTopicPage(dom.langTopicPageRoot, () => {
+    openExamTrack("lang");
+    renderGymiArea();
+});
+const exerciseWidget = new ExerciseWidget(dom.exerciseWidgetRoot, {
+    onBack: () => {
+        state.activeExerciseTopic = null;
+        openExamTrack("lang");
+        renderGymiArea();
+    }
+});
 initialize().catch((error) => {
     console.error(error);
 });
@@ -1046,6 +1081,7 @@ function renderAll() {
     renderTopicsArea();
     renderPlanArea();
     renderGymiArea();
+    renderLangTopicPage();
     renderAuthPage();
     renderProfilePage();
 }
@@ -1054,9 +1090,8 @@ function renderShell() {
     document.title = t.documentTitle;
     dom.html.lang = state.language;
     dom.languageSwitcher.setAttribute("aria-label", t.languageSwitcherLabel);
-    dom.languageCurrentLabel.textContent = state.language === "en" ? "EN" : "DE";
+    dom.languageCurrentLabel.textContent = state.language === "en" ? "🇬🇧 EN" : "🇩🇪 DE";
     dom.languageToggleButton.setAttribute("aria-label", state.language === "en" ? "English" : "Deutsch");
-    dom.languageFlag.className = `csd-indicator-flag ${state.language === "en" ? "csd-flag-uk" : "csd-flag-de"}`;
     dom.languageOptionEnglish.parentElement?.toggleAttribute("hidden", state.language === "en");
     dom.languageOptionGerman.parentElement?.toggleAttribute("hidden", state.language === "de");
     if (dom.navHome) {
@@ -1362,6 +1397,7 @@ function renderGymiArea() {
         return source?.track_code === state.activeTrackId;
     });
     dom.gymiTrackGrid.innerHTML = "";
+    dom.gymiTopicCards.innerHTML = "";
     tracks.forEach((track) => {
         const card = document.createElement("article");
         const isActive = track.id === state.activeTrackId;
@@ -1380,6 +1416,41 @@ function renderGymiArea() {
         });
         dom.gymiTrackGrid.appendChild(card);
     });
+    if (state.activeTrackId === "lang") {
+        const isDE = state.language === "de";
+        const canvasCard = document.createElement("article");
+        canvasCard.className = "gymi-topic-card";
+        canvasCard.innerHTML = `
+      <span class="panel-kicker">${isDE ? "Interaktiv" : "Interactive"}</span>
+      <h3>${isDE ? "Terme vereinfachen" : "Simplify expressions"}</h3>
+      <p>${isDE
+            ? "Klammern, Produkte, Brüche und Wurzeln — interaktiver Canvas mit Eingabe."
+            : "Brackets, products, fractions and square roots — interactive canvas with input."}</p>
+      <button class="primary-button" type="button">${isDE ? "Canvas öffnen" : "Open canvas"}</button>
+    `;
+        canvasCard.querySelector("button")?.addEventListener("click", () => {
+            state.activeExerciseTopic = null;
+            navigateTo("lang-topic");
+            renderLangTopicPage();
+        });
+        dom.gymiTopicCards.appendChild(canvasCard);
+        JSON_TOPICS.forEach((topic) => {
+            const card = document.createElement("article");
+            card.className = "gymi-topic-card";
+            const title = isDE ? topic.title_de : topic.title_en;
+            const desc = isDE ? topic.desc_de : topic.desc_en;
+            card.innerHTML = `
+        <span class="panel-kicker">${isDE ? "ZAP-Training" : "ZAP Practice"}</span>
+        <h3>${escapeHtml(title)}</h3>
+        <p>${escapeHtml(desc)}</p>
+        <button class="primary-button" type="button">${isDE ? "Aufgaben starten" : "Start tasks"}</button>
+      `;
+            card.querySelector("button")?.addEventListener("click", () => {
+                openJsonTopic(topic.slug, topic.path).catch(() => {});
+            });
+            dom.gymiTopicCards.appendChild(card);
+        });
+    }
     if (exams.length === 0) {
         dom.switchExamButton.hidden = true;
         dom.mockExamTitle.textContent = "";
@@ -1398,6 +1469,42 @@ function renderGymiArea() {
     dom.mockExamTitle.textContent = exam.title;
     dom.mockExamDescription.textContent = exam.description;
     fillList(dom.mockExamTasks, exam.tasks);
+}
+function renderLangTopicPage() {
+    if (state.currentView !== "lang-topic") {
+        langGymiTopicPage.hide();
+        dom.exerciseWidgetRoot.hidden = true;
+        return;
+    }
+    if (state.activeExerciseTopic) {
+        dom.langTopicPageRoot.hidden = true;
+        exerciseWidget.show(state.language);
+    }
+    else {
+        dom.exerciseWidgetRoot.hidden = true;
+        langGymiTopicPage.show(state.language);
+    }
+}
+async function openJsonTopic(slug, path) {
+    state.activeExerciseTopic = slug;
+    navigateTo("lang-topic");
+    dom.langTopicPageRoot.hidden = true;
+    dom.exerciseWidgetRoot.hidden = false;
+    const loadingMsg = state.language === "de" ? "Aufgaben werden geladen…" : "Loading tasks…";
+    dom.exerciseWidgetRoot.innerHTML = `<div class="canvas-shell"><p style="text-align:center;padding:48px 0;color:var(--text-soft)">${loadingMsg}</p></div>`;
+    try {
+        const response = await fetch(path);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        const exercises = await response.json();
+        exerciseWidget.setExercises(exercises);
+        exerciseWidget.show(state.language);
+    }
+    catch {
+        const errMsg = state.language === "de" ? "Aufgaben konnten nicht geladen werden." : "Could not load the tasks.";
+        dom.exerciseWidgetRoot.innerHTML = `<div class="canvas-shell"><p style="text-align:center;padding:48px 0;color:var(--danger)">${errMsg}</p></div>`;
+    }
 }
 function renderAuthPage() {
     const t = translations[state.language];
@@ -2064,8 +2171,7 @@ function persistAuthState() {
     }
 }
 function loadLanguage() {
-    const value = localStorage.getItem(storageKeys.language);
-    return value === "en" ? "en" : "de";
+    return "de";
 }
 function setLanguage(language) {
     state.language = language;
@@ -2255,6 +2361,7 @@ function isViewName(value) {
         value === "topics" ||
         value === "plan" ||
         value === "gymi" ||
+        value === "lang-topic" ||
         value === "profile" ||
         value === "auth" ||
         value === "change-email" ||

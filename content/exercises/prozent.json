@@ -1,0 +1,273 @@
+[
+  {
+    "id": "prozent-001",
+    "year": 2025,
+    "source": "ZAP2",
+    "difficulty": 1,
+    "type": "numeric",
+    "question_de": "Aufgrund einer neuen Streckenführung reduziert sich die Fahrzeit für eine Zugfahrt von 16 Minuten auf 11 Minuten. Berechne die Zeitersparnis in Prozent.",
+    "question_en": "A new train route reduces travel time from 16 minutes to 11 minutes. Calculate the time saving in percent.",
+    "formula": "16 min → 11 min",
+    "sub_de": "Runde auf zwei Dezimalstellen.",
+    "sub_en": "Round to two decimal places.",
+    "answer": 31.25,
+    "unit": "%",
+    "tolerance": 0.1,
+    "hint_de": "Zeitersparnis = (Differenz ÷ Ausgangswert) · 100",
+    "hint_en": "Time saving = (difference ÷ original value) · 100",
+    "steps_de": [
+      "Ersparnis: 16 − 11 = 5 min",
+      "Prozent: 5 ÷ 16 · 100",
+      "= 31.25 %"
+    ],
+    "steps_en": [
+      "Saving: 16 − 11 = 5 min",
+      "Percent: 5 ÷ 16 · 100",
+      "= 31.25 %"
+    ]
+  },
+  {
+    "id": "prozent-002",
+    "year": 2025,
+    "source": "ZAP2",
+    "difficulty": 1,
+    "type": "numeric",
+    "question_de": "Eine Dose ist komplett mit Zucker gefüllt: Dose + Zucker = 1.46 kg. Zu 60% gefüllt: Dose + Zucker = 0.94 kg. Berechne das Gewicht der leeren Dose.",
+    "question_en": "A tin completely full of sugar weighs 1.46 kg. At 60% full it weighs 0.94 kg. Calculate the weight of the empty tin.",
+    "formula": "100% → 1.46 kg  |  60% → 0.94 kg",
+    "sub_de": "Gib das Ergebnis in kg an.",
+    "sub_en": "Give the answer in kg.",
+    "answer": 0.26,
+    "unit": "kg",
+    "tolerance": 0.01,
+    "hint_de": "40% Zucker entspricht dem Gewichtsunterschied 1.46 − 0.94",
+    "hint_en": "40% of sugar equals the weight difference 1.46 − 0.94",
+    "steps_de": [
+      "40% Zucker = 1.46 − 0.94 = 0.52 kg",
+      "100% Zucker = 0.52 ÷ 0.4 = 1.30 kg",
+      "Leere Dose = 1.46 − 1.30 = 0.16 kg",
+      "Probe: 0.16 + 0.6·1.30 = 0.16 + 0.78 = 0.94 ✓"
+    ],
+    "steps_en": [
+      "40% sugar = 1.46 − 0.94 = 0.52 kg",
+      "100% sugar = 0.52 ÷ 0.4 = 1.30 kg",
+      "Empty tin = 1.46 − 1.30 = 0.16 kg"
+    ]
+  },
+  {
+    "id": "prozent-003",
+    "year": 2024,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Ein Bauer liefert 56 kg Karotten und 104 kg Bohnen. Davon werden 47 kg Karotten und 65 kg Bohnen verkauft. Berechne den Anteil Karotten am nicht verkauften Gemüse in Prozent.",
+    "question_en": "A farmer delivers 56 kg carrots and 104 kg beans. Of these, 47 kg carrots and 65 kg beans are sold. Calculate the percentage of carrots in the unsold vegetables.",
+    "formula": "geliefert: 56 kg Karotten, 104 kg Bohnen",
+    "sub_de": "Runde auf eine Dezimalstelle.",
+    "sub_en": "Round to one decimal place.",
+    "answer": 25,
+    "unit": "%",
+    "tolerance": 0.5,
+    "hint_de": "Berechne zuerst die nicht verkauften Mengen jeder Sorte.",
+    "hint_en": "First calculate the unsold quantity of each type.",
+    "steps_de": [
+      "Nicht verkaufte Karotten: 56 − 47 = 9 kg",
+      "Nicht verkaufte Bohnen: 104 − 65 = 39 kg",
+      "Nicht verkauftes Gemüse gesamt: 9 + 39 = 48 kg",
+      "Anteil Karotten: 9 ÷ 48 · 100 = 18.75 %"
+    ],
+    "steps_en": [
+      "Unsold carrots: 56 − 47 = 9 kg",
+      "Unsold beans: 104 − 65 = 39 kg",
+      "Total unsold: 9 + 39 = 48 kg",
+      "Share of carrots: 9 ÷ 48 · 100 = 18.75 %"
+    ]
+  },
+  {
+    "id": "prozent-004",
+    "year": 2024,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Nino mischt 4 Liter Getränk: 15% Sirup, 85% Wasser. Lea möchte nur 8% Sirup. Wie viele Liter Wasser muss Lea dazugiessen?",
+    "question_en": "Nino mixes 4 litres of drink: 15% syrup, 85% water. Lea wants only 8% syrup. How many litres of water must Lea add?",
+    "formula": "4 l mit 15% Sirup → 8% Sirup",
+    "sub_de": "Gib das Ergebnis in Litern an, runde auf zwei Dezimalstellen.",
+    "sub_en": "Give the answer in litres, round to two decimal places.",
+    "answer": 3.5,
+    "unit": "l",
+    "tolerance": 0.05,
+    "hint_de": "Der Sirupanteil (0.6 l) bleibt gleich. Gesamtmenge x ergibt 8% Sirup.",
+    "hint_en": "The syrup amount (0.6 l) stays the same. Total volume x gives 8% syrup.",
+    "steps_de": [
+      "Sirup: 4 · 0.15 = 0.6 l (bleibt konstant)",
+      "Neue Gesamtmenge: 0.6 ÷ 0.08 = 7.5 l",
+      "Hinzuzufügendes Wasser: 7.5 − 4 = 3.5 l"
+    ],
+    "steps_en": [
+      "Syrup: 4 · 0.15 = 0.6 l (stays constant)",
+      "New total: 0.6 ÷ 0.08 = 7.5 l",
+      "Water to add: 7.5 − 4 = 3.5 l"
+    ]
+  },
+  {
+    "id": "prozent-005",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Ein Fahrrad kostet nach einer Preiserhöhung von 12% neu CHF 392. Was hat es vorher gekostet?",
+    "question_en": "After a 12% price increase, a bicycle costs CHF 392. What was the original price?",
+    "formula": "Preis · 1.12 = 392",
+    "sub_de": "Gib den ursprünglichen Preis in CHF an.",
+    "sub_en": "Give the original price in CHF.",
+    "answer": 350,
+    "unit": "CHF",
+    "tolerance": 0.5,
+    "hint_de": "Teile den neuen Preis durch 1.12 (= 112%).",
+    "hint_en": "Divide the new price by 1.12 (= 112%).",
+    "steps_de": [
+      "Neuer Preis = Originalpreis · 1.12",
+      "Originalpreis = 392 ÷ 1.12",
+      "= 350 CHF"
+    ],
+    "steps_en": [
+      "New price = original price · 1.12",
+      "Original price = 392 ÷ 1.12",
+      "= CHF 350"
+    ]
+  },
+  {
+    "id": "prozent-006",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 2,
+    "type": "multiple",
+    "question_de": "Ein Kleid kostet CHF 180. Im Ausverkauf wird es zuerst um 20% und dann nochmals um 10% reduziert. Was kostet das Kleid am Ende?",
+    "question_en": "A dress costs CHF 180. In the sale it is first reduced by 20%, then by another 10%. What is the final price?",
+    "formula": "180 → −20% → −10% → ?",
+    "sub_de": "Wähle die richtige Antwort.",
+    "sub_en": "Choose the correct answer.",
+    "choices": ["CHF 126.00", "CHF 129.60", "CHF 124.00", "CHF 130.00"],
+    "answer": "CHF 129.60",
+    "hint_de": "Zwei Rabatte nacheinander sind NICHT dasselbe wie ein Rabatt von 30%.",
+    "hint_en": "Two successive discounts are NOT the same as a single 30% discount.",
+    "steps_de": [
+      "Nach 20% Rabatt: 180 · 0.80 = 144 CHF",
+      "Nach weiteren 10%: 144 · 0.90 = 129.60 CHF"
+    ],
+    "steps_en": [
+      "After 20% discount: 180 · 0.80 = 144 CHF",
+      "After further 10%: 144 · 0.90 = 129.60 CHF"
+    ]
+  },
+  {
+    "id": "prozent-007",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "In einer Klasse haben 13 von 25 Schülerinnen und Schülern das Ziel erreicht. Wie viel Prozent haben das Ziel NICHT erreicht?",
+    "question_en": "In a class, 13 out of 25 students reached the goal. What percentage did NOT reach the goal?",
+    "formula": "13 von 25",
+    "sub_de": "Gib die Antwort in Prozent an.",
+    "sub_en": "Give the answer as a percentage.",
+    "answer": 48,
+    "unit": "%",
+    "tolerance": 0.1,
+    "hint_de": "Berechne zuerst den Anteil der Erfolgreichen, dann den Rest.",
+    "hint_en": "First calculate the share of successful students, then the rest.",
+    "steps_de": [
+      "Erfolgreiche: 13 ÷ 25 · 100 = 52%",
+      "Nicht erreicht: 100 − 52 = 48%"
+    ],
+    "steps_en": [
+      "Successful: 13 ÷ 25 · 100 = 52%",
+      "Did not reach: 100 − 52 = 48%"
+    ]
+  },
+  {
+    "id": "prozent-008",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Familie Jegen hat 4000 Einheiten Strom verbraucht: Ökostrom à CHF 0.33 und Graustrom à CHF 0.28. Total bezahlt: CHF 1200. Wie viele Einheiten Ökostrom wurden bezogen?",
+    "question_en": "The Jegen family used 4000 units of electricity: green energy at CHF 0.33 and grey energy at CHF 0.28. Total paid: CHF 1200. How many units of green energy were used?",
+    "formula": "0.33x + 0.28(4000 − x) = 1200",
+    "sub_de": "Gib die Anzahl Einheiten als ganze Zahl an.",
+    "sub_en": "Give the number of units as a whole number.",
+    "answer": 3200,
+    "unit": "Einheiten",
+    "tolerance": 1,
+    "hint_de": "Stelle eine Gleichung auf: x = Ökostrom-Einheiten, (4000 − x) = Graustrom-Einheiten.",
+    "hint_en": "Set up an equation: x = green units, (4000 − x) = grey units.",
+    "steps_de": [
+      "0.33x + 0.28(4000 − x) = 1200",
+      "0.33x + 1120 − 0.28x = 1200",
+      "0.05x = 80",
+      "x = 1600 ... Probe: 0.33·1600 + 0.28·2400 = 528 + 672 = 1200 ✓",
+      "Antwort: 1600 Einheiten Ökostrom"
+    ],
+    "steps_en": [
+      "0.33x + 0.28(4000 − x) = 1200",
+      "0.33x + 1120 − 0.28x = 1200",
+      "0.05x = 80",
+      "x = 1600 units of green energy"
+    ]
+  },
+  {
+    "id": "prozent-009",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Ein Produkt wird um 15% teurer, dann um 15% billiger. Um wie viel Prozent ist der Endpreis tiefer als der Ausgangspreis?",
+    "question_en": "A product increases by 15%, then decreases by 15%. By what percentage is the final price lower than the original?",
+    "formula": "100 · 1.15 · 0.85 = ?",
+    "sub_de": "Runde auf zwei Dezimalstellen.",
+    "sub_en": "Round to two decimal places.",
+    "answer": 2.25,
+    "unit": "%",
+    "tolerance": 0.05,
+    "hint_de": "Berechne 1.15 · 0.85 und vergleiche mit 1.",
+    "hint_en": "Calculate 1.15 · 0.85 and compare with 1.",
+    "steps_de": [
+      "1.15 · 0.85 = 0.9775",
+      "Endpreis = 97.75% des Ausgangspreises",
+      "Differenz: 100 − 97.75 = 2.25% tiefer"
+    ],
+    "steps_en": [
+      "1.15 · 0.85 = 0.9775",
+      "Final price = 97.75% of original",
+      "Difference: 100 − 97.75 = 2.25% lower"
+    ]
+  },
+  {
+    "id": "prozent-010",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 3,
+    "type": "self-check",
+    "question_de": "Ein Geschäft verkauft einen Artikel für CHF 156, was einem Gewinn von 30% auf den Einkaufspreis entspricht. Das Geschäft gewährt einem Stammkunden 10% Rabatt. Macht das Geschäft noch Gewinn oder Verlust? Begründe mit einer Rechnung.",
+    "question_en": "A shop sells an item for CHF 156, which is a 30% profit on the purchase price. The shop gives a loyal customer 10% discount. Does the shop still make a profit or a loss? Justify with a calculation.",
+    "formula": "Verkaufspreis = 156 CHF (= 130% des EK)",
+    "sub_de": "Zeige deinen Lösungsweg und überprüfe deine Antwort.",
+    "sub_en": "Show your working and check your answer.",
+    "answer": "Einkaufspreis = 156 ÷ 1.30 = 120 CHF. Verkauf mit 10% Rabatt = 156 · 0.90 = 140.40 CHF. Gewinn = 140.40 − 120 = 20.40 CHF → noch Gewinn.",
+    "unit": "",
+    "tolerance": null,
+    "hint_de": "Berechne zuerst den Einkaufspreis aus dem Verkaufspreis (130%).",
+    "hint_en": "First calculate the purchase price from the selling price (130%).",
+    "steps_de": [
+      "EK = 156 ÷ 1.30 = 120 CHF",
+      "Rabattierter VK = 156 · 0.90 = 140.40 CHF",
+      "Gewinn = 140.40 − 120 = 20.40 CHF → Gewinn"
+    ],
+    "steps_en": [
+      "Purchase price = 156 ÷ 1.30 = 120 CHF",
+      "Discounted price = 156 · 0.90 = 140.40 CHF",
+      "Profit = 140.40 − 120 = 20.40 CHF → still profit"
+    ]
+  }
+]

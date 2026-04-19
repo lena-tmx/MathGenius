@@ -1,0 +1,283 @@
+[
+  {
+    "id": "wahrsch-001",
+    "year": 2024,
+    "source": "ZAP2",
+    "difficulty": 1,
+    "type": "multiple",
+    "question_de": "Zwei gewöhnliche Spielwürfel (Augenzahlen 1–6) werden gleichzeitig geworfen. Berechne die Wahrscheinlichkeit, dass eine 2 und eine 3 gewürfelt wird.",
+    "question_en": "Two standard dice (faces 1–6) are thrown simultaneously. Calculate the probability of rolling a 2 and a 3.",
+    "formula": "P(2 und 3) = ?",
+    "sub_de": "Wähle die richtige Antwort.",
+    "sub_en": "Choose the correct answer.",
+    "choices": ["1/36", "1/18", "1/12", "2/36"],
+    "answer": "1/18",
+    "hint_de": "Es gibt 2 günstige Ergebnisse: (2,3) und (3,2). Wie viele Ergebnisse gibt es insgesamt?",
+    "hint_en": "There are 2 favourable outcomes: (2,3) and (3,2). How many total outcomes are there?",
+    "steps_de": [
+      "Gesamtzahl Ergebnisse: 6 · 6 = 36",
+      "Günstige Ergebnisse: (2,3) und (3,2) → 2",
+      "P = 2/36 = 1/18"
+    ],
+    "steps_en": [
+      "Total outcomes: 6 · 6 = 36",
+      "Favourable outcomes: (2,3) and (3,2) → 2",
+      "P = 2/36 = 1/18"
+    ]
+  },
+  {
+    "id": "wahrsch-002",
+    "year": 2025,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "self-check",
+    "question_de": "Mahisha hält verdeckt in der einen Hand 1 kurzes und 4 lange Streichhölzer, in der anderen Hand 2 kurze und 5 lange. Theo zieht aus beiden Händen je eines. Berechne die Wahrscheinlichkeit, dass Theo ein kurzes und ein langes Streichholz zieht (egal in welcher Reihenfolge).",
+    "question_en": "Mahisha holds 1 short and 4 long matches in one hand, 2 short and 5 long in the other. Theo draws one from each hand. Calculate the probability of drawing one short and one long match (in any order).",
+    "formula": "Hand 1: {1k, 4l}  |  Hand 2: {2k, 5l}",
+    "sub_de": "Zeige deinen Lösungsweg und überprüfe deine Antwort.",
+    "sub_en": "Show your working and check your answer.",
+    "answer": "P(kurz aus H1, lang aus H2) = 1/5 · 5/7 = 1/7. P(lang aus H1, kurz aus H2) = 4/5 · 2/7 = 8/35. Total = 5/35 + 8/35 = 13/35 ≈ 37.1%",
+    "unit": "",
+    "tolerance": null,
+    "hint_de": "Berechne beide Fälle getrennt: (kurz, lang) und (lang, kurz), dann addiere.",
+    "hint_en": "Calculate both cases separately: (short, long) and (long, short), then add.",
+    "steps_de": [
+      "Fall 1: kurz aus H1 UND lang aus H2",
+      "P = 1/5 · 5/7 = 5/35 = 1/7",
+      "Fall 2: lang aus H1 UND kurz aus H2",
+      "P = 4/5 · 2/7 = 8/35",
+      "Total: 5/35 + 8/35 = 13/35 ≈ 37.1%"
+    ],
+    "steps_en": [
+      "Case 1: short from H1 AND long from H2",
+      "P = 1/5 · 5/7 = 5/35 = 1/7",
+      "Case 2: long from H1 AND short from H2",
+      "P = 4/5 · 2/7 = 8/35",
+      "Total: 5/35 + 8/35 = 13/35 ≈ 37.1%"
+    ]
+  },
+  {
+    "id": "wahrsch-003",
+    "year": 2024,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "self-check",
+    "question_de": "Im Topf A: 2 rote, 3 blaue Kugeln. Im Topf B: 1 rote, 1 blaue, 2 grüne Kugeln. Aus jedem Topf wird eine Kugel gezogen. Berechne die Wahrscheinlichkeit, dass zwei verschiedenfarbige Kugeln gezogen werden.",
+    "question_en": "Pot A: 2 red, 3 blue. Pot B: 1 red, 1 blue, 2 green. One ball drawn from each pot. Calculate the probability of drawing two different-coloured balls.",
+    "formula": "Topf A: {r,r,b,b,b}  |  Topf B: {r,b,g,g}",
+    "sub_de": "Zeige deinen Lösungsweg. Tipp: Berechne zuerst P(gleiche Farbe).",
+    "sub_en": "Show your working. Tip: First calculate P(same colour).",
+    "answer": "P(gleich) = P(r,r) + P(b,b) = 2/5·1/4 + 3/5·1/4 = 2/20 + 3/20 = 5/20 = 1/4. P(verschieden) = 1 − 1/4 = 3/4",
+    "unit": "",
+    "tolerance": null,
+    "hint_de": "Gleiche Farbe nur möglich bei (rot,rot) oder (blau,blau) — kein Grün in Topf A.",
+    "hint_en": "Same colour only possible for (red,red) or (blue,blue) — no green in pot A.",
+    "steps_de": [
+      "P(rot, rot) = 2/5 · 1/4 = 2/20",
+      "P(blau, blau) = 3/5 · 1/4 = 3/20",
+      "P(gleiche Farbe) = 5/20 = 1/4",
+      "P(verschiedene Farbe) = 1 − 1/4 = 3/4"
+    ],
+    "steps_en": [
+      "P(red, red) = 2/5 · 1/4 = 2/20",
+      "P(blue, blue) = 3/5 · 1/4 = 3/20",
+      "P(same colour) = 5/20 = 1/4",
+      "P(different colour) = 1 − 1/4 = 3/4"
+    ]
+  },
+  {
+    "id": "wahrsch-004",
+    "year": 2025,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "multiple",
+    "question_de": "An einem Wettbewerb nahmen Personen teil. 21'100 wurden an einem Samstag oder Sonntag geboren. An allen Wochentagen werden gleich viele Kinder geboren. Wie viele Personen nahmen teil?",
+    "question_en": "In a competition, 21'100 participants were born on a Saturday or Sunday. Births are equally distributed across all weekdays. Approximately how many people took part?",
+    "formula": "21'100 ≈ 2/7 · Gesamt",
+    "sub_de": "Wähle den plausibelsten Wert.",
+    "sub_en": "Choose the most plausible value.",
+    "choices": ["68'000", "70'000", "73'850", "76'000"],
+    "answer": "73'850",
+    "hint_de": "2 von 7 Tagen = 2/7. Gesamt = 21'100 · 7/2",
+    "hint_en": "2 out of 7 days = 2/7. Total = 21'100 · 7/2",
+    "steps_de": [
+      "Anteil Wochenende: 2/7",
+      "Gesamt = 21'100 · 7/2 = 21'100 · 3.5",
+      "= 73'850"
+    ],
+    "steps_en": [
+      "Weekend share: 2/7",
+      "Total = 21'100 · 7/2 = 21'100 · 3.5",
+      "= 73'850"
+    ]
+  },
+  {
+    "id": "wahrsch-005",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 1,
+    "type": "numeric",
+    "question_de": "Ein Beutel enthält 3 rote, 4 blaue und 3 grüne Kugeln. Eine Kugel wird zufällig gezogen. Wie gross ist die Wahrscheinlichkeit, eine rote Kugel zu ziehen? Gib das Ergebnis als Dezimalzahl an.",
+    "question_en": "A bag contains 3 red, 4 blue and 3 green balls. One ball is drawn at random. What is the probability of drawing a red ball? Give the answer as a decimal.",
+    "formula": "P(rot) = ?",
+    "sub_de": "Runde auf zwei Dezimalstellen.",
+    "sub_en": "Round to two decimal places.",
+    "answer": 0.3,
+    "unit": "",
+    "tolerance": 0.01,
+    "hint_de": "Gesamtzahl Kugeln = 3 + 4 + 3 = 10",
+    "hint_en": "Total number of balls = 3 + 4 + 3 = 10",
+    "steps_de": [
+      "Gesamt: 3 + 4 + 3 = 10 Kugeln",
+      "P(rot) = 3/10 = 0.30"
+    ],
+    "steps_en": [
+      "Total: 3 + 4 + 3 = 10 balls",
+      "P(red) = 3/10 = 0.30"
+    ]
+  },
+  {
+    "id": "wahrsch-006",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 1,
+    "type": "multiple",
+    "question_de": "Eine faire Münze wird dreimal geworfen. Wie gross ist die Wahrscheinlichkeit, genau zweimal Kopf zu erhalten?",
+    "question_en": "A fair coin is tossed three times. What is the probability of getting exactly two heads?",
+    "formula": "P(genau 2× Kopf) = ?",
+    "sub_de": "Wähle die richtige Antwort.",
+    "sub_en": "Choose the correct answer.",
+    "choices": ["1/4", "3/8", "1/2", "1/8"],
+    "answer": "3/8",
+    "hint_de": "Mögliche Ergebnisse mit genau 2× Kopf: KKZ, KZK, ZKK",
+    "hint_en": "Possible outcomes with exactly 2 heads: HHT, HTH, THH",
+    "steps_de": [
+      "Gesamtzahl Ergebnisse: 2³ = 8",
+      "Günstige: KKZ, KZK, ZKK → 3",
+      "P = 3/8"
+    ],
+    "steps_en": [
+      "Total outcomes: 2³ = 8",
+      "Favourable: HHT, HTH, THH → 3",
+      "P = 3/8"
+    ]
+  },
+  {
+    "id": "wahrsch-007",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "In einer Klasse sind 12 Mädchen und 8 Jungs. Es werden zufällig 2 Schülerinnen oder Schüler nacheinander (ohne Zurücklegen) ausgewählt. Wie gross ist die Wahrscheinlichkeit, dass beide Mädchen sind? Gib das Ergebnis als Dezimalzahl an.",
+    "question_en": "A class has 12 girls and 8 boys. 2 students are chosen at random one after another (without replacement). What is the probability that both are girls? Give the answer as a decimal.",
+    "formula": "P(M₁ und M₂) = ?",
+    "sub_de": "Runde auf vier Dezimalstellen.",
+    "sub_en": "Round to four decimal places.",
+    "answer": 0.3368,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Beim zweiten Zug sind noch 19 Schüler im Raum, davon 11 Mädchen.",
+    "hint_en": "For the second draw, 19 students remain, of which 11 are girls.",
+    "steps_de": [
+      "P(1. Mädchen) = 12/20",
+      "P(2. Mädchen | 1. war Mädchen) = 11/19",
+      "P(beide Mädchen) = 12/20 · 11/19 = 132/380 ≈ 0.3474"
+    ],
+    "steps_en": [
+      "P(1st girl) = 12/20",
+      "P(2nd girl | 1st was girl) = 11/19",
+      "P(both girls) = 12/20 · 11/19 = 132/380 ≈ 0.3474"
+    ]
+  },
+  {
+    "id": "wahrsch-008",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 3,
+    "type": "self-check",
+    "question_de": "Topf A: 2 rote, 3 blaue Kugeln. Topf B: 1 rote, 1 blaue, 2 grüne. Wie viele grüne Kugeln muss man in Topf A legen, damit die Wahrscheinlichkeit, aus beiden Töpfen je eine grüne Kugel zu ziehen, 3/16 beträgt?",
+    "question_en": "Pot A: 2 red, 3 blue. Pot B: 1 red, 1 blue, 2 green. How many green balls must be added to pot A so that the probability of drawing a green from each pot equals 3/16?",
+    "formula": "P(grün, grün) = 3/16",
+    "sub_de": "Zeige deinen Lösungsweg.",
+    "sub_en": "Show your working.",
+    "answer": "Sei n = Anzahl grüner Kugeln in A. P(grün aus A) = n/(5+n). P(grün aus B) = 2/4 = 1/2. Gleichung: n/(5+n) · 1/2 = 3/16 → n/(5+n) = 3/8 → 8n = 15+3n → 5n = 15 → n = 3.",
+    "unit": "",
+    "tolerance": null,
+    "hint_de": "P(grün aus B) = 2/4 = 1/2. Stelle eine Gleichung für P(grün aus A) auf.",
+    "hint_en": "P(green from B) = 2/4 = 1/2. Set up an equation for P(green from A).",
+    "steps_de": [
+      "P(grün, B) = 2/4 = 1/2",
+      "Sei n = grüne Kugeln in A",
+      "P(grün, A) · 1/2 = 3/16",
+      "P(grün, A) = 3/8",
+      "n / (5 + n) = 3/8",
+      "8n = 15 + 3n",
+      "5n = 15  →  n = 3"
+    ],
+    "steps_en": [
+      "P(green, B) = 2/4 = 1/2",
+      "Let n = green balls in A",
+      "P(green, A) · 1/2 = 3/16",
+      "P(green, A) = 3/8",
+      "n / (5 + n) = 3/8",
+      "8n = 15 + 3n",
+      "5n = 15  →  n = 3"
+    ]
+  },
+  {
+    "id": "wahrsch-009",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Ein Passwort besteht aus 2 verschiedenen Buchstaben (A–Z) gefolgt von 2 verschiedenen Ziffern (0–9). Wie viele verschiedene Passwörter gibt es? Gib die Antwort in Tausend an (z.B. 45 für 45'000).",
+    "question_en": "A password consists of 2 different letters (A–Z) followed by 2 different digits (0–9). How many different passwords are there? Give the answer in thousands (e.g. 45 for 45'000).",
+    "formula": "?? Buchstaben + ?? Ziffern",
+    "sub_de": "Reihenfolge spielt eine Rolle.",
+    "sub_en": "Order matters.",
+    "answer": 58.5,
+    "unit": "Tausend",
+    "tolerance": 0.1,
+    "hint_de": "Buchstaben: 26 · 25 Möglichkeiten. Ziffern: 10 · 9 Möglichkeiten.",
+    "hint_en": "Letters: 26 · 25 possibilities. Digits: 10 · 9 possibilities.",
+    "steps_de": [
+      "Buchstaben: 26 · 25 = 650",
+      "Ziffern: 10 · 9 = 90",
+      "Gesamt: 650 · 90 = 58'500"
+    ],
+    "steps_en": [
+      "Letters: 26 · 25 = 650",
+      "Digits: 10 · 9 = 90",
+      "Total: 650 · 90 = 58'500"
+    ]
+  },
+  {
+    "id": "wahrsch-010",
+    "year": null,
+    "source": "ZAP-style",
+    "difficulty": 3,
+    "type": "self-check",
+    "question_de": "Eine Schachtel enthält 5 rote und 3 blaue Kugeln. Zwei Kugeln werden nacheinander ohne Zurücklegen gezogen. Wie gross ist die Wahrscheinlichkeit, dass die zweite Kugel rot ist? (Hinweis: Das Ergebnis überrascht vielleicht.)",
+    "question_en": "A box contains 5 red and 3 blue balls. Two balls are drawn without replacement. What is the probability that the second ball is red? (Hint: the result may surprise you.)",
+    "formula": "P(2. Kugel rot) = ?",
+    "sub_de": "Betrachte beide Fälle für die erste Kugel.",
+    "sub_en": "Consider both cases for the first ball.",
+    "answer": "P(2. rot) = P(1.rot)·P(2.rot|1.rot) + P(1.blau)·P(2.rot|1.blau) = 5/8·4/7 + 3/8·5/7 = 20/56 + 15/56 = 35/56 = 5/8. Die Wahrscheinlichkeit ist gleich wie beim ersten Zug!",
+    "unit": "",
+    "tolerance": null,
+    "hint_de": "Berechne P(2. rot | 1. rot) und P(2. rot | 1. blau) getrennt.",
+    "hint_en": "Calculate P(2nd red | 1st red) and P(2nd red | 1st blue) separately.",
+    "steps_de": [
+      "P(1. rot) · P(2. rot | 1. rot) = 5/8 · 4/7 = 20/56",
+      "P(1. blau) · P(2. rot | 1. blau) = 3/8 · 5/7 = 15/56",
+      "P(2. rot) = 20/56 + 15/56 = 35/56 = 5/8",
+      "→ Gleich wie P(1. rot) = 5/8 !"
+    ],
+    "steps_en": [
+      "P(1st red) · P(2nd red | 1st red) = 5/8 · 4/7 = 20/56",
+      "P(1st blue) · P(2nd red | 1st blue) = 3/8 · 5/7 = 15/56",
+      "P(2nd red) = 20/56 + 15/56 = 35/56 = 5/8",
+      "→ Same as P(1st red) = 5/8!"
+    ]
+  }
+]
