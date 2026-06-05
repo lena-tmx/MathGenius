@@ -818,7 +818,7 @@ p {
 .exam-path-grid,
 .admission-grid {
   display: grid;
-  gap: 20px;
+  gap: 12px;
 }
 
 .benefit-grid {
