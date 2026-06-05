@@ -96,14 +96,14 @@ export const seedGymiTracks = [
     {
         code: "kurz",
         title: "Kurzgymi-Prüfung",
-        audience: "For later admission, with a focus on speed, calculations, and word problems.",
-        description: "Diagnostics, focused practice sets, weekly plans, and mock exams built around entrance-style mathematics."
+        audience: "For secondary-school learners aiming for later admission, with more algebra, word problems, and timed work.",
+        description: "Faster entrance-style preparation with algebraic simplification, multi-step calculations, ratios, and exam pacing."
     },
     {
         code: "lang",
         title: "Langgymi-Prüfung",
-        audience: "For early preparation, with a focus on fundamentals and accuracy.",
-        description: "Step-by-step preparation in arithmetic, fractions, geometry, and recurring exam-style tasks."
+        audience: "For primary-school learners preparing early, with a focus on arithmetic foundations, geometry, and careful reading.",
+        description: "Step-by-step preparation in number sense, fractions, geometry, and clearly written solutions for younger learners."
     }
 ];
 export const seedMockExams = [
@@ -111,24 +111,24 @@ export const seedMockExams = [
         slug: "kurz-diagnostic",
         track_code: "kurz",
         title: "Mock Exam: Kurzgymi-Prüfung",
-        description: "A starter mock exam covering calculations, fractions, word problems, and solution strategy.",
-        duration_minutes: 45,
+        description: "A compact Kurzgymi set with algebra, ratios, and applied percentage problems under light time pressure.",
+        duration_minutes: 50,
         tasks: [
-            "There are 24 students in a class. 3/8 of the class studies music. How many students is that?",
-            "Simplify the ratio 18:30 and explain what it means.",
-            "Solve the price problem: an item cost 120 CHF, received a 15% discount, and then had a 6 CHF service fee added."
+            "Simplify the expression: 3(2x - 5) - 2(x + 4).",
+            "A map uses the scale 1:25 000. What real distance does 8 cm represent?",
+            "A jacket costs 180 CHF. It is reduced by 15% and then a 7.70 CHF delivery fee is added. What is the final price?"
         ]
     },
     {
         slug: "lang-foundation",
         track_code: "lang",
         title: "Mock Exam: Langgymi-Prüfung",
-        description: "A sequence of tasks for core skills, reading accuracy, and clear written solutions.",
+        description: "A calmer Langgymi set focused on fractions, geometry, and neat step-by-step reasoning.",
         duration_minutes: 40,
         tasks: [
-            "Compare the fractions 5/6 and 7/9 without converting them to decimals.",
-            "Find the area of a rectangle with length 14 cm and width 9 cm.",
-            "Write an expression and evaluate it: add one quarter of 18 to 18, then subtract 5."
+            "Compare the fractions 3/4 and 5/8 without converting them to decimals.",
+            "A rectangle is 12 cm long and 7 cm wide. Find its perimeter and area.",
+            "Write and calculate: take one third of 24, add 18, then subtract 5."
         ]
     }
 ];

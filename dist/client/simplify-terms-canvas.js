@@ -1,3 +1,4 @@
+import { formatMathText, normalizeMathInput } from "./math-text.js";
 const copy = {
     en: {
         badge: "Kurz Gymi • Canvas",
@@ -11,7 +12,7 @@ const copy = {
         expression: "Expression",
         answerLabel: "Your answer",
         answerPlaceholder: "Enter the simplified expression",
-        examples: "Examples: 8x - 7, 30x^2z, a - 2",
+        examples: "Examples: 8x - 7, 30x²z, a - 2",
         checkAnswer: "Check answer",
         showFullSolution: "Show full solution",
         hideFullSolution: "Hide full solution",
@@ -54,7 +55,7 @@ const copy = {
         expression: "Term",
         answerLabel: "Deine Antwort",
         answerPlaceholder: "Gib den vereinfachten Term ein",
-        examples: "Beispiele: 8x - 7, 30x^2z, a - 2",
+        examples: "Beispiele: 8x - 7, 30x²z, a - 2",
         checkAnswer: "Antwort prüfen",
         showFullSolution: "Ganze Lösung zeigen",
         hideFullSolution: "Ganze Lösung ausblenden",
@@ -88,25 +89,13 @@ const copy = {
 };
 const taskCache = new Map();
 let simplifyFunctionPromise = null;
-function normalizeExpression(value) {
-    return value
-        .toLowerCase()
-        .replace(/\s+/g, "")
-        .replace(/·/g, "*")
-        .replace(/²/g, "^2")
-        .replace(/³/g, "^3")
-        .replace(/−/g, "-")
-        .replace(/,/g, ".")
-        .replace(/√\(/g, "sqrt(")
-        .replace(/√([a-z0-9]+)/gi, "sqrt($1)");
-}
 function mathEquivalent(left, right, simplifyFunction) {
     if (!simplifyFunction) {
         return false;
     }
     try {
-        const normalizedLeft = normalizeExpression(left);
-        const normalizedRight = normalizeExpression(right);
+        const normalizedLeft = normalizeMathInput(left);
+        const normalizedRight = normalizeMathInput(right);
         const result = simplifyFunction(`(${normalizedLeft}) - (${normalizedRight})`).toString();
         return result === "0";
     }
@@ -115,8 +104,8 @@ function mathEquivalent(left, right, simplifyFunction) {
     }
 }
 function isAnswerCorrect(input, task, simplifyFunction) {
-    const normalizedInput = normalizeExpression(input);
-    const acceptedMatch = task.acceptedAnswers.some((answer) => normalizeExpression(answer) === normalizedInput);
+    const normalizedInput = normalizeMathInput(input);
+    const acceptedMatch = task.acceptedAnswers.some((answer) => normalizeMathInput(answer) === normalizedInput);
     return acceptedMatch || mathEquivalent(input, task.canonicalExpression, simplifyFunction);
 }
 async function loadTasks(language) {
@@ -249,7 +238,7 @@ export class SimplifyTermsCanvas {
             return `
         <div class="canvas-feedback success">
           <h4>${ui.correctTitle}</h4>
-          <p>${ui.correctText} <strong>${task.canonicalAnswer}</strong>.</p>
+          <p>${ui.correctText} <strong>${escapeHtml(formatMathText(task.canonicalAnswer))}</strong>.</p>
         </div>
       `;
         }
@@ -263,14 +252,14 @@ export class SimplifyTermsCanvas {
           <p>${ui.incorrectText}</p>
         </div>
         <section class="canvas-panel">
-          <h5>${ui.hint}</h5>
-          <p>${task.hint}</p>
+            <h5>${ui.hint}</h5>
+          <p>${escapeHtml(formatMathText(task.hint))}</p>
         </section>
         ${helpLevel !== "hint"
             ? `
           <section class="canvas-panel">
             <h5>${ui.stepByStep}</h5>
-            <ol>${steps.map((step) => `<li>${step}</li>`).join("")}</ol>
+            <ol>${steps.map((step) => `<li>${escapeHtml(formatMathText(step))}</li>`).join("")}</ol>
           </section>
         `
             : ""}
@@ -278,12 +267,12 @@ export class SimplifyTermsCanvas {
             ? `
           <section class="canvas-panel">
             <h5>${ui.commonMistakes}</h5>
-            <ul>${task.commonMistakes.map((mistake) => `<li>${mistake}</li>`).join("")}</ul>
+            <ul>${task.commonMistakes.map((mistake) => `<li>${escapeHtml(formatMathText(mistake))}</li>`).join("")}</ul>
           </section>
           <section class="canvas-panel accent">
             <h5>${ui.similarExample}</h5>
-            <p>${task.similarExample.question}</p>
-            <p class="canvas-small">${ui.expectedResult}: ${task.similarExample.answer}</p>
+            <p>${escapeHtml(formatMathText(task.similarExample.question))}</p>
+            <p class="canvas-small">${ui.expectedResult}: ${escapeHtml(formatMathText(task.similarExample.answer))}</p>
           </section>
         `
             : ""}
@@ -323,19 +312,19 @@ export class SimplifyTermsCanvas {
             <div class="canvas-task-head">
               <div>
                 <p>${ui.task} ${this.currentIndex + 1} ${ui.of} ${this.tasks.length}</p>
-                <h4>${task.topic}</h4>
+                <h4>${escapeHtml(formatMathText(task.topic))}</h4>
               </div>
               <span class="canvas-level">${task.level}</span>
             </div>
 
             <div class="canvas-block">
               <p class="canvas-label">${ui.instruction}</p>
-              <p>${task.instruction}</p>
+              <p>${escapeHtml(formatMathText(task.instruction))}</p>
             </div>
 
             <div class="canvas-expression">
               <p class="canvas-label">${ui.expression}</p>
-              <div>${task.question}</div>
+              <div>${escapeHtml(formatMathText(task.question))}</div>
             </div>
 
             <div class="canvas-block">
@@ -355,8 +344,8 @@ export class SimplifyTermsCanvas {
             ? `
               <section class="canvas-solution">
                 <h4>${ui.fullSolution}</h4>
-                <ol>${task.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
-                <div class="canvas-final">${ui.finalAnswer}: <strong>${task.canonicalAnswer}</strong></div>
+                <ol>${task.steps.map((step) => `<li>${escapeHtml(formatMathText(step))}</li>`).join("")}</ol>
+                <div class="canvas-final">${ui.finalAnswer}: <strong>${escapeHtml(formatMathText(task.canonicalAnswer))}</strong></div>
               </section>
             `
             : ""}
@@ -393,7 +382,7 @@ export class SimplifyTermsCanvas {
                       >
                         <div>
                           <strong>${ui.task} ${index + 1}</strong>
-                          <span>${item.topic}</span>
+                          <span>${escapeHtml(formatMathText(item.topic))}</span>
                         </div>
                         <span class="canvas-pill${solved ? " solved" : ""}${active ? " active" : ""}">${label}</span>
                       </button>

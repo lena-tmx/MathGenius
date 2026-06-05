@@ -1,0 +1,238 @@
+[
+  {
+    "id": "gleichungen-gen-001",
+    "difficulty": 1,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "3x + 5 = 20",
+    "answer": 5,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Subtrahiere 5 auf beiden Seiten, dann dividiere durch 3.",
+    "hint_en": "Subtract 5 from both sides, then divide by 3.",
+    "steps_de": ["3x + 5 = 20", "3x = 20 − 5 = 15", "x = 15 ÷ 3 = 5"],
+    "steps_en": ["3x + 5 = 20", "3x = 20 − 5 = 15", "x = 15 ÷ 3 = 5"]
+  },
+  {
+    "id": "gleichungen-gen-002",
+    "difficulty": 1,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "2(x − 4) = 10",
+    "answer": 9,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Löse zuerst die Klammer auf: 2x − 8 = 10.",
+    "hint_en": "Expand the bracket first: 2x − 8 = 10.",
+    "steps_de": ["2(x − 4) = 10", "2x − 8 = 10", "2x = 18", "x = 9"],
+    "steps_en": ["2(x − 4) = 10", "2x − 8 = 10", "2x = 18", "x = 9"]
+  },
+  {
+    "id": "gleichungen-gen-003",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "4x − 3 = 2x + 11",
+    "answer": 7,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Bringe alle x-Terme auf eine Seite und alle Zahlen auf die andere Seite.",
+    "hint_en": "Move all x-terms to one side and all constants to the other.",
+    "steps_de": ["4x − 3 = 2x + 11", "4x − 2x = 11 + 3", "2x = 14", "x = 7"],
+    "steps_en": ["4x − 3 = 2x + 11", "4x − 2x = 11 + 3", "2x = 14", "x = 7"]
+  },
+  {
+    "id": "gleichungen-001",
+    "year": 2025,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "2 − (52x − 27) = 15 − 5(8x + 2)",
+    "answer": 2,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Löse zuerst beide Klammern auf. Achte auf das Minuszeichen vor der ersten Klammer: −(52x−27) = −52x+27.",
+    "hint_en": "Expand both brackets first. Note the minus sign before the first bracket: −(52x−27) = −52x+27.",
+    "steps_de": [
+      "2 − 52x + 27 = 15 − 40x − 10",
+      "29 − 52x = 5 − 40x",
+      "29 − 5 = 52x − 40x",
+      "24 = 12x",
+      "x = 2"
+    ],
+    "steps_en": [
+      "2 − 52x + 27 = 15 − 40x − 10",
+      "29 − 52x = 5 − 40x",
+      "29 − 5 = 52x − 40x",
+      "24 = 12x",
+      "x = 2"
+    ]
+  },
+  {
+    "id": "gleichungen-002",
+    "year": 2024,
+    "source": "ZAP2",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "5x − 2(x + 3) = 8x + (2 − x)",
+    "answer": -2,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Löse beide Klammern auf, fasse gleichartige Terme zusammen und isoliere x.",
+    "hint_en": "Expand both brackets, collect like terms, and isolate x.",
+    "steps_de": [
+      "5x − 2x − 6 = 8x + 2 − x",
+      "3x − 6 = 7x + 2",
+      "3x − 7x = 2 + 6",
+      "−4x = 8",
+      "x = −2"
+    ],
+    "steps_en": [
+      "5x − 2x − 6 = 8x + 2 − x",
+      "3x − 6 = 7x + 2",
+      "3x − 7x = 2 + 6",
+      "−4x = 8",
+      "x = −2"
+    ]
+  },
+  {
+    "id": "gleichungen-gen-004",
+    "difficulty": 2,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "3(x + 4) = 2(2x − 1) + 5",
+    "answer": 9,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Löse beide Klammern auf: 3x + 12 = 4x − 2 + 5.",
+    "hint_en": "Expand both brackets: 3x + 12 = 4x − 2 + 5.",
+    "steps_de": [
+      "3x + 12 = 4x − 2 + 5",
+      "3x + 12 = 4x + 3",
+      "12 − 3 = 4x − 3x",
+      "x = 9"
+    ],
+    "steps_en": [
+      "3x + 12 = 4x − 2 + 5",
+      "3x + 12 = 4x + 3",
+      "12 − 3 = 4x − 3x",
+      "x = 9"
+    ]
+  },
+  {
+    "id": "gleichungen-gen-005",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "x/3 + x/4 = 7/6",
+    "sub_de": "Bringe alle Brüche auf einen gemeinsamen Nenner.",
+    "sub_en": "Bring all fractions to a common denominator.",
+    "answer": 2,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Der Hauptnenner von 3, 4 und 6 ist 12. Multipliziere beide Seiten mit 12.",
+    "hint_en": "The common denominator of 3, 4, and 6 is 12. Multiply both sides by 12.",
+    "steps_de": [
+      "· 12: 4x + 3x = 14",
+      "7x = 14",
+      "x = 2"
+    ],
+    "steps_en": [
+      "× 12: 4x + 3x = 14",
+      "7x = 14",
+      "x = 2"
+    ]
+  },
+  {
+    "id": "gleichungen-gen-006",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "(x + 3)/2 = (2x − 5)/3 + 1",
+    "sub_de": "Multipliziere mit dem Hauptnenner.",
+    "sub_en": "Multiply through by the common denominator.",
+    "answer": 13,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Der Hauptnenner ist 6. Multipliziere beide Seiten mit 6: 3(x+3) = 2(2x−5) + 6.",
+    "hint_en": "The common denominator is 6. Multiply both sides by 6: 3(x+3) = 2(2x−5) + 6.",
+    "steps_de": [
+      "· 6: 3(x + 3) = 2(2x − 5) + 6",
+      "3x + 9 = 4x − 10 + 6",
+      "3x + 9 = 4x − 4",
+      "13 = x"
+    ],
+    "steps_en": [
+      "× 6: 3(x + 3) = 2(2x − 5) + 6",
+      "3x + 9 = 4x − 10 + 6",
+      "3x + 9 = 4x − 4",
+      "13 = x"
+    ]
+  },
+  {
+    "id": "gleichungen-gen-007",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "2(3x + 4) − 3(x − 2) = 4(x + 3) + x",
+    "answer": 1,
+    "unit": "",
+    "tolerance": 0.001,
+    "hint_de": "Löse alle vier Klammern auf und fasse gleichartige Terme zusammen.",
+    "hint_en": "Expand all four brackets, then collect like terms.",
+    "steps_de": [
+      "6x + 8 − 3x + 6 = 4x + 12 + x",
+      "3x + 14 = 5x + 12",
+      "14 − 12 = 5x − 3x",
+      "2 = 2x",
+      "x = 1"
+    ],
+    "steps_en": [
+      "6x + 8 − 3x + 6 = 4x + 12 + x",
+      "3x + 14 = 5x + 12",
+      "14 − 12 = 5x − 3x",
+      "2 = 2x",
+      "x = 1"
+    ]
+  },
+  {
+    "id": "gleichungen-gen-008",
+    "difficulty": 3,
+    "type": "numeric",
+    "question_de": "Löse die Gleichung nach x auf.",
+    "question_en": "Solve the equation for x.",
+    "formula": "(3x − 1)/4 − (x + 2)/3 = 1/2",
+    "sub_de": "Multipliziere beide Seiten mit dem Hauptnenner 12.",
+    "sub_en": "Multiply both sides by the common denominator 12.",
+    "answer": 3.4,
+    "unit": "",
+    "tolerance": 0.01,
+    "hint_de": "· 12: 3(3x−1) − 4(x+2) = 6. Klammern auflösen und x isolieren.",
+    "hint_en": "× 12: 3(3x−1) − 4(x+2) = 6. Expand brackets and isolate x.",
+    "steps_de": [
+      "· 12: 3(3x − 1) − 4(x + 2) = 6",
+      "9x − 3 − 4x − 8 = 6",
+      "5x − 11 = 6",
+      "5x = 17",
+      "x = 17/5 = 3.4"
+    ],
+    "steps_en": [
+      "× 12: 3(3x − 1) − 4(x + 2) = 6",
+      "9x − 3 − 4x − 8 = 6",
+      "5x − 11 = 6",
+      "5x = 17",
+      "x = 17/5 = 3.4"
+    ]
+  }
+]
