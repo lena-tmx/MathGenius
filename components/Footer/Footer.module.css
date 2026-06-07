@@ -1,0 +1,43 @@
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px 24px;
+  margin-top: auto;
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.copy {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.links {
+  display: flex;
+  gap: 4px;
+}
+
+.link {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+}
+
+.link:hover {
+  color: var(--text);
+  background: rgba(30, 136, 229, 0.06);
+}

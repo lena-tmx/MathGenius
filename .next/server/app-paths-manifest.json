@@ -1,0 +1,9 @@
+{
+  "/page": "app/page.js",
+  "/kurz/page": "app/kurz/page.js",
+  "/gymi/page": "app/gymi/page.js",
+  "/kurz/[topic]/page": "app/kurz/[topic]/page.js",
+  "/impressum/page": "app/impressum/page.js",
+  "/lang/page": "app/lang/page.js",
+  "/lang/[topic]/page": "app/lang/[topic]/page.js"
+}

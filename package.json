@@ -1,29 +1,27 @@
 {
   "name": "mathginius",
   "version": "1.0.0",
-  "description": "Math learning platform for school math, personalized tracks, and Swiss Gymi exam preparation.",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsc --project tsconfig.json",
-    "start": "node dist/server.js",
-    "check": "tsc --noEmit --project tsconfig.json",
-    "seed:mongo": "tsx src/scripts/seed-mongo.ts"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "cors": "^2.8.5",
+    "next": "^15.1.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "dotenv": "^16.4.5",
-    "express": "^4.21.2",
-    "mathjs": "^15.2.0",
+    "pg": "^8.13.1",
     "mongodb": "^6.15.0",
-    "pg": "^8.13.1"
+    "mathjs": "^15.2.0"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.1",
     "@types/node": "^22.13.10",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
     "@types/pg": "^8.11.11",
-    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }

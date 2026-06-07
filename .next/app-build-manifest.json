@@ -1,0 +1,52 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
+    ],
+    "/kurz/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/kurz/page.css",
+      "static/chunks/app/kurz/page.js"
+    ],
+    "/gymi/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/gymi/page.css",
+      "static/chunks/app/gymi/page.js"
+    ],
+    "/kurz/[topic]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/kurz/[topic]/page.css",
+      "static/chunks/app/kurz/[topic]/page.js"
+    ],
+    "/impressum/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/impressum/page.css",
+      "static/chunks/app/impressum/page.js"
+    ],
+    "/lang/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/lang/page.css",
+      "static/chunks/app/lang/page.js"
+    ],
+    "/lang/[topic]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/lang/[topic]/page.css",
+      "static/chunks/app/lang/[topic]/page.js"
+    ]
+  }
+}
