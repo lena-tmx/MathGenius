@@ -1,0 +1,123 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[5].use[3]!./app/page.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+.page_wrap__Q2Wky {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* ── Hero ── */
+.page_hero__7KFOs {
+  text-align: center;
+  padding: 60px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.page_heroTitle__ixXIp {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  max-width: 720px;
+}
+
+.page_heroSub__fi66w {
+  color: var(--text-soft);
+  max-width: 560px;
+  font-size: 1.1rem;
+}
+
+.page_heroCta__k6Sds {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* ── Track cards ── */
+.page_cards__IHl_z {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 24px;
+  gap: 24px;
+}
+
+@media (max-width: 680px) {
+  .page_cards__IHl_z { grid-template-columns: 1fr; }
+}
+
+.page_card__Cf__u {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  padding: 32px;
+  display: flex;
+  gap: 20px;
+  text-decoration: none;
+  color: var(--text);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.page_card__Cf__u:hover {
+  box-shadow: 0 24px 56px rgba(17, 79, 138, 0.16);
+  transform: translateY(-2px);
+}
+
+.page_cardIcon__syb4d {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.page_cardBody__X5bf8 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.page_cardTitle__T08IG {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.page_cardDesc__owQ1w {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.page_pills__rMxIz {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.page_pill__27VwF {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+
+.page_cardCta__sRTIX {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 4px;
+}
+

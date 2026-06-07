@@ -6,6 +6,7 @@ import { ExerciseWidget } from "./exercise-widget.js";
 const JSON_TOPICS = [
     {
         slug: "terme",
+        track: "lang",
         title_de: "Terme — ZAP-Aufgaben",
         title_en: "Expressions — ZAP Tasks",
         desc_de: "ggT, kgV, Terme einsetzen und geschickt rechnen — echte ZAP-Aufgaben.",
@@ -14,11 +15,30 @@ const JSON_TOPICS = [
     },
     {
         slug: "gleichungen",
+        track: "lang",
         title_de: "Gleichungen lösen",
         title_en: "Solve equations",
         desc_de: "Lineare Gleichungen mit Klammern, mehreren Schritten und Brüchen.",
         desc_en: "Linear equations with brackets, multiple steps, and fractions.",
         path: "/content/exercises/gleichungen.json"
+    },
+    {
+        slug: "prozent",
+        track: "kurz",
+        title_de: "Prozentrechnung",
+        title_en: "Percentages",
+        desc_de: "Prozentwert, Grundwert, Prozentsatz — echte ZAP-Aufgaben mit Sachkontext.",
+        desc_en: "Percentage value, base, rate — real ZAP tasks with real-world context.",
+        path: "/content/exercises/prozent.json"
+    },
+    {
+        slug: "wahrscheinlichkeit",
+        track: "kurz",
+        title_de: "Wahrscheinlichkeit",
+        title_en: "Probability",
+        desc_de: "Laplace-Wahrscheinlichkeit, kombinatorische Aufgaben und Baumdiagramme.",
+        desc_en: "Laplace probability, combinatorics tasks, and tree diagrams.",
+        path: "/content/exercises/wahrscheinlichkeit.json"
     }
 ];
 const homePageContent = {
@@ -680,7 +700,6 @@ function queryAll(selector) {
 }
 const dom = {
     html: document.documentElement,
-    navHome: queryOptional('[data-view-target="home"]'),
     navTopics: queryOptional('[data-view-target="topics"]'),
     navPlan: queryOptional('[data-view-target="plan"]'),
     navGymi: queryOptional('[data-view-target="gymi"]'),
@@ -691,13 +710,10 @@ const dom = {
     views: queryAll("[data-view]"),
     homeButton: query("#home-button"),
     openAuthButton: query("#open-auth-button"),
-    languageToggleButton: query("#language-toggle-button"),
-    languageCurrentLabel: query("#language-current-label"),
-    languageFlag: queryOptional("#csd-flag-container"),
-    languageOptionEnglish: query("#language-option-en"),
-    languageOptionGerman: query("#language-option-de"),
+    langActiveButton: query("#lang-active-button"),
+    langOtherButton: query("#lang-other-button"),
     languageMenu: query("#language-menu"),
-    languageSwitcher: query("#language-switcher"),
+    languageFlag: queryOptional("#csd-flag-container"),
     avatarShell: query("#avatar-shell"),
     avatarButton: query("#avatar-button"),
     avatarMenu: query("#avatar-menu"),
@@ -708,11 +724,14 @@ const dom = {
     avatarLogoutButton: query("#avatar-logout-button"),
     openKurzTrackButton: query("#open-kurz-track-button"),
     openLangTrackButton: query("#open-lang-track-button"),
-    admissionZapLink: query("#admission-zap-link"),
-    admissionBrochureLink: query("#admission-brochure-link"),
-    admissionLangLink: query("#admission-lang-link"),
-    admissionKurzLink: query("#admission-kurz-link"),
-    admissionUnterLink: query("#admission-unter-link"),
+    admissionZapLink: queryOptional("#admission-zap-link"),
+    admissionBrochureLink: queryOptional("#admission-brochure-link"),
+    admissionLangLink: queryOptional("#admission-lang-link"),
+    admissionKurzLink: queryOptional("#admission-kurz-link"),
+    admissionUnterLink: queryOptional("#admission-unter-link"),
+    topicsCount: queryOptional("#topics-count"),
+    practiceCount: queryOptional("#practice-count"),
+    trackCount: queryOptional("#track-count"),
     gradeFilters: query("#grade-filters"),
     categoryFilters: query("#category-filters"),
     topicList: query("#topic-list"),
@@ -879,9 +898,22 @@ async function initialize() {
     await hydrateAccountFromApi();
     await hydrateLearnerDataFromApi();
     loadProfileForCurrentAccount();
+    history.replaceState({ view: state.currentView, trackId: null, exerciseTopic: null }, "", window.location.href);
     renderAll();
 }
 function bindEvents() {
+    window.addEventListener("popstate", (event) => {
+        const s = event.state;
+        if (s && isViewName(s.view)) {
+            state.currentView = s.view;
+            if (s.trackId) state.activeTrackId = s.trackId;
+            state.activeExerciseTopic = s.exerciseTopic ?? null;
+            renderShell();
+        } else {
+            state.currentView = "home";
+            renderShell();
+        }
+    });
     dom.navLinks.forEach((button) => {
         button.addEventListener("click", () => {
             const viewName = button.dataset.viewTarget;
@@ -896,20 +928,15 @@ function bindEvents() {
         }
         navigateTo("auth");
     });
-    dom.languageToggleButton.addEventListener("click", () => {
+    dom.langActiveButton.addEventListener("click", () => {
         const isOpen = !dom.languageMenu.hidden;
         dom.languageMenu.hidden = isOpen;
-        dom.languageToggleButton.setAttribute("aria-expanded", String(!isOpen));
+        dom.langActiveButton.setAttribute("aria-expanded", String(!isOpen));
     });
-    dom.languageOptionEnglish.addEventListener("click", () => {
-        setLanguage("en");
+    dom.langOtherButton.addEventListener("click", () => {
+        setLanguage(state.language === "en" ? "de" : "en");
         dom.languageMenu.hidden = true;
-        dom.languageToggleButton.setAttribute("aria-expanded", "false");
-    });
-    dom.languageOptionGerman.addEventListener("click", () => {
-        setLanguage("de");
-        dom.languageMenu.hidden = true;
-        dom.languageToggleButton.setAttribute("aria-expanded", "false");
+        dom.langActiveButton.setAttribute("aria-expanded", "false");
     });
     dom.avatarButton.addEventListener("click", toggleAvatarMenu);
     dom.openProfileButton.addEventListener("click", () => {
@@ -945,9 +972,9 @@ function bindEvents() {
         });
     });
     document.addEventListener("click", (event) => {
-        if (!dom.languageSwitcher.contains(event.target)) {
+        if (!dom.langActiveButton.closest(".language-switcher")?.contains(event.target)) {
             dom.languageMenu.hidden = true;
-            dom.languageToggleButton.setAttribute("aria-expanded", "false");
+            dom.langActiveButton.setAttribute("aria-expanded", "false");
         }
         if (!dom.avatarShell.contains(event.target)) {
             closeAvatarMenu();
@@ -1073,24 +1100,22 @@ function renderShell() {
     const t = translations[state.language];
     document.title = t.documentTitle;
     dom.html.lang = state.language;
-    dom.languageSwitcher.setAttribute("aria-label", t.languageSwitcherLabel);
+    dom.langActiveButton.closest(".language-switcher")?.setAttribute("aria-label", t.languageSwitcherLabel);
     dom.langActiveButton.textContent = state.language === "en" ? "🇬🇧" : "🇩🇪";
     dom.langActiveButton.setAttribute("aria-label", state.language === "en" ? "English" : "Deutsch");
     dom.langOtherButton.textContent = state.language === "en" ? "🇩🇪" : "🇬🇧";
     dom.langOtherButton.setAttribute("aria-label", state.language === "en" ? "Deutsch" : "English");
-    dom.navHome.textContent = t.navHome;
     dom.navTopics.textContent = t.navLearn;
     dom.navPlan.textContent = t.navPlan;
     dom.navGymi.textContent = t.navGymi;
-    dom.navHome.hidden = true;
     dom.navTopics.hidden = true;
     dom.navPlan.hidden = true;
     dom.openAuthButton.textContent = state.account && state.authToken ? t.logoutButton : t.loginButton;
     dom.openProfileButton.textContent = t.avatarProfile;
     dom.avatarLogoutButton.textContent = t.avatarLogout;
-    dom.topicsCount.textContent = String(getTracks().length);
-    dom.practiceCount.textContent = String(getMockExams().length);
-    dom.trackCount.textContent = String(getTracks().length);
+    if (dom.topicsCount) dom.topicsCount.textContent = String(getTracks().length);
+    if (dom.practiceCount) dom.practiceCount.textContent = String(getMockExams().length);
+    if (dom.trackCount) dom.trackCount.textContent = String(getTracks().length);
     dom.views.forEach((view) => view.classList.toggle("active", view.dataset.view === state.currentView));
     dom.avatarShell.hidden = true;
     renderAvatar();
@@ -1370,25 +1395,28 @@ function renderGymiArea() {
         });
         dom.gymiTrackGrid.appendChild(card);
     });
-    if (state.activeTrackId === "lang") {
+    if (state.activeTrackId) {
         const isDE = state.language === "de";
-        const canvasCard = document.createElement("article");
-        canvasCard.className = "gymi-topic-card";
-        canvasCard.innerHTML = `
+        if (state.activeTrackId === "lang") {
+            const canvasCard = document.createElement("article");
+            canvasCard.className = "gymi-topic-card";
+            canvasCard.innerHTML = `
       <span class="panel-kicker">${isDE ? "Interaktiv" : "Interactive"}</span>
       <h3>${isDE ? "Terme vereinfachen" : "Simplify expressions"}</h3>
       <p>${isDE
-            ? "Klammern, Produkte, Brüche und Wurzeln — interaktiver Canvas mit Eingabe."
-            : "Brackets, products, fractions and square roots — interactive canvas with input."}</p>
+                ? "Klammern, Produkte, Brüche und Wurzeln — interaktiver Canvas mit Eingabe."
+                : "Brackets, products, fractions and square roots — interactive canvas with input."}</p>
       <button class="primary-button" type="button">${isDE ? "Canvas öffnen" : "Open canvas"}</button>
     `;
-        canvasCard.querySelector("button")?.addEventListener("click", () => {
-            state.activeExerciseTopic = null;
-            navigateTo("lang-topic");
-            renderLangTopicPage();
-        });
-        dom.gymiTopicCards.appendChild(canvasCard);
-        JSON_TOPICS.forEach((topic) => {
+            canvasCard.querySelector("button")?.addEventListener("click", () => {
+                state.activeExerciseTopic = null;
+                navigateTo("lang-topic");
+                renderLangTopicPage();
+            });
+            dom.gymiTopicCards.appendChild(canvasCard);
+        }
+        const trackTopics = JSON_TOPICS.filter((t) => t.track === state.activeTrackId);
+        trackTopics.forEach((topic) => {
             const card = document.createElement("article");
             card.className = "gymi-topic-card";
             const title = isDE ? topic.title_de : topic.title_en;
@@ -1593,8 +1621,17 @@ function renderAvatar() {
         dom.profileAvatarInitials.hidden = false;
     }
 }
-function navigateTo(viewName) {
+function navigateTo(viewName, { pushHistory = true } = {}) {
     state.currentView = viewName;
+    if (pushHistory) {
+        const historyState = {
+            view: viewName,
+            trackId: state.activeTrackId,
+            exerciseTopic: state.activeExerciseTopic
+        };
+        const hash = viewName === "home" ? "" : `#${viewName}`;
+        history.pushState(historyState, "", hash || window.location.pathname);
+    }
     renderShell();
 }
 function openExamTrack(trackId) {
@@ -2319,5 +2356,8 @@ function isViewName(value) {
         value === "profile" ||
         value === "auth" ||
         value === "change-email" ||
-        value === "change-password");
+        value === "change-password" ||
+        value === "impressum" ||
+        value === "agb" ||
+        value === "datenschutz");
 }

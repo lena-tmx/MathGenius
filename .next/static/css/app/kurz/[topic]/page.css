@@ -1,0 +1,250 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[5].use[3]!./components/ExerciseWidget/ExerciseWidget.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+.ExerciseWidget_wrap__IXBbw {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Progress ── */
+.ExerciseWidget_progress__5g9h0 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ExerciseWidget_progressBar__VxVtS {
+  flex: 1 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.ExerciseWidget_progressFill__SaQYm {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 100px;
+  transition: width 0.4s;
+}
+
+.ExerciseWidget_progressLabel__9_7ki {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+/* ── Card ── */
+.ExerciseWidget_card__Y5v9d {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ExerciseWidget_meta__GGF9a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ExerciseWidget_difficulty__0h2Ci {
+  display: flex;
+  gap: 3px;
+}
+
+.ExerciseWidget_dot__PPGk1 {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background: var(--border);
+}
+
+.ExerciseWidget_dot__PPGk1.ExerciseWidget_active__zgCk_ {
+  background: var(--primary);
+}
+
+.ExerciseWidget_badge__XRkV2 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(30, 136, 229, 0.08);
+  color: var(--primary);
+}
+
+.ExerciseWidget_question__JS1EO {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.ExerciseWidget_formula__tcbRP {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.ExerciseWidget_subtext__EXEGI {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+/* ── Answer inputs ── */
+.ExerciseWidget_numericRow__kKjD7 {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ExerciseWidget_input__aPrMY {
+  flex: 1 1;
+  max-width: 240px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface-strong);
+  transition: border-color 0.15s;
+}
+
+.ExerciseWidget_input__aPrMY:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.ExerciseWidget_input__aPrMY.ExerciseWidget_correct__EXpXn { border-color: var(--secondary); }
+.ExerciseWidget_input__aPrMY.ExerciseWidget_wrong__f4ICI   { border-color: var(--danger); }
+
+.ExerciseWidget_choices__pRwbj {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ExerciseWidget_choice__FDR68 {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ExerciseWidget_choice__FDR68:hover {
+  border-color: var(--primary);
+  background: rgba(30, 136, 229, 0.04);
+}
+
+.ExerciseWidget_choice__FDR68.ExerciseWidget_selected__PLmSA { border-color: var(--primary); background: rgba(30, 136, 229, 0.06); }
+.ExerciseWidget_choice__FDR68.ExerciseWidget_correct__EXpXn  { border-color: var(--secondary); background: rgba(31, 165, 140, 0.06); }
+.ExerciseWidget_choice__FDR68.ExerciseWidget_wrong__f4ICI    { border-color: var(--danger); background: rgba(185, 74, 72, 0.05); }
+
+/* ── Self-check reveal buttons ── */
+.ExerciseWidget_selfRow__5klRF {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Hint / Steps ── */
+.ExerciseWidget_hint__tzqmK {
+  background: rgba(30, 136, 229, 0.05);
+  border: 1px solid rgba(30, 136, 229, 0.2);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.ExerciseWidget_steps__rUTLm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ExerciseWidget_step__U9N2H {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  padding: 6px 12px;
+  border-left: 3px solid var(--primary);
+  line-height: 1.5;
+}
+
+/* ── Actions ── */
+.ExerciseWidget_actions__ApFJw {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Feedback banner ── */
+.ExerciseWidget_feedback__SCIGv {
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.ExerciseWidget_feedback__SCIGv.ExerciseWidget_ok__sJrfg  { background: rgba(31, 165, 140, 0.08); color: var(--secondary); }
+.ExerciseWidget_feedback__SCIGv.ExerciseWidget_err__psxvU { background: rgba(185, 74, 72, 0.07);  color: var(--danger); }
+
+/* ── Result screen ── */
+.ExerciseWidget_result__Km2LW {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  padding: 52px 36px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ExerciseWidget_stars__83ULD {
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+}
+
+.ExerciseWidget_resultTitle__UUXF5 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.ExerciseWidget_resultMsg__EugMM {
+  color: var(--text-soft);
+}
+
+.ExerciseWidget_resultScore__2nR6r {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.ExerciseWidget_resultActions__5qNau {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+

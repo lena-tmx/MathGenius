@@ -1,0 +1,49 @@
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[5].use[3]!./app/lang/page.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.page_grid__PWmrp {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: 20px;
+  gap: 20px;
+}
+
+.page_card__mrhrD {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.page_card__mrhrD:hover {
+  box-shadow: 0 20px 48px rgba(17, 79, 138, 0.14);
+  transform: translateY(-2px);
+}
+
+.page_cardTitle__5L_2R {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.page_cardDesc__8p_sq {
+  font-size: 0.875rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+  flex: 1 1;
+}
+
+.page_start__FFoKh {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-top: 4px;
+}
+

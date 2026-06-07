@@ -35,8 +35,7 @@
           </button>
 
           <div class="topbar-actions">
-            <button class="ghost-link nav-link" data-view-target="home" type="button">Home</button>
-            <button class="ghost-link nav-link" data-view-target="gymi" type="button">Gymi</button>
+            <button class="ghost-link nav-link" data-view-target="gymi" type="button">Prüfungen</button>
             <button class="ghost-link" id="nav-kurz-button" type="button">Kurz Gymnasium</button>
             <button class="ghost-link" id="nav-lang-button" type="button">Lang Gymnasium</button>
           </div>
@@ -545,7 +544,105 @@
             </div>
           </section>
         </section>
+        <section class="view" data-view="impressum">
+          <div class="legal-page">
+            <button class="ghost-link legal-back nav-link" data-view-target="home" type="button">← Zurück</button>
+            <h1>Impressum</h1>
+            <section class="legal-block">
+              <h2>Angaben gemäss Art. 12 UWG</h2>
+              <p>
+                MathGenius<br>
+                Musterstrasse 1<br>
+                8001 Zürich<br>
+                Schweiz
+              </p>
+              <p>E-Mail: info@mathgenius.ch</p>
+            </section>
+            <section class="legal-block">
+              <h2>Haftungsausschluss</h2>
+              <p>Die Inhalte dieser Website wurden mit grösster Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
+            </section>
+            <section class="legal-block">
+              <h2>Urheberrecht</h2>
+              <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem schweizerischen Urheberrecht.</p>
+            </section>
+            <p class="legal-placeholder-note"><!-- TODO: vollständige Impressumspflichtangaben ergänzen --></p>
+          </div>
+        </section>
+
+        <section class="view" data-view="agb">
+          <div class="legal-page">
+            <button class="ghost-link legal-back nav-link" data-view-target="home" type="button">← Zurück</button>
+            <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
+            <section class="legal-block">
+              <h2>1. Geltungsbereich</h2>
+              <p>Diese Allgemeinen Geschäftsbedingungen gelten für die Nutzung der Plattform MathGenius. Mit der Registrierung oder Nutzung des Angebots akzeptieren Sie diese AGB.</p>
+            </section>
+            <section class="legal-block">
+              <h2>2. Leistungsumfang</h2>
+              <p>MathGenius stellt Übungsaufgaben zur Vorbereitung auf die Zürcher Gymnasialaufnahmeprüfung (ZAP) bereit. Das Angebot dient ausschliesslich zu Bildungszwecken.</p>
+            </section>
+            <section class="legal-block">
+              <h2>3. Nutzungsbedingungen</h2>
+              <p>Die Inhalte dürfen ausschliesslich für den persönlichen, nicht-kommerziellen Gebrauch verwendet werden. Eine Weitergabe oder Reproduktion ist ohne ausdrückliche Genehmigung untersagt.</p>
+            </section>
+            <section class="legal-block">
+              <h2>4. Haftung</h2>
+              <p>Für die Richtigkeit der Lösungen und Aufgaben wird keine Haftung übernommen. Die Nutzung der Plattform erfolgt auf eigene Verantwortung.</p>
+            </section>
+            <section class="legal-block">
+              <h2>5. Änderungen</h2>
+              <p>MathGenius behält sich das Recht vor, diese AGB jederzeit zu ändern. Änderungen werden auf dieser Seite veröffentlicht.</p>
+            </section>
+            <p class="legal-placeholder-note"><!-- TODO: rechtliche Prüfung durch Anwalt vor Go-live --></p>
+          </div>
+        </section>
+
+        <section class="view" data-view="datenschutz">
+          <div class="legal-page">
+            <button class="ghost-link legal-back nav-link" data-view-target="home" type="button">← Zurück</button>
+            <h1>Datenschutzerklärung</h1>
+            <section class="legal-block">
+              <h2>1. Verantwortliche Stelle</h2>
+              <p>
+                MathGenius<br>
+                Musterstrasse 1<br>
+                8001 Zürich<br>
+                E-Mail: datenschutz@mathgenius.ch
+              </p>
+            </section>
+            <section class="legal-block">
+              <h2>2. Erhobene Daten</h2>
+              <p>Bei der Nutzung ohne Konto werden keine personenbezogenen Daten erhoben. Der Lernfortschritt wird ausschliesslich lokal im Browser gespeichert (localStorage).</p>
+              <p>Bei der Kontoerstellung werden folgende Daten verarbeitet: E-Mail-Adresse, verschlüsseltes Passwort, Lernfortschritt.</p>
+            </section>
+            <section class="legal-block">
+              <h2>3. Cookies und lokale Speicherung</h2>
+              <p>Die Plattform verwendet localStorage zur Speicherung von Spracheinstellung und Lernfortschritt. Es werden keine Tracking-Cookies eingesetzt.</p>
+            </section>
+            <section class="legal-block">
+              <h2>4. Ihre Rechte (nDSG)</h2>
+              <p>Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten gemäss dem schweizerischen Datenschutzgesetz (nDSG, gültig ab 1. September 2023). Anfragen richten Sie bitte an datenschutz@mathgenius.ch.</p>
+            </section>
+            <section class="legal-block">
+              <h2>5. Drittdienste</h2>
+              <p>Für Schriftarten werden Google Fonts eingebunden. Dabei können Daten an Google-Server übertragen werden. Weitere Drittdienste werden nicht eingesetzt.</p>
+            </section>
+            <p class="legal-placeholder-note"><!-- TODO: Datenschutzbeauftragten benennen falls erforderlich --></p>
+          </div>
+        </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="site-footer-inner">
+          <span class="site-footer-copy">© 2026 MathGenius</span>
+          <nav class="site-footer-nav" aria-label="Rechtliche Seiten">
+            <button class="site-footer-link nav-link" data-view-target="impressum" type="button">Impressum</button>
+            <button class="site-footer-link nav-link" data-view-target="agb" type="button">AGB</button>
+            <button class="site-footer-link nav-link" data-view-target="datenschutz" type="button">Datenschutz</button>
+          </nav>
+        </div>
+      </footer>
     </div>
 
     <script type="module" src="./dist/client/app.js?v=20260416-2"></script>

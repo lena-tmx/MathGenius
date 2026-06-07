@@ -1,0 +1,246 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Progress ── */
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 100px;
+  transition: width 0.4s;
+}
+
+.progressLabel {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.difficulty {
+  display: flex;
+  gap: 3px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background: var(--border);
+}
+
+.dot.active {
+  background: var(--primary);
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(30, 136, 229, 0.08);
+  color: var(--primary);
+}
+
+.question {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.formula {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.subtext {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+/* ── Answer inputs ── */
+.numericRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  max-width: 240px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface-strong);
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.input.correct { border-color: var(--secondary); }
+.input.wrong   { border-color: var(--danger); }
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.choice:hover {
+  border-color: var(--primary);
+  background: rgba(30, 136, 229, 0.04);
+}
+
+.choice.selected { border-color: var(--primary); background: rgba(30, 136, 229, 0.06); }
+.choice.correct  { border-color: var(--secondary); background: rgba(31, 165, 140, 0.06); }
+.choice.wrong    { border-color: var(--danger); background: rgba(185, 74, 72, 0.05); }
+
+/* ── Self-check reveal buttons ── */
+.selfRow {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Hint / Steps ── */
+.hint {
+  background: rgba(30, 136, 229, 0.05);
+  border: 1px solid rgba(30, 136, 229, 0.2);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.step {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  padding: 6px 12px;
+  border-left: 3px solid var(--primary);
+  line-height: 1.5;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Feedback banner ── */
+.feedback {
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.feedback.ok  { background: rgba(31, 165, 140, 0.08); color: var(--secondary); }
+.feedback.err { background: rgba(185, 74, 72, 0.07);  color: var(--danger); }
+
+/* ── Result screen ── */
+.result {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  padding: 52px 36px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.stars {
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+}
+
+.resultTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.resultMsg {
+  color: var(--text-soft);
+}
+
+.resultScore {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.resultActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
