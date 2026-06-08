@@ -1,5 +1,5 @@
 import cors from "cors";
-import express from "express";
+import express, { type Request, type Response } from "express";
 import { getConfig } from "./config/env.js";
 import { createMongoDatabase, createPostgresPool } from "./db/providers.js";
 import {
@@ -79,7 +79,7 @@ export async function createApp() {
   app.use(express.json());
   app.use(express.static("."));
 
-  app.get("/api/health", async (_req, res) => {
+  app.get("/api/health", async (_req: Request, res: Response) => {
     try {
       const health = await store.health();
       res.json({
@@ -95,11 +95,11 @@ export async function createApp() {
     }
   });
 
-  app.get("/api/topics", async (_req, res) => {
+  app.get("/api/topics", async (_req: Request, res: Response) => {
     res.json(await store.listTopics());
   });
 
-  app.get("/api/topics/:slug", async (req, res) => {
+  app.get("/api/topics/:slug", async (req: Request, res: Response) => {
     const topic = await store.getTopicBySlug(req.params.slug);
 
     if (!topic) {
@@ -110,15 +110,15 @@ export async function createApp() {
     res.json(topic);
   });
 
-  app.get("/api/gymi/tracks", async (_req, res) => {
+  app.get("/api/gymi/tracks", async (_req: Request, res: Response) => {
     res.json(await store.listGymiTracks());
   });
 
-  app.get("/api/gymi/mock-exams", async (_req, res) => {
+  app.get("/api/gymi/mock-exams", async (_req: Request, res: Response) => {
     res.json(await store.listMockExams());
   });
 
-  app.post("/api/auth/register", async (req, res) => {
+  app.post("/api/auth/register", async (req: Request, res: Response) => {
     const email = sanitizeEmail(String(req.body?.email ?? ""));
     const password = String(req.body?.password ?? "");
     const rawDisplayName = sanitizeDisplayName(String(req.body?.displayName ?? ""));
@@ -161,7 +161,7 @@ export async function createApp() {
     });
   });
 
-  app.post("/api/auth/login", async (req, res) => {
+  app.post("/api/auth/login", async (req: Request, res: Response) => {
     const email = sanitizeEmail(String(req.body?.email ?? ""));
     const password = String(req.body?.password ?? "");
 
@@ -193,7 +193,7 @@ export async function createApp() {
     });
   });
 
-  app.post("/api/auth/password-reset/request", async (req, res) => {
+  app.post("/api/auth/password-reset/request", async (req: Request, res: Response) => {
     const email = sanitizeEmail(String(req.body?.email ?? ""));
 
     if (!isReasonableEmail(email)) {
@@ -229,7 +229,7 @@ export async function createApp() {
     });
   });
 
-  app.post("/api/auth/password-reset/confirm", async (req, res) => {
+  app.post("/api/auth/password-reset/confirm", async (req: Request, res: Response) => {
     const email = sanitizeEmail(String(req.body?.email ?? ""));
     const code = sanitizeFreeText(String(req.body?.code ?? ""), 12);
     const newPassword = String(req.body?.newPassword ?? "");
@@ -274,7 +274,7 @@ export async function createApp() {
     });
   });
 
-  app.get("/api/auth/me", async (req, res) => {
+  app.get("/api/auth/me", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -285,7 +285,7 @@ export async function createApp() {
     res.json({ account: toSafeAccount(account) });
   });
 
-  app.post("/api/me/password", async (req, res) => {
+  app.post("/api/me/password", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -322,7 +322,7 @@ export async function createApp() {
     });
   });
 
-  app.post("/api/me/email-change/request", async (req, res) => {
+  app.post("/api/me/email-change/request", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -382,7 +382,7 @@ export async function createApp() {
     });
   });
 
-  app.post("/api/me/email-change/confirm", async (req, res) => {
+  app.post("/api/me/email-change/confirm", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -453,7 +453,7 @@ export async function createApp() {
     });
   });
 
-  app.get("/api/me/plan", async (req, res) => {
+  app.get("/api/me/plan", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -465,7 +465,7 @@ export async function createApp() {
     res.json(plan ?? { student_id: account.id, topic_slugs: [] });
   });
 
-  app.post("/api/me/plan", async (req, res) => {
+  app.post("/api/me/plan", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -502,7 +502,7 @@ export async function createApp() {
     res.status(201).json(plan);
   });
 
-  app.get("/api/me/progress", async (req, res) => {
+  app.get("/api/me/progress", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -513,7 +513,7 @@ export async function createApp() {
     res.json(await store.listProgress(account.id));
   });
 
-  app.post("/api/me/progress", async (req, res) => {
+  app.post("/api/me/progress", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -559,7 +559,7 @@ export async function createApp() {
     res.status(201).json(entry);
   });
 
-  app.get("/api/me/activity", async (req, res) => {
+  app.get("/api/me/activity", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
@@ -570,7 +570,7 @@ export async function createApp() {
     res.json(await store.listActivity(account.id));
   });
 
-  app.delete("/api/me/account", async (req, res) => {
+  app.delete("/api/me/account", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
 
     if (!account) {
