@@ -7,6 +7,8 @@ interface Props {
   params: Promise<{ topic: string }>;
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return TOPIC_CONFIGS.filter((t) => t.track === "kurz").map((t) => ({ topic: t.slug }));
 }
