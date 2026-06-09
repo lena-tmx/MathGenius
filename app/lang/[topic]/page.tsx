@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
-import { readFileSync } from "fs";
-import { join } from "path";
-import { TOPIC_CONFIGS, type Exercise } from "@/types/exercises";
+import { TOPIC_CONFIGS } from "@/types/exercises";
 import ExerciseWidget from "@/components/ExerciseWidget/ExerciseWidget";
+import { loadExercises } from "@/lib/exercises/loadExercises";
 
 interface Props {
   params: Promise<{ topic: string }>;
@@ -17,8 +16,7 @@ export default async function LangTopicPage({ params }: Props) {
   const config = TOPIC_CONFIGS.find((t) => t.slug === topic && t.track === "lang");
   if (!config) notFound();
 
-  const filePath = join(process.cwd(), "content", "exercises", config.file);
-  const exercises: Exercise[] = JSON.parse(readFileSync(filePath, "utf-8"));
+  const exercises = loadExercises(config.file);
 
   return (
     <div style={{ maxWidth: 720, margin: "0 auto" }}>
