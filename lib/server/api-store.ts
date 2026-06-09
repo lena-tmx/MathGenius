@@ -1,6 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { verifyAuthToken } from "@/lib/server/api-auth";
-import type { Account, ActivityEvent, ProgressEntry, StudyPlan } from "@/src/types/domain";
+import type { Account, ActivityEvent, ActivityType, ProgressEntry, StudyPlan } from "@/src/types/domain";
+
+type ActivityMetadata = Record<string, string | number | boolean | null>;
 
 interface DemoApiStore {
   createAccount(input: {
@@ -21,9 +23,9 @@ interface DemoApiStore {
   listProgress(studentId: string): Promise<ProgressEntry[]>;
   addActivity(input: {
     studentId: string;
-    activityType: string;
+    activityType: ActivityType;
     topicSlug?: string;
-    metadata?: Record<string, unknown>;
+    metadata?: ActivityMetadata;
   }): Promise<ActivityEvent>;
 }
 
