@@ -10,7 +10,7 @@ import {
   toSafeAccount,
   verifyAuthToken,
   verifyPassword,
-  verifyPasswordResetCode
+  verifyPasswordResetCode,
 } from "./security/auth.js";
 import {
   isReasonableEmail,
@@ -20,7 +20,7 @@ import {
   sanitizeFreeText,
   sanitizeGradeBand,
   sanitizeTopicSlug,
-  sanitizeTopicSlugList
+  sanitizeTopicSlugList,
 } from "./security/sanitize.js";
 import { createInMemoryStore } from "./store/in-memory-store.js";
 import { createMongoStore } from "./store/mongo-store.js";
@@ -50,7 +50,9 @@ export async function createApp() {
   const app = express();
   const passwordResetTtlMs = 1000 * 60 * 15;
 
-  async function resolveAuthenticatedAccount(req: express.Request): Promise<Account | null> {
+  async function resolveAuthenticatedAccount(
+    req: express.Request,
+  ): Promise<Account | null> {
     const authHeader = req.headers.authorization;
 
     if (!authHeader?.startsWith("Bearer ")) {
@@ -71,8 +73,14 @@ export async function createApp() {
     console.log(`[MathGenius] Password reset code for ${email}: ${code}`);
   }
 
-  function sendEmailChangeCodeEmail(currentEmail: string, nextEmail: string, code: string): void {
-    console.log(`[MathGenius] Email change code sent to ${currentEmail} for new email ${nextEmail}: ${code}`);
+  function sendEmailChangeCodeEmail(
+    currentEmail: string,
+    nextEmail: string,
+    code: string,
+  ): void {
+    console.log(
+      `[MathGenius] Email change code sent to ${currentEmail} for new email ${nextEmail}: ${code}`,
+    );
   }
 
   app.use(cors());
@@ -85,12 +93,12 @@ export async function createApp() {
       res.json({
         ok: true,
         database: health.mode,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     } catch {
       res.status(500).json({
         ok: false,
-        error: "Database health check failed"
+        error: "Database health check failed",
       });
     }
   });
@@ -100,7 +108,17 @@ export async function createApp() {
   });
 
   app.get("/api/topics/:slug", async (req: Request, res: Response) => {
-    const topic = await store.getTopicBySlug(req.params.slug);
+    const rawSlug = req.params.slug;
+    const slug = sanitizeTopicSlug(
+      Array.isArray(rawSlug) ? (rawSlug[0] ?? "") : (rawSlug ?? ""),
+    );
+
+    if (!slug) {
+      res.status(400).json({ error: "Valid topic slug is required" });
+      return;
+    }
+
+    const topic = await store.getTopicBySlug(slug);
 
     if (!topic) {
       res.status(404).json({ error: "Topic not found" });
@@ -121,14 +139,23 @@ export async function createApp() {
   app.post("/api/auth/register", async (req: Request, res: Response) => {
     const email = sanitizeEmail(String(req.body?.email ?? ""));
     const password = String(req.body?.password ?? "");
-    const rawDisplayName = sanitizeDisplayName(String(req.body?.displayName ?? ""));
+    const rawDisplayName = sanitizeDisplayName(
+      String(req.body?.displayName ?? ""),
+    );
     const displayName =
-      rawDisplayName || email.split("@")[0]?.replace(/[._-]+/g, " ").trim().slice(0, 40) || "Learner";
-    const gradeBand = sanitizeGradeBand(String(req.body?.gradeBand ?? "")) || "5-6";
+      rawDisplayName ||
+      email
+        .split("@")[0]
+        ?.replace(/[._-]+/g, " ")
+        .trim()
+        .slice(0, 40) ||
+      "Learner";
+    const gradeBand =
+      sanitizeGradeBand(String(req.body?.gradeBand ?? "")) || "5-6";
 
     if (!isReasonableEmail(email) || !isReasonablePassword(password)) {
       res.status(400).json({
-        error: "Valid email and password are required"
+        error: "Valid email and password are required",
       });
       return;
     }
@@ -137,7 +164,7 @@ export async function createApp() {
 
     if (existingAccount) {
       res.status(409).json({
-        error: "An account with this email already exists"
+        error: "An account with this email already exists",
       });
       return;
     }
@@ -146,18 +173,18 @@ export async function createApp() {
       email,
       displayName,
       gradeBand,
-      passwordHash: hashPassword(password)
+      passwordHash: hashPassword(password),
     });
 
     await store.addActivity({
       studentId: account.id,
       activityType: "auth.register",
-      metadata: { gradeBand: account.grade_band }
+      metadata: { gradeBand: account.grade_band },
     });
 
     res.status(201).json({
       token: createAuthToken(account),
-      account: toSafeAccount(account)
+      account: toSafeAccount(account),
     });
   });
 
@@ -167,7 +194,7 @@ export async function createApp() {
 
     if (!isReasonableEmail(email) || !password) {
       res.status(400).json({
-        error: "Email and password are required"
+        error: "Email and password are required",
       });
       return;
     }
@@ -176,7 +203,7 @@ export async function createApp() {
 
     if (!account || !verifyPassword(password, account.password_hash)) {
       res.status(401).json({
-        error: "Invalid credentials"
+        error: "Invalid credentials",
       });
       return;
     }
@@ -184,95 +211,108 @@ export async function createApp() {
     await store.addActivity({
       studentId: account.id,
       activityType: "auth.login",
-      metadata: { success: true }
+      metadata: { success: true },
     });
 
     res.json({
       token: createAuthToken(account),
-      account: toSafeAccount(account)
+      account: toSafeAccount(account),
     });
   });
 
-  app.post("/api/auth/password-reset/request", async (req: Request, res: Response) => {
-    const email = sanitizeEmail(String(req.body?.email ?? ""));
+  app.post(
+    "/api/auth/password-reset/request",
+    async (req: Request, res: Response) => {
+      const email = sanitizeEmail(String(req.body?.email ?? ""));
 
-    if (!isReasonableEmail(email)) {
-      res.status(400).json({
-        error: "A valid email is required"
+      if (!isReasonableEmail(email)) {
+        res.status(400).json({
+          error: "A valid email is required",
+        });
+        return;
+      }
+
+      const account = await store.getAccountByEmail(email);
+
+      if (account) {
+        const code = createPasswordResetCode();
+        const challenge = await store.createPasswordResetChallenge({
+          accountId: account.id,
+          email,
+          codeHash: hashPasswordResetCode(email, code),
+          expiresAt: new Date(Date.now() + passwordResetTtlMs).toISOString(),
+        });
+
+        await store.addActivity({
+          studentId: account.id,
+          activityType: "auth.password_reset_requested",
+          metadata: { challengeId: challenge.id },
+        });
+
+        sendPasswordResetCodeEmail(email, code);
+      }
+
+      res.json({
+        ok: true,
+        message:
+          "If an account exists for this email, a confirmation code has been sent.",
       });
-      return;
-    }
+    },
+  );
 
-    const account = await store.getAccountByEmail(email);
+  app.post(
+    "/api/auth/password-reset/confirm",
+    async (req: Request, res: Response) => {
+      const email = sanitizeEmail(String(req.body?.email ?? ""));
+      const code = sanitizeFreeText(String(req.body?.code ?? ""), 12);
+      const newPassword = String(req.body?.newPassword ?? "");
 
-    if (account) {
-      const code = createPasswordResetCode();
-      const challenge = await store.createPasswordResetChallenge({
-        accountId: account.id,
-        email,
-        codeHash: hashPasswordResetCode(email, code),
-        expiresAt: new Date(Date.now() + passwordResetTtlMs).toISOString()
-      });
+      if (
+        !isReasonableEmail(email) ||
+        !code ||
+        !isReasonablePassword(newPassword)
+      ) {
+        res.status(400).json({
+          error:
+            "Valid email, confirmation code, and new password are required",
+        });
+        return;
+      }
 
+      const account = await store.getAccountByEmail(email);
+      const challenge =
+        await store.getActivePasswordResetChallengeByEmail(email);
+
+      if (!account || !challenge || challenge.account_id !== account.id) {
+        res.status(400).json({
+          error: "The confirmation code is invalid or expired",
+        });
+        return;
+      }
+
+      const matches = verifyPasswordResetCode(email, code, challenge.code_hash);
+
+      if (!matches) {
+        res.status(400).json({
+          error: "The confirmation code is invalid or expired",
+        });
+        return;
+      }
+
+      await store.updateAccountPassword(account.id, hashPassword(newPassword));
+      await store.consumePasswordResetChallenge(challenge.id);
       await store.addActivity({
         studentId: account.id,
-        activityType: "auth.password_reset_requested",
-        metadata: { challengeId: challenge.id }
+        activityType: "auth.password_reset_completed",
+        metadata: { challengeId: challenge.id },
       });
 
-      sendPasswordResetCodeEmail(email, code);
-    }
-
-    res.json({
-      ok: true,
-      message: "If an account exists for this email, a confirmation code has been sent."
-    });
-  });
-
-  app.post("/api/auth/password-reset/confirm", async (req: Request, res: Response) => {
-    const email = sanitizeEmail(String(req.body?.email ?? ""));
-    const code = sanitizeFreeText(String(req.body?.code ?? ""), 12);
-    const newPassword = String(req.body?.newPassword ?? "");
-
-    if (!isReasonableEmail(email) || !code || !isReasonablePassword(newPassword)) {
-      res.status(400).json({
-        error: "Valid email, confirmation code, and new password are required"
+      res.json({
+        ok: true,
+        message: "Password updated successfully.",
       });
-      return;
-    }
-
-    const account = await store.getAccountByEmail(email);
-    const challenge = await store.getActivePasswordResetChallengeByEmail(email);
-
-    if (!account || !challenge || challenge.account_id !== account.id) {
-      res.status(400).json({
-        error: "The confirmation code is invalid or expired"
-      });
-      return;
-    }
-
-    const matches = verifyPasswordResetCode(email, code, challenge.code_hash);
-
-    if (!matches) {
-      res.status(400).json({
-        error: "The confirmation code is invalid or expired"
-      });
-      return;
-    }
-
-    await store.updateAccountPassword(account.id, hashPassword(newPassword));
-    await store.consumePasswordResetChallenge(challenge.id);
-    await store.addActivity({
-      studentId: account.id,
-      activityType: "auth.password_reset_completed",
-      metadata: { challengeId: challenge.id }
-    });
-
-    res.json({
-      ok: true,
-      message: "Password updated successfully."
-    });
-  });
+    },
+  );
 
   app.get("/api/auth/me", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
@@ -298,14 +338,14 @@ export async function createApp() {
 
     if (!currentPassword || !isReasonablePassword(newPassword)) {
       res.status(400).json({
-        error: "Current password and a valid new password are required"
+        error: "Current password and a valid new password are required",
       });
       return;
     }
 
     if (!verifyPassword(currentPassword, account.password_hash)) {
       res.status(401).json({
-        error: "Current password is incorrect"
+        error: "Current password is incorrect",
       });
       return;
     }
@@ -313,145 +353,158 @@ export async function createApp() {
     await store.updateAccountPassword(account.id, hashPassword(newPassword));
     await store.addActivity({
       studentId: account.id,
-      activityType: "auth.password_changed"
+      activityType: "auth.password_changed",
     });
 
     res.json({
       ok: true,
-      message: "Password updated successfully."
+      message: "Password updated successfully.",
     });
   });
 
-  app.post("/api/me/email-change/request", async (req: Request, res: Response) => {
-    const account = await resolveAuthenticatedAccount(req);
+  app.post(
+    "/api/me/email-change/request",
+    async (req: Request, res: Response) => {
+      const account = await resolveAuthenticatedAccount(req);
 
-    if (!account) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-    }
+      if (!account) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
+      }
 
-    const nextEmail = sanitizeEmail(String(req.body?.newEmail ?? ""));
+      const nextEmail = sanitizeEmail(String(req.body?.newEmail ?? ""));
 
-    if (!isReasonableEmail(nextEmail)) {
-      res.status(400).json({
-        error: "A valid new email is required"
-      });
-      return;
-    }
+      if (!isReasonableEmail(nextEmail)) {
+        res.status(400).json({
+          error: "A valid new email is required",
+        });
+        return;
+      }
 
-    if (nextEmail === account.email) {
-      res.status(400).json({
-        error: "The new email must be different from the current email"
-      });
-      return;
-    }
+      if (nextEmail === account.email) {
+        res.status(400).json({
+          error: "The new email must be different from the current email",
+        });
+        return;
+      }
 
-    const existingAccount = await store.getAccountByEmail(nextEmail);
+      const existingAccount = await store.getAccountByEmail(nextEmail);
 
-    if (existingAccount) {
-      res.status(409).json({
-        error: "An account with this email already exists"
-      });
-      return;
-    }
+      if (existingAccount) {
+        res.status(409).json({
+          error: "An account with this email already exists",
+        });
+        return;
+      }
 
-    const code = createPasswordResetCode();
-    const challenge = await store.createEmailChangeChallenge({
-      accountId: account.id,
-      currentEmail: account.email,
-      nextEmail,
-      codeHash: hashPasswordResetCode(account.email, code),
-      expiresAt: new Date(Date.now() + passwordResetTtlMs).toISOString()
-    });
-
-    await store.addActivity({
-      studentId: account.id,
-      activityType: "auth.email_change_requested",
-      metadata: {
-        challengeId: challenge.id,
+      const code = createPasswordResetCode();
+      const challenge = await store.createEmailChangeChallenge({
+        accountId: account.id,
         currentEmail: account.email,
-        nextEmail
+        nextEmail,
+        codeHash: hashPasswordResetCode(account.email, code),
+        expiresAt: new Date(Date.now() + passwordResetTtlMs).toISOString(),
+      });
+
+      await store.addActivity({
+        studentId: account.id,
+        activityType: "auth.email_change_requested",
+        metadata: {
+          challengeId: challenge.id,
+          currentEmail: account.email,
+          nextEmail,
+        },
+      });
+
+      sendEmailChangeCodeEmail(account.email, nextEmail, code);
+
+      res.json({
+        ok: true,
+        message: "A confirmation code has been sent to your current email.",
+      });
+    },
+  );
+
+  app.post(
+    "/api/me/email-change/confirm",
+    async (req: Request, res: Response) => {
+      const account = await resolveAuthenticatedAccount(req);
+
+      if (!account) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
       }
-    });
 
-    sendEmailChangeCodeEmail(account.email, nextEmail, code);
+      const nextEmail = sanitizeEmail(String(req.body?.newEmail ?? ""));
+      const code = sanitizeFreeText(String(req.body?.code ?? ""), 12);
 
-    res.json({
-      ok: true,
-      message: "A confirmation code has been sent to your current email."
-    });
-  });
-
-  app.post("/api/me/email-change/confirm", async (req: Request, res: Response) => {
-    const account = await resolveAuthenticatedAccount(req);
-
-    if (!account) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-    }
-
-    const nextEmail = sanitizeEmail(String(req.body?.newEmail ?? ""));
-    const code = sanitizeFreeText(String(req.body?.code ?? ""), 12);
-
-    if (!isReasonableEmail(nextEmail) || !code) {
-      res.status(400).json({
-        error: "A valid new email and confirmation code are required"
-      });
-      return;
-    }
-
-    const challenge = await store.getActiveEmailChangeChallenge(account.id, nextEmail);
-
-    if (!challenge || challenge.current_email !== account.email) {
-      res.status(400).json({
-        error: "The confirmation code is invalid or expired"
-      });
-      return;
-    }
-
-    const existingAccount = await store.getAccountByEmail(nextEmail);
-    if (existingAccount && existingAccount.id !== account.id) {
-      res.status(409).json({
-        error: "An account with this email already exists"
-      });
-      return;
-    }
-
-    const matches = verifyPasswordResetCode(account.email, code, challenge.code_hash);
-
-    if (!matches) {
-      res.status(400).json({
-        error: "The confirmation code is invalid or expired"
-      });
-      return;
-    }
-
-    await store.updateAccountEmail(account.id, nextEmail);
-    await store.consumeEmailChangeChallenge(challenge.id);
-
-    const updatedAccount = await store.getAccountById(account.id);
-
-    if (!updatedAccount) {
-      res.status(500).json({ error: "Account update failed" });
-      return;
-    }
-
-    await store.addActivity({
-      studentId: updatedAccount.id,
-      activityType: "auth.email_changed",
-      metadata: {
-        previousEmail: account.email,
-        nextEmail
+      if (!isReasonableEmail(nextEmail) || !code) {
+        res.status(400).json({
+          error: "A valid new email and confirmation code are required",
+        });
+        return;
       }
-    });
 
-    res.json({
-      ok: true,
-      message: "Email updated successfully.",
-      token: createAuthToken(updatedAccount),
-      account: toSafeAccount(updatedAccount)
-    });
-  });
+      const challenge = await store.getActiveEmailChangeChallenge(
+        account.id,
+        nextEmail,
+      );
+
+      if (!challenge || challenge.current_email !== account.email) {
+        res.status(400).json({
+          error: "The confirmation code is invalid or expired",
+        });
+        return;
+      }
+
+      const existingAccount = await store.getAccountByEmail(nextEmail);
+      if (existingAccount && existingAccount.id !== account.id) {
+        res.status(409).json({
+          error: "An account with this email already exists",
+        });
+        return;
+      }
+
+      const matches = verifyPasswordResetCode(
+        account.email,
+        code,
+        challenge.code_hash,
+      );
+
+      if (!matches) {
+        res.status(400).json({
+          error: "The confirmation code is invalid or expired",
+        });
+        return;
+      }
+
+      await store.updateAccountEmail(account.id, nextEmail);
+      await store.consumeEmailChangeChallenge(challenge.id);
+
+      const updatedAccount = await store.getAccountById(account.id);
+
+      if (!updatedAccount) {
+        res.status(500).json({ error: "Account update failed" });
+        return;
+      }
+
+      await store.addActivity({
+        studentId: updatedAccount.id,
+        activityType: "auth.email_changed",
+        metadata: {
+          previousEmail: account.email,
+          nextEmail,
+        },
+      });
+
+      res.json({
+        ok: true,
+        message: "Email updated successfully.",
+        token: createAuthToken(updatedAccount),
+        account: toSafeAccount(updatedAccount),
+      });
+    },
+  );
 
   app.get("/api/me/plan", async (req: Request, res: Response) => {
     const account = await resolveAuthenticatedAccount(req);
@@ -480,7 +533,7 @@ export async function createApp() {
 
     if (!goal || !gradeBand || !intensity || topicSlugs.length === 0) {
       res.status(400).json({
-        error: "goal, gradeBand, intensity and topicSlugs[] are required"
+        error: "goal, gradeBand, intensity and topicSlugs[] are required",
       });
       return;
     }
@@ -490,13 +543,13 @@ export async function createApp() {
       goal,
       gradeBand,
       intensity,
-      topicSlugs
+      topicSlugs,
     });
 
     await store.addActivity({
       studentId: account.id,
       activityType: "plan.updated",
-      metadata: { topicCount: topicSlugs.length, intensity }
+      metadata: { topicCount: topicSlugs.length, intensity },
     });
 
     res.status(201).json(plan);
@@ -528,11 +581,15 @@ export async function createApp() {
     };
     const topicSlug = sanitizeTopicSlug(String(req.body?.topicSlug ?? ""));
 
-    const allowedStatuses: ProgressStatus[] = ["started", "practicing", "completed"];
+    const allowedStatuses: ProgressStatus[] = [
+      "started",
+      "practicing",
+      "completed",
+    ];
 
     if (!topicSlug || !status || !allowedStatuses.includes(status)) {
       res.status(400).json({
-        error: "topicSlug and valid status are required"
+        error: "topicSlug and valid status are required",
       });
       return;
     }
@@ -541,19 +598,20 @@ export async function createApp() {
       studentId: account.id,
       topicSlug,
       status,
-      ...(score === undefined ? {} : { score })
+      ...(score === undefined ? {} : { score }),
     };
 
     const entry = await store.addProgress(progressInput);
 
     await store.addActivity({
       studentId: account.id,
-      activityType: status === "completed" ? "topic.completed" : "progress.recorded",
+      activityType:
+        status === "completed" ? "topic.completed" : "progress.recorded",
       topicSlug,
       metadata: {
         status,
-        ...(score === undefined ? {} : { score })
-      }
+        ...(score === undefined ? {} : { score }),
+      },
     });
 
     res.status(201).json(entry);
@@ -581,14 +639,14 @@ export async function createApp() {
     await store.addActivity({
       studentId: account.id,
       activityType: "account.deleted",
-      metadata: { email: account.email }
+      metadata: { email: account.email },
     });
 
     await store.deleteAccount(account.id);
 
     res.json({
       ok: true,
-      message: "Account removed."
+      message: "Account removed.",
     });
   });
 

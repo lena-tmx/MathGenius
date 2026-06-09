@@ -1,10 +1,23 @@
-import { seedGymiTracks, seedMockExams, seedTopics } from "../content/seed-content.js";
+import {
+  seedGymiTracks,
+  seedMockExams,
+  seedTopics,
+} from "../content/seed-content.js";
 import { formatMathText } from "./math-text.js";
 import { LangGymiTopicPage } from "./lang-gymi-topic-page.js";
 import { SimplifyTermsCanvas } from "./simplify-terms-canvas.js";
 
 type Language = "en" | "de";
-type ViewName = "home" | "topics" | "plan" | "gymi" | "lang-topic" | "profile" | "auth" | "change-email" | "change-password";
+type ViewName =
+  | "home"
+  | "topics"
+  | "plan"
+  | "gymi"
+  | "lang-topic"
+  | "profile"
+  | "auth"
+  | "change-email"
+  | "change-password";
 type AuthMode = "sign-up" | "log-in";
 type Goal = "school" | "confidence" | "gymi";
 type Intensity = "light" | "steady" | "focus";
@@ -317,42 +330,41 @@ const homePageContent = {
       infoCard: [
         "Written entrance exam",
         "German + Mathematics",
-        "Math counts for 50% of the exam grade"
-      ]
+        "Math counts for 50% of the exam grade",
+      ],
     },
     benefits: [
       {
         title: "Train typical math task types",
-        text: "Practise common entrance exam patterns such as simplifying expressions, equations, fractions, roots, and geometry."
+        text: "Practise common entrance exam patterns such as simplifying expressions, equations, fractions, roots, and geometry.",
       },
       {
         title: "Learn from mistakes",
-        text: "If your answer is wrong, the app explains the solution step by step and gives you a similar example."
+        text: "If your answer is wrong, the app explains the solution step by step and gives you a similar example.",
       },
       {
         title: "Choose the right exam path",
-        text: "Follow a task path designed for Langgymnasium or Kurzgymnasium and focus on the right level."
-      }
+        text: "Follow a task path designed for Langgymnasium or Kurzgymnasium and focus on the right level.",
+      },
     ],
     examCards: {
       lang: {
         title: "Langgymnasium",
         label: "For pupils in 6th grade of primary school",
         text: "The Zurich entrance exam for Langgymnasium is for pupils in the 6th year of primary school. The written exam includes German and Mathematics. Mathematics counts for half of the exam grade.",
-        button: "Start Langgymnasium math practice"
+        button: "Start Langgymnasium math practice",
       },
       kurz: {
         title: "Kurzgymnasium",
         label: "For students in the 2nd or 3rd year of secondary school",
         text: "The Zurich entrance exam for Kurzgymnasium is for students in the 2nd or 3rd year of secondary school. The written exam includes German and Mathematics. Mathematics counts for half of the exam grade.",
-        button: "Start Kurzgymnasium math practice"
-      }
+        button: "Start Kurzgymnasium math practice",
+      },
     },
     admission: {
       eyebrow: "Admission in the Canton of Zurich",
       title: "How entry to a Zurich Gymnasium works",
-      text:
-        "In the Canton of Zurich, entry to a Gymnasium normally requires passing the Zentrale Aufnahmeprüfung (ZAP), also called the Gymiprüfung. The exam takes place once a year at the beginning of March.",
+      text: "In the Canton of Zurich, entry to a Gymnasium normally requires passing the Zentrale Aufnahmeprüfung (ZAP), also called the Gymiprüfung. The exam takes place once a year at the beginning of March.",
       zapTitle: "Zentrale Aufnahmeprüfung (ZAP)",
       zapText:
         "In this app you can go straight to the exam paths and math practice for Langgymnasium and Kurzgymnasium.",
@@ -360,7 +372,8 @@ const homePageContent = {
       brochureLink: "Open topic overview",
       note: "This home section gives a short overview of the Zurich Gymnasium route and links only to pages inside this web app.",
       langTitle: "Langgymnasium",
-      langText: "The Langgymnasium starts after Year 6 of primary school and lasts 6 years.",
+      langText:
+        "The Langgymnasium starts after Year 6 of primary school and lasts 6 years.",
       langLink: "More about Langgymnasium",
       kurzTitle: "Kurzgymnasium",
       kurzText:
@@ -369,24 +382,25 @@ const homePageContent = {
       unterTitle: "Untergymnasium",
       unterText:
         "The first two years of the Langgymnasium are called Untergymnasium. In most cases, learners move on to the upper level without another entrance exam.",
-      unterLink: "Open Gymnasium overview"
+      unterLink: "Open Gymnasium overview",
     },
     cta: {
       title: "Start practising the math tasks that matter most",
       text: "Choose your exam path and begin with typical entrance exam exercises, guided solutions, and targeted practice.",
       langButton: "Choose Langgymnasium",
-      kurzButton: "Choose Kurzgymnasium"
+      kurzButton: "Choose Kurzgymnasium",
     },
     footer: {
       tagline: "Math practice for Zurich Gymnasium entrance exam preparation",
       officialInfo: "Official exam information",
       privacy: "Privacy",
-      contact: "Contact"
-    }
+      contact: "Contact",
+    },
   },
   de: {
     hero: {
-      title: "Bereite dich auf Mathematikaufgaben der Zürcher Gymi-Aufnahmeprüfung vor",
+      title:
+        "Bereite dich auf Mathematikaufgaben der Zürcher Gymi-Aufnahmeprüfung vor",
       subtitle:
         "Übe die häufigsten Mathematik-Aufgabentypen für die Zürcher Aufnahmeprüfung ins Langgymnasium und Kurzgymnasium. Lerne mit Schritt-für-Schritt-Erklärungen, Hinweisen und ähnlichen Beispielen.",
       primaryButton: "Mit Langgymnasium starten",
@@ -394,51 +408,50 @@ const homePageContent = {
       infoCard: [
         "Schriftliche Aufnahmeprüfung",
         "Deutsch + Mathematik",
-        "Mathematik zählt 50% der Prüfungsnote"
-      ]
+        "Mathematik zählt 50% der Prüfungsnote",
+      ],
     },
     benefits: [
       {
         title: "Typische Mathematik-Aufgaben trainieren",
-        text: "Übe typische Aufgabentypen der Aufnahmeprüfung wie Terme vereinfachen, Gleichungen, Brüche, Wurzeln und Geometrie."
+        text: "Übe typische Aufgabentypen der Aufnahmeprüfung wie Terme vereinfachen, Gleichungen, Brüche, Wurzeln und Geometrie.",
       },
       {
         title: "Aus Fehlern lernen",
-        text: "Wenn deine Antwort falsch ist, erklärt die App die Lösung Schritt für Schritt und gibt dir ein ähnliches Beispiel."
+        text: "Wenn deine Antwort falsch ist, erklärt die App die Lösung Schritt für Schritt und gibt dir ein ähnliches Beispiel.",
       },
       {
         title: "Den richtigen Prüfungsweg wählen",
-        text: "Wähle einen Aufgabenpfad für Langgymnasium oder Kurzgymnasium und übe auf dem passenden Niveau."
-      }
+        text: "Wähle einen Aufgabenpfad für Langgymnasium oder Kurzgymnasium und übe auf dem passenden Niveau.",
+      },
     ],
     examCards: {
       lang: {
         title: "Langgymnasium",
         label: "Für Schülerinnen und Schüler der 6. Primarklasse",
         text: "Die Zürcher Aufnahmeprüfung ins Langgymnasium richtet sich an Schülerinnen und Schüler der 6. Primarklasse. Die schriftliche Prüfung umfasst Deutsch und Mathematik. Mathematik zählt zur Hälfte der Prüfungsnote.",
-        button: "Mit Langgymnasium-Mathe starten"
+        button: "Mit Langgymnasium-Mathe starten",
       },
       kurz: {
         title: "Kurzgymnasium",
         label: "Für Schülerinnen und Schüler der 2. oder 3. Sekundarklasse",
         text: "Die Zürcher Aufnahmeprüfung ins Kurzgymnasium richtet sich an Schülerinnen und Schüler der 2. oder 3. Sekundarklasse. Die schriftliche Prüfung umfasst Deutsch und Mathematik. Mathematik zählt zur Hälfte der Prüfungsnote.",
-        button: "Mit Kurzgymnasium-Mathe starten"
-      }
+        button: "Mit Kurzgymnasium-Mathe starten",
+      },
     },
     admission: {
       eyebrow: "Aufnahme im Kanton Zürich",
       title: "So funktioniert die Aufnahme ans Gymnasium",
-      text:
-        "Wer im Kanton Zürich ein Gymnasium besuchen will, muss in der Regel die Zentrale Aufnahmeprüfung (ZAP, auch Gymiprüfung genannt) bestehen. Die Prüfung findet einmal pro Jahr Anfang März statt.",
+      text: "Wer im Kanton Zürich ein Gymnasium besuchen will, muss in der Regel die Zentrale Aufnahmeprüfung (ZAP, auch Gymiprüfung genannt) bestehen. Die Prüfung findet einmal pro Jahr Anfang März statt.",
       zapTitle: "Zentrale Aufnahmeprüfung (ZAP)",
       zapText:
         "In dieser App kannst du direkt zu den Prüfungswegen und zur Mathe-Vorbereitung für Langgymnasium und Kurzgymnasium wechseln.",
       zapLink: "Prüfungswege öffnen",
       brochureLink: "Themenüberblick öffnen",
-      note:
-        "Dieser Bereich auf der Startseite fasst den Zürcher Gymi-Weg kurz zusammen und verlinkt nur auf Seiten innerhalb dieser WebApp.",
+      note: "Dieser Bereich auf der Startseite fasst den Zürcher Gymi-Weg kurz zusammen und verlinkt nur auf Seiten innerhalb dieser WebApp.",
       langTitle: "Langgymnasium",
-      langText: "Das Langgymnasium schliesst an die 6. Klasse der Primarschule an und dauert 6 Jahre.",
+      langText:
+        "Das Langgymnasium schliesst an die 6. Klasse der Primarschule an und dauert 6 Jahre.",
       langLink: "Mehr zum Langgymnasium",
       kurzTitle: "Kurzgymnasium",
       kurzText:
@@ -447,21 +460,22 @@ const homePageContent = {
       unterTitle: "Untergymnasium",
       unterText:
         "Die ersten beiden Jahre des Langgymnasiums werden als Untergymnasium bezeichnet. In der Regel erfolgt danach der prüfungsfreie Übertritt in die Oberstufe.",
-      unterLink: "Gymnasium-Überblick öffnen"
+      unterLink: "Gymnasium-Überblick öffnen",
     },
     cta: {
       title: "Starte mit den Mathematikaufgaben, die wirklich wichtig sind",
       text: "Wähle deinen Prüfungsweg und beginne mit typischen Aufnahmeprüfungsaufgaben, geführten Lösungen und gezieltem Training.",
       langButton: "Langgymnasium wählen",
-      kurzButton: "Kurzgymnasium wählen"
+      kurzButton: "Kurzgymnasium wählen",
     },
     footer: {
-      tagline: "Mathematiktraining zur Vorbereitung auf die Zürcher Gymi-Aufnahmeprüfung",
+      tagline:
+        "Mathematiktraining zur Vorbereitung auf die Zürcher Gymi-Aufnahmeprüfung",
       officialInfo: "Offizielle Prüfungsinformationen",
       privacy: "Datenschutz",
-      contact: "Kontakt"
-    }
-  }
+      contact: "Kontakt",
+    },
+  },
 } as const satisfies Record<Language, unknown>;
 
 const translations: Record<Language, TranslationSet> = {
@@ -485,28 +499,36 @@ const translations: Record<Language, TranslationSet> = {
     statsSections: "exam paths",
     appIncludes: "Exam focus",
     appIncludesTitle: "Two clear exam areas instead of many scattered pages",
-    appIncludesText: "Choose Kurzgymi-Prufung or Langgymi-Prufung and go straight into the matching preparation.",
+    appIncludesText:
+      "Choose Kurzgymi-Prufung or Langgymi-Prufung and go straight into the matching preparation.",
     currentLearner: "Current learner",
-    currentLearnerSignedOut: "Create an account or log in to save your personal progress.",
-    currentLearnerSignedIn: "is signed in. Open one of the two exam areas whenever you want to continue.",
+    currentLearnerSignedOut:
+      "Create an account or log in to save your personal progress.",
+    currentLearnerSignedIn:
+      "is signed in. Open one of the two exam areas whenever you want to continue.",
     mainSections: "Exam areas",
     openSectionTitle: "Choose your Gymi exam",
-    openSectionText: "Only two sections remain. Pick the matching exam and start directly.",
+    openSectionText:
+      "Only two sections remain. Pick the matching exam and start directly.",
     learnCardKicker: "Exam 1",
     learnCardTitle: "Kurzgymi-Prufung",
-    learnCardText: "For later admission with a focus on speed, calculations, word problems, and entrance-style tasks.",
+    learnCardText:
+      "For later admission with a focus on speed, calculations, word problems, and entrance-style tasks.",
     learnCardButton: "Open Kurzgymi",
     planCardKicker: "Exam 2",
     planCardTitle: "Langgymi-Prufung",
-    planCardText: "For early preparation with a focus on foundations, accuracy, and calm step-by-step solving.",
+    planCardText:
+      "For early preparation with a focus on foundations, accuracy, and calm step-by-step solving.",
     planCardButton: "Open Langgymi",
     gymiCardKicker: "Exam Preparation",
     gymiCardTitle: "Exam area",
-    gymiCardText: "Open the two focused Gymi exam tracks and their matching mock exams.",
+    gymiCardText:
+      "Open the two focused Gymi exam tracks and their matching mock exams.",
     gymiCardButton: "Open exams",
     topicsEyebrow: "Learning library",
     topicsTitle: "Choose a topic and start learning",
-    topicsText: "This page is only for exploring topics, reading theory, and practicing one idea at a time.",
+    topicsText:
+      "This page is only for exploring topics, reading theory, and practicing one idea at a time.",
     topicsViewerLabel: "Selected topic",
     topicsFinishButton: "I finished this topic",
     topicFeedback: "Pick a topic to see your next step.",
@@ -519,7 +541,8 @@ const translations: Record<Language, TranslationSet> = {
     practiceHard: "Big challenge",
     planEyebrow: "Personal planning",
     planTitle: "Build and follow your own learning plan",
-    planText: "This page is for selecting goals, choosing study rhythm, and checking saved progress.",
+    planText:
+      "This page is for selecting goals, choosing study rhythm, and checking saved progress.",
     goalLabel: "What do you want to get better at?",
     gradeLabel: "Which level fits you best?",
     intensityLabel: "How many short study times each week?",
@@ -535,13 +558,15 @@ const translations: Record<Language, TranslationSet> = {
     noPlanTopics: "No topics picked yet.",
     gymiEyebrow: "Gymi preparation",
     gymiTitle: "Choose between Kurzgymi-Prufung and Langgymi-Prufung",
-    gymiText: "This page contains only the two Gymi exam sections and their matching mock exams.",
+    gymiText:
+      "This page contains only the two Gymi exam sections and their matching mock exams.",
     useTrack: "Open this exam",
     mockExam: "Mock exam",
     nextMockExam: "Next mock exam",
     profileEyebrow: "User profile",
     profileTitle: "Manage your personal profile",
-    profileText: "Edit your visible profile details here. This page keeps profile information in one clear place.",
+    profileText:
+      "Edit your visible profile details here. This page keeps profile information in one clear place.",
     profileName: "Name",
     profileEmail: "Email",
     profilePhoto: "Photo URL",
@@ -555,13 +580,15 @@ const translations: Record<Language, TranslationSet> = {
     profileMessageSaved: "Your profile settings are saved on this device.",
     profileRemoveSuccess: "Your account and saved browser data were removed.",
     profileSecurityTitle: "Security settings",
-    profileSecurityMessage: "Open a separate page to manage secure account changes.",
+    profileSecurityMessage:
+      "Open a separate page to manage secure account changes.",
     openChangeEmail: "Change email",
     openChangePassword: "Update password",
     emailChangeTitle: "Change email",
     changeEmailEyebrow: "Email settings",
     changeEmailPageTitle: "Change email",
-    changeEmailPageText: "Confirm the change using a code sent to your current email address.",
+    changeEmailPageText:
+      "Confirm the change using a code sent to your current email address.",
     changeEmailInfoTitle: "How it works",
     changeEmailStep1: "Enter your new email address",
     changeEmailStep2: "Get a code in your current mailbox",
@@ -571,16 +598,20 @@ const translations: Record<Language, TranslationSet> = {
     emailChangeCode: "Confirmation code from current email",
     emailChangeRequestButton: "Send confirmation code",
     emailChangeConfirmButton: "Confirm new email",
-    emailChangeHint: "We will send a confirmation code to your current email address.",
+    emailChangeHint:
+      "We will send a confirmation code to your current email address.",
     emailChangeSignedOut: "Log in to change your email.",
-    emailChangeRequestSending: "Sending a confirmation code to your current email...",
-    emailChangeRequestSuccess: "A confirmation code has been sent to your current email.",
+    emailChangeRequestSending:
+      "Sending a confirmation code to your current email...",
+    emailChangeRequestSuccess:
+      "A confirmation code has been sent to your current email.",
     emailChangeConfirmSending: "Confirming your new email...",
     emailChangeConfirmSuccess: "Your email has been updated.",
     passwordCardTitle: "Update password",
     changePasswordEyebrow: "Password settings",
     changePasswordPageTitle: "Update password",
-    changePasswordPageText: "Use your current password first, then choose a stronger new one.",
+    changePasswordPageText:
+      "Use your current password first, then choose a stronger new one.",
     changePasswordInfoTitle: "Before you update",
     changePasswordStep1: "Use at least 8 characters",
     changePasswordStep2: "Do not reuse an old password",
@@ -593,7 +624,8 @@ const translations: Record<Language, TranslationSet> = {
     passwordUpdateSuccess: "Your password was updated.",
     authEyebrow: "Account access",
     authTitle: "Create your account or log in",
-    authText: "After a successful sign up or log in, this page closes and your avatar appears in the top-right corner.",
+    authText:
+      "After a successful sign up or log in, this page closes and your avatar appears in the top-right corner.",
     authWhyTitle: "Why use an account?",
     authWhy1: "Keep your plan and progress",
     authWhy2: "Open your personal profile",
@@ -609,8 +641,10 @@ const translations: Record<Language, TranslationSet> = {
     authCreateAccount: "Create my account",
     authAlready: "I already have an account",
     authNeedNew: "I need a new account",
-    authHelper: "Create your own account to save your plan and progress safely.",
-    authSignedIn: "You are already signed in. Your avatar is in the top-right corner.",
+    authHelper:
+      "Create your own account to save your plan and progress safely.",
+    authSignedIn:
+      "You are already signed in. Your avatar is in the top-right corner.",
     authCreating: "Creating your account...",
     authLoggingIn: "Logging you in...",
     authResetTitle: "Forgot password?",
@@ -619,9 +653,11 @@ const translations: Record<Language, TranslationSet> = {
     authResetCode: "Confirmation code",
     authResetHint: "Enter the code from your email and choose a new password.",
     authResetRequestSending: "Sending your confirmation code...",
-    authResetRequestSuccess: "If an account exists for this email, a confirmation code has been sent.",
+    authResetRequestSuccess:
+      "If an account exists for this email, a confirmation code has been sent.",
     authResetConfirmSending: "Updating your password...",
-    authResetConfirmSuccess: "Your password has been updated. You can log in now.",
+    authResetConfirmSuccess:
+      "Your password has been updated. You can log in now.",
     accountSignedInTitle: "Your account is active.",
     selectAllGrades: "All grades",
     selectAllTypes: "All topic types",
@@ -638,7 +674,7 @@ const translations: Record<Language, TranslationSet> = {
     intensityFocus: "4 sessions of 40 minutes",
     levelAll: "All levels",
     levelLabel: "Learning level",
-    languageSwitcherLabel: "Language switcher"
+    languageSwitcherLabel: "Language switcher",
   },
   de: {
     documentTitle: "MathGenius",
@@ -660,28 +696,36 @@ const translations: Record<Language, TranslationSet> = {
     statsSections: "Prufungswege",
     appIncludes: "Prufungsfokus",
     appIncludesTitle: "Zwei klare Bereiche statt vieler verstreuter Seiten",
-    appIncludesText: "Wahle Kurzgymi-Prufung oder Langgymi-Prufung und gehe direkt in die passende Vorbereitung.",
+    appIncludesText:
+      "Wahle Kurzgymi-Prufung oder Langgymi-Prufung und gehe direkt in die passende Vorbereitung.",
     currentLearner: "Aktuelle lernende Person",
-    currentLearnerSignedOut: "Erstelle ein Konto oder melde dich an, um deinen persönlichen Fortschritt zu speichern.",
-    currentLearnerSignedIn: "ist angemeldet. Offne einen der zwei Prufungsbereiche, wenn du weitermachen mochtest.",
+    currentLearnerSignedOut:
+      "Erstelle ein Konto oder melde dich an, um deinen persönlichen Fortschritt zu speichern.",
+    currentLearnerSignedIn:
+      "ist angemeldet. Offne einen der zwei Prufungsbereiche, wenn du weitermachen mochtest.",
     mainSections: "Prufungsbereiche",
     openSectionTitle: "Wahle deine Gymi-Prufung",
-    openSectionText: "Es bleiben nur zwei Bereiche. Wahle direkt die passende Prufung und starte ohne zusatzliche Navigation.",
+    openSectionText:
+      "Es bleiben nur zwei Bereiche. Wahle direkt die passende Prufung und starte ohne zusatzliche Navigation.",
     learnCardKicker: "Prufung 1",
     learnCardTitle: "Kurzgymi-Prufung",
-    learnCardText: "Fur den spateren Eintritt mit Fokus auf Tempo, Rechnen, Sachaufgaben und prufungsnahe Aufgaben.",
+    learnCardText:
+      "Fur den spateren Eintritt mit Fokus auf Tempo, Rechnen, Sachaufgaben und prufungsnahe Aufgaben.",
     learnCardButton: "Kurzgymi offnen",
     planCardKicker: "Prufung 2",
     planCardTitle: "Langgymi-Prufung",
-    planCardText: "Fur fruhe Vorbereitung mit Fokus auf Grundlagen, Genauigkeit und ruhige, klare Losungswege.",
+    planCardText:
+      "Fur fruhe Vorbereitung mit Fokus auf Grundlagen, Genauigkeit und ruhige, klare Losungswege.",
     planCardButton: "Langgymi offnen",
     gymiCardKicker: "Prufungsvorbereitung",
     gymiCardTitle: "Prufungsbereich",
-    gymiCardText: "Offne die zwei fokussierten Gymi-Prufungen und ihre passenden Mock Exams.",
+    gymiCardText:
+      "Offne die zwei fokussierten Gymi-Prufungen und ihre passenden Mock Exams.",
     gymiCardButton: "Prufungen offnen",
     topicsEyebrow: "Lernbibliothek",
     topicsTitle: "Wähle ein Thema und starte direkt",
-    topicsText: "Diese Seite ist nur für Themen, Theorie und Übungen zu einer Idee nach der anderen.",
+    topicsText:
+      "Diese Seite ist nur für Themen, Theorie und Übungen zu einer Idee nach der anderen.",
     topicsViewerLabel: "Gewähltes Thema",
     topicsFinishButton: "Ich habe dieses Thema geschafft",
     topicFeedback: "Wähle ein Thema, um deinen nächsten Schritt zu sehen.",
@@ -694,7 +738,8 @@ const translations: Record<Language, TranslationSet> = {
     practiceHard: "Große Herausforderung",
     planEyebrow: "Persönliche Planung",
     planTitle: "Baue deinen eigenen Lernplan auf und folge ihm",
-    planText: "Diese Seite ist für Ziele, Lernrhythmus und deinen gespeicherten Fortschritt.",
+    planText:
+      "Diese Seite ist für Ziele, Lernrhythmus und deinen gespeicherten Fortschritt.",
     goalLabel: "Worin möchtest du besser werden?",
     gradeLabel: "Welches Niveau passt am besten zu dir?",
     intensityLabel: "Wie viele kurze Lernzeiten pro Woche?",
@@ -710,13 +755,15 @@ const translations: Record<Language, TranslationSet> = {
     noPlanTopics: "Noch keine Themen ausgewählt.",
     gymiEyebrow: "Gymi-Vorbereitung",
     gymiTitle: "Wahle zwischen Kurzgymi-Prufung und Langgymi-Prufung",
-    gymiText: "Diese Seite enthalt nur die zwei Gymi-Prufungsbereiche und ihre passenden Mock Exams.",
+    gymiText:
+      "Diese Seite enthalt nur die zwei Gymi-Prufungsbereiche und ihre passenden Mock Exams.",
     useTrack: "Diese Prufung offnen",
     mockExam: "Mock Exam",
     nextMockExam: "Nächstes Mock Exam",
     profileEyebrow: "Benutzerprofil",
     profileTitle: "Verwalte dein persönliches Profil",
-    profileText: "Bearbeite hier deine sichtbaren Profildaten. Diese Seite sammelt Profildaten an einem klaren Ort.",
+    profileText:
+      "Bearbeite hier deine sichtbaren Profildaten. Diese Seite sammelt Profildaten an einem klaren Ort.",
     profileName: "Name",
     profileEmail: "E-Mail",
     profilePhoto: "Foto-URL",
@@ -725,18 +772,23 @@ const translations: Record<Language, TranslationSet> = {
     profileSave: "Profil speichern",
     profileRemove: "Konto entfernen",
     profileEmptyEmail: "Melde dich an, um deine E-Mail zu sehen",
-    profileEmptyAbout: "Füge einen kurzen Satz über dich oder dein Lernziel hinzu.",
+    profileEmptyAbout:
+      "Füge einen kurzen Satz über dich oder dein Lernziel hinzu.",
     profileMessageSignedOut: "Melde dich an, um dein Profil zu bearbeiten.",
-    profileMessageSaved: "Deine Profileinstellungen sind auf diesem Gerät gespeichert.",
-    profileRemoveSuccess: "Dein Konto und die gespeicherten Browserdaten wurden entfernt.",
+    profileMessageSaved:
+      "Deine Profileinstellungen sind auf diesem Gerät gespeichert.",
+    profileRemoveSuccess:
+      "Dein Konto und die gespeicherten Browserdaten wurden entfernt.",
     profileSecurityTitle: "Sicherheitseinstellungen",
-    profileSecurityMessage: "Öffne eine eigene Seite für sichere Kontoänderungen.",
+    profileSecurityMessage:
+      "Öffne eine eigene Seite für sichere Kontoänderungen.",
     openChangeEmail: "E-Mail ändern",
     openChangePassword: "Passwort aktualisieren",
     emailChangeTitle: "E-Mail ändern",
     changeEmailEyebrow: "E-Mail-Einstellungen",
     changeEmailPageTitle: "E-Mail ändern",
-    changeEmailPageText: "Bestätige die Änderung mit einem Code, der an deine aktuelle E-Mail gesendet wird.",
+    changeEmailPageText:
+      "Bestätige die Änderung mit einem Code, der an deine aktuelle E-Mail gesendet wird.",
     changeEmailInfoTitle: "So funktioniert es",
     changeEmailStep1: "Gib deine neue E-Mail-Adresse ein",
     changeEmailStep2: "Erhalte einen Code in deinem aktuellen Postfach",
@@ -746,16 +798,20 @@ const translations: Record<Language, TranslationSet> = {
     emailChangeCode: "Bestätigungscode von der aktuellen E-Mail",
     emailChangeRequestButton: "Bestätigungscode senden",
     emailChangeConfirmButton: "Neue E-Mail bestätigen",
-    emailChangeHint: "Wir senden einen Bestätigungscode an deine aktuelle E-Mail-Adresse.",
+    emailChangeHint:
+      "Wir senden einen Bestätigungscode an deine aktuelle E-Mail-Adresse.",
     emailChangeSignedOut: "Melde dich an, um deine E-Mail zu ändern.",
-    emailChangeRequestSending: "Bestätigungscode wird an deine aktuelle E-Mail gesendet...",
-    emailChangeRequestSuccess: "Ein Bestätigungscode wurde an deine aktuelle E-Mail gesendet.",
+    emailChangeRequestSending:
+      "Bestätigungscode wird an deine aktuelle E-Mail gesendet...",
+    emailChangeRequestSuccess:
+      "Ein Bestätigungscode wurde an deine aktuelle E-Mail gesendet.",
     emailChangeConfirmSending: "Neue E-Mail wird bestätigt...",
     emailChangeConfirmSuccess: "Deine E-Mail wurde aktualisiert.",
     passwordCardTitle: "Passwort aktualisieren",
     changePasswordEyebrow: "Passwort-Einstellungen",
     changePasswordPageTitle: "Passwort aktualisieren",
-    changePasswordPageText: "Nutze zuerst dein aktuelles Passwort und wähle dann ein stärkeres neues.",
+    changePasswordPageText:
+      "Nutze zuerst dein aktuelles Passwort und wähle dann ein stärkeres neues.",
     changePasswordInfoTitle: "Vor dem Aktualisieren",
     changePasswordStep1: "Nutze mindestens 8 Zeichen",
     changePasswordStep2: "Verwende kein altes Passwort erneut",
@@ -764,11 +820,13 @@ const translations: Record<Language, TranslationSet> = {
     passwordNew: "Neues Passwort",
     passwordUpdateButton: "Passwort aktualisieren",
     passwordUpdateHint: "Nutze ein sicheres Passwort mit mindestens 8 Zeichen.",
-    passwordUpdateSignedOut: "Melde dich an, um dein Passwort zu aktualisieren.",
+    passwordUpdateSignedOut:
+      "Melde dich an, um dein Passwort zu aktualisieren.",
     passwordUpdateSuccess: "Dein Passwort wurde aktualisiert.",
     authEyebrow: "Kontozugang",
     authTitle: "Erstelle dein Konto oder melde dich an",
-    authText: "Nach einer erfolgreichen Registrierung oder Anmeldung schließt sich diese Seite und dein Avatar erscheint oben rechts.",
+    authText:
+      "Nach einer erfolgreichen Registrierung oder Anmeldung schließt sich diese Seite und dein Avatar erscheint oben rechts.",
     authWhyTitle: "Warum ein Konto nutzen?",
     authWhy1: "Speichere deinen Plan und Fortschritt",
     authWhy2: "Öffne dein persönliches Profil",
@@ -784,19 +842,24 @@ const translations: Record<Language, TranslationSet> = {
     authCreateAccount: "Mein Konto erstellen",
     authAlready: "Ich habe schon ein Konto",
     authNeedNew: "Ich brauche ein neues Konto",
-    authHelper: "Erstelle dein eigenes Konto, um deinen Plan und Fortschritt sicher zu speichern.",
-    authSignedIn: "Du bist bereits angemeldet. Dein Avatar ist oben rechts sichtbar.",
+    authHelper:
+      "Erstelle dein eigenes Konto, um deinen Plan und Fortschritt sicher zu speichern.",
+    authSignedIn:
+      "Du bist bereits angemeldet. Dein Avatar ist oben rechts sichtbar.",
     authCreating: "Konto wird erstellt...",
     authLoggingIn: "Du wirst angemeldet...",
     authResetTitle: "Passwort vergessen?",
     authResetRequestButton: "Bestätigungscode senden",
     authResetConfirmButton: "Passwort zurücksetzen",
     authResetCode: "Bestätigungscode",
-    authResetHint: "Gib den Code aus deiner E-Mail ein und wähle ein neues Passwort.",
+    authResetHint:
+      "Gib den Code aus deiner E-Mail ein und wähle ein neues Passwort.",
     authResetRequestSending: "Bestätigungscode wird gesendet...",
-    authResetRequestSuccess: "Falls ein Konto zu dieser E-Mail existiert, wurde ein Bestätigungscode gesendet.",
+    authResetRequestSuccess:
+      "Falls ein Konto zu dieser E-Mail existiert, wurde ein Bestätigungscode gesendet.",
     authResetConfirmSending: "Passwort wird aktualisiert...",
-    authResetConfirmSuccess: "Dein Passwort wurde aktualisiert. Du kannst dich jetzt anmelden.",
+    authResetConfirmSuccess:
+      "Dein Passwort wurde aktualisiert. Du kannst dich jetzt anmelden.",
     accountSignedInTitle: "Dein Konto ist aktiv.",
     selectAllGrades: "Alle Niveaus",
     selectAllTypes: "Alle Thementypen",
@@ -813,141 +876,152 @@ const translations: Record<Language, TranslationSet> = {
     intensityFocus: "4 Einheiten à 40 Minuten",
     levelAll: "Alle Niveaus",
     levelLabel: "Lernniveau",
-    languageSwitcherLabel: "Sprachauswahl"
-  }
+    languageSwitcherLabel: "Sprachauswahl",
+  },
 };
 
 const germanTopicContent: Record<string, LocalizedTopicOverride> = {
   "simplify-terms": {
     title: "Vereinfache die Terme so weit wie möglich",
     category: "Algebra",
-    summary: "Ein fokussierter Kurzgymi-Canvas mit vier Aufgaben, Antwortprüfung, Hinweisen und ausgearbeiteten Lösungen.",
-    formula: "Klammern öffnen -> gleichartige Terme zusammenfassen -> Faktoren kürzen -> erst dann vollständig vereinfachen",
+    summary:
+      "Ein fokussierter Kurzgymi-Canvas mit vier Aufgaben, Antwortprüfung, Hinweisen und ausgearbeiteten Lösungen.",
+    formula:
+      "Klammern öffnen -> gleichartige Terme zusammenfassen -> Faktoren kürzen -> erst dann vollständig vereinfachen",
     theory: [
       "Öffne Klammern sorgfältig und beachte jedes Vorzeichen, bevor du gleichartige Terme zusammenfasst.",
       "Bei Produkten multiplizierst du zuerst die Zahlen und fasst gleiche Variablen zu Potenzen zusammen.",
-      "Bei Brüchen und Wurzeln vereinfachst du zuerst die Struktur und kürzt nur echte gemeinsame Faktoren."
+      "Bei Brüchen und Wurzeln vereinfachst du zuerst die Struktur und kürzt nur echte gemeinsame Faktoren.",
     ],
     practiceEasy: [
       "Multipliziere Klammern aus und fasse gleichartige Terme zusammen.",
-      "Multipliziere Faktoren und schreibe wiederholte Variablen als Potenzen."
+      "Multipliziere Faktoren und schreibe wiederholte Variablen als Potenzen.",
     ],
     practiceMedium: [
       "Vereinfache Bruchterme zuerst vor dem Ausmultiplizieren.",
-      "Prüfe, ob dein Term wirklich vollständig reduziert ist."
+      "Prüfe, ob dein Term wirklich vollständig reduziert ist.",
     ],
     practiceHard: [
       "Fasse Wurzeln erst nach dem Vereinfachen des Ausdrucks unter der Wurzel zusammen.",
-      "Nutze den Canvas und arbeite alle vier Aufgaben von einfach bis schwer durch."
-    ]
+      "Nutze den Canvas und arbeite alle vier Aufgaben von einfach bis schwer durch.",
+    ],
   },
   fractions: {
     title: "Brüche und Prozente",
     category: "Zahlen",
-    summary: "Brüche, Prozente und ihren Zusammenhang durch Bilder, Vergleiche und alltagsnahe Aufgaben verstehen.",
+    summary:
+      "Brüche, Prozente und ihren Zusammenhang durch Bilder, Vergleiche und alltagsnahe Aufgaben verstehen.",
     formula: "Prozent = Bruch x 100; Teil = Prozent x Ganzes",
     theory: [
       "Ein Bruch zeigt, in wie viele gleiche Teile ein Ganzes geteilt wird und wie viele Teile gemeint sind.",
       "Um einen Bruch in Prozent umzuwandeln, wandle ihn zuerst in eine Dezimalzahl um und multipliziere dann mit 100.",
-      "Prozente sind nützlich bei Rabatten, Leistungen, Statistiken und beim Vergleichen von Mengen."
+      "Prozente sind nützlich bei Rabatten, Leistungen, Statistiken und beim Vergleichen von Mengen.",
     ],
     practiceEasy: [
       "Schreibe 1/2, 1/4 und 3/4 als Prozente.",
       "Vergleiche die Brüche 2/5 und 1/2.",
-      "Berechne 25% von 80."
+      "Berechne 25% von 80.",
     ],
     practiceMedium: [
       "In einer Schachtel sind 24 Bleistifte. 3/8 davon sind grün. Wie viele grüne Bleistifte gibt es?",
-      "Ein Buch kostete 40 Franken und wurde dann um 15% günstiger. Wie hoch ist der neue Preis?"
+      "Ein Buch kostete 40 Franken und wurde dann um 15% günstiger. Wie hoch ist der neue Preis?",
     ],
     practiceHard: [
       "Ein Preis steigt um 20% und sinkt danach um 20%. Ist er wieder beim Anfangswert?",
-      "Es gibt 48 Schülerinnen und Schüler in zwei Klassen. Die erste Klasse hat 5/8 aller Kinder. Wie viele sind in der zweiten Klasse?"
-    ]
+      "Es gibt 48 Schülerinnen und Schüler in zwei Klassen. Die erste Klasse hat 5/8 aller Kinder. Wie viele sind in der zweiten Klasse?",
+    ],
   },
   equations: {
     title: "Gleichungen und Unbekannte",
     category: "Algebra",
-    summary: "Erste lineare Gleichungen, die Bedeutung einer Unbekannten und das Prüfen durch Einsetzen.",
+    summary:
+      "Erste lineare Gleichungen, die Bedeutung einer Unbekannten und das Prüfen durch Einsetzen.",
     formula: "x + a = b -> x = b - a",
     theory: [
       "Eine Gleichung ist eine Gleichheit mit einer unbekannten Zahl, die gefunden werden muss.",
       "Du darfst auf beiden Seiten dieselben Rechenschritte ausführen, ohne die Gleichheit zu verändern.",
-      "Durch Einsetzen kannst du prüfen, ob deine Lösung wirklich stimmt."
+      "Durch Einsetzen kannst du prüfen, ob deine Lösung wirklich stimmt.",
     ],
     practiceEasy: ["Löse: x + 7 = 15.", "Löse: 18 - y = 5."],
     practiceMedium: [
       "Löse: 3x + 5 = 23.",
-      "Schreibe eine Gleichung zu diesem Satz: Die Summe aus einer Zahl und 12 ist 37."
+      "Schreibe eine Gleichung zu diesem Satz: Die Summe aus einer Zahl und 12 ist 37.",
     ],
     practiceHard: [
       "Löse: 5(2x - 1) = 3x + 19.",
-      "Finde die Zahl, wenn sie nach einer Erhöhung um 30% den Wert 91 ergibt."
-    ]
+      "Finde die Zahl, wenn sie nach einer Erhöhung um 30% den Wert 91 ergibt.",
+    ],
   },
   geometry: {
     title: "Umfang, Fläche und Formen",
     category: "Geometrie",
-    summary: "Formen messen, mit Längen- und Flächeneinheiten arbeiten und von Zeichnungen zu Formeln kommen.",
+    summary:
+      "Formen messen, mit Längen- und Flächeneinheiten arbeiten und von Zeichnungen zu Formeln kommen.",
     formula: "Umfang = Summe aller Seiten; Fläche Rechteck = Länge x Breite",
     theory: [
       "Der Umfang ist die Summe aller Seitenlängen einer Form.",
       "Die Fläche zeigt, wie viel Platz eine Form auf einer ebenen Fläche bedeckt.",
-      "Beim Rechteck gilt: Fläche = Länge mal Breite."
+      "Beim Rechteck gilt: Fläche = Länge mal Breite.",
     ],
     practiceEasy: [
       "Berechne den Umfang eines Rechtecks mit Seiten 6 cm und 4 cm.",
-      "Berechne die Fläche eines Quadrats mit Seitenlänge 5 cm."
+      "Berechne die Fläche eines Quadrats mit Seitenlänge 5 cm.",
     ],
     practiceMedium: [
       "Ein Rechteck ist 12 cm lang und drei Mal so breit wie klein. Berechne seine Fläche.",
-      "Vergleiche die Flächen der Rechtecke 8x4 und 6x5."
+      "Vergleiche die Flächen der Rechtecke 8x4 und 6x5.",
     ],
     practiceHard: [
       "Teile eine zusammengesetzte Form in zwei Rechtecke und berechne die Fläche.",
-      "Erkläre, warum sich die Fläche vervierfacht, wenn alle Seiten verdoppelt werden."
-    ]
-  }
+      "Erkläre, warum sich die Fläche vervierfacht, wenn alle Seiten verdoppelt werden.",
+    ],
+  },
 };
 
 const germanTrackContent: Record<string, LocalizedTrackOverride> = {
   kurz: {
     title: "Kurzgymi-Prufung",
-    audience: "Für Lernende aus der Sekundarstufe mit Fokus auf Algebra, Tempo und mehrschrittige Sachaufgaben.",
+    audience:
+      "Für Lernende aus der Sekundarstufe mit Fokus auf Algebra, Tempo und mehrschrittige Sachaufgaben.",
     description:
       "Schnellere aufnahmeähnliche Vorbereitung mit Termen, Verhältnissen, Prozenten und klarem Prüfungsrhythmus.",
     pillars: ["Algebra", "Tempo", "Prüfungsstrategie"],
-    diagnostics: "Nutze diesen Track, wenn du gezielt fürs Kurzgymi mit anspruchsvolleren Rechenwegen üben willst."
+    diagnostics:
+      "Nutze diesen Track, wenn du gezielt fürs Kurzgymi mit anspruchsvolleren Rechenwegen üben willst.",
   },
   lang: {
     title: "Langgymi-Prufung",
-    audience: "Für die frühe Vorbereitung mit Fokus auf Zahlverständnis, Geometrie und ruhige, genaue Lösungen.",
+    audience:
+      "Für die frühe Vorbereitung mit Fokus auf Zahlverständnis, Geometrie und ruhige, genaue Lösungen.",
     description:
       "Schrittweise Vorbereitung in Arithmetik, Brüchen und Geometrie mit gut lesbaren, sauberen Lösungswegen.",
     pillars: ["Grundlagen", "Geometrie", "Genauigkeit"],
-    diagnostics: "Nutze diesen Track, wenn du fürs Langgymi erst starke Grundlagen und Sicherheit aufbauen möchtest."
-  }
+    diagnostics:
+      "Nutze diesen Track, wenn du fürs Langgymi erst starke Grundlagen und Sicherheit aufbauen möchtest.",
+  },
 };
 
 const germanExamContent: Record<string, LocalizedExamOverride> = {
   "kurz-diagnostic": {
     title: "Mock Exam: Kurzgymi-Prufung",
-    description: "Ein kompaktes Kurzgymi-Set mit Algebra, Verhältnissen und Prozentaufgaben unter leichtem Zeitdruck.",
+    description:
+      "Ein kompaktes Kurzgymi-Set mit Algebra, Verhältnissen und Prozentaufgaben unter leichtem Zeitdruck.",
     tasks: [
       "Vereinfache den Term: 3(2x - 5) - 2(x + 4).",
       "Eine Karte hat den Maßstab 1:25 000. Welche echte Strecke entsprechen 8 cm?",
-      "Eine Jacke kostet 180 CHF. Sie wird um 15% reduziert und danach kommt eine Liefergebühr von 7.70 CHF dazu. Wie hoch ist der Endpreis?"
-    ]
+      "Eine Jacke kostet 180 CHF. Sie wird um 15% reduziert und danach kommt eine Liefergebühr von 7.70 CHF dazu. Wie hoch ist der Endpreis?",
+    ],
   },
   "lang-foundation": {
     title: "Mock Exam: Langgymi-Prufung",
-    description: "Ein ruhigeres Langgymi-Set mit Brüchen, Geometrie und sauberem Schritt-für-Schritt-Rechnen.",
+    description:
+      "Ein ruhigeres Langgymi-Set mit Brüchen, Geometrie und sauberem Schritt-für-Schritt-Rechnen.",
     tasks: [
       "Vergleiche die Brüche 3/4 und 5/8, ohne sie in Dezimalzahlen umzuwandeln.",
       "Ein Rechteck ist 12 cm lang und 7 cm breit. Berechne Umfang und Fläche.",
-      "Schreibe den Term und berechne: Nimm ein Drittel von 24, addiere 18 und ziehe dann 5 ab."
-    ]
-  }
+      "Schreibe den Term und berechne: Nimm ein Drittel von 24, addiere 18 und ziehe dann 5 ab.",
+    ],
+  },
 };
 
 const trackFallbackDetails: Record<
@@ -959,12 +1033,14 @@ const trackFallbackDetails: Record<
 > = {
   kurz: {
     pillars: ["Algebra", "Word problems", "Exam strategy"],
-    diagnostics: "Use this track for tougher Kurzgymi-style tasks with more algebra, ratios, and timed decisions."
+    diagnostics:
+      "Use this track for tougher Kurzgymi-style tasks with more algebra, ratios, and timed decisions.",
   },
   lang: {
     pillars: ["Foundations", "Geometry", "Accuracy"],
-    diagnostics: "Use this track for Langgymi-style basics, calmer pacing, and careful written solutions."
-  }
+    diagnostics:
+      "Use this track for Langgymi-style basics, calmer pacing, and careful written solutions.",
+  },
 };
 
 const storageKeys = {
@@ -972,7 +1048,7 @@ const storageKeys = {
   plan: "mathginius-study-plan",
   authToken: "mathginius-auth-token",
   account: "mathginius-account",
-  language: "mathginius-language-v2"
+  language: "mathginius-language-v2",
 } as const;
 
 const initialAuthToken = loadAuthToken();
@@ -1068,11 +1144,17 @@ const dom = {
   logInTab: query<HTMLButtonElement>("#log-in-tab-page"),
   authForm: query<HTMLFormElement>("#auth-form-page"),
   authDisplayNameField: query<HTMLElement>("#auth-display-name-field-page"),
-  authDisplayNameLabel: query<HTMLElement>("#auth-display-name-field-page label"),
-  authDisplayNameInput: query<HTMLInputElement>("#auth-display-name-input-page"),
+  authDisplayNameLabel: query<HTMLElement>(
+    "#auth-display-name-field-page label",
+  ),
+  authDisplayNameInput: query<HTMLInputElement>(
+    "#auth-display-name-input-page",
+  ),
   authEmailLabel: query<HTMLElement>('label[for="auth-email-input-page"]'),
   authEmailInput: query<HTMLInputElement>("#auth-email-input-page"),
-  authPasswordLabel: query<HTMLElement>('label[for="auth-password-input-page"]'),
+  authPasswordLabel: query<HTMLElement>(
+    'label[for="auth-password-input-page"]',
+  ),
   authPasswordInput: query<HTMLInputElement>("#auth-password-input-page"),
   authGradeField: query<HTMLElement>("#auth-grade-field-page"),
   authGradeLabel: query<HTMLElement>("#auth-grade-field-page label"),
@@ -1097,7 +1179,9 @@ const dom = {
   profileSecurityTitle: query<HTMLElement>("#profile-security-title"),
   profileSecurityMessage: query<HTMLElement>("#profile-security-message"),
   openChangeEmailButton: query<HTMLButtonElement>("#open-change-email-button"),
-  openChangePasswordButton: query<HTMLButtonElement>("#open-change-password-button"),
+  openChangePasswordButton: query<HTMLButtonElement>(
+    "#open-change-password-button",
+  ),
   changeEmailEyebrow: query<HTMLElement>("#change-email-eyebrow"),
   changeEmailPageTitle: query<HTMLElement>("#change-email-page-title"),
   changeEmailPageText: query<HTMLElement>("#change-email-page-text"),
@@ -1105,16 +1189,28 @@ const dom = {
   changeEmailStep1: query<HTMLElement>("#change-email-step-1"),
   changeEmailStep2: query<HTMLElement>("#change-email-step-2"),
   changeEmailStep3: query<HTMLElement>("#change-email-step-3"),
-  backFromChangeEmailButton: query<HTMLButtonElement>("#back-from-change-email-button"),
+  backFromChangeEmailButton: query<HTMLButtonElement>(
+    "#back-from-change-email-button",
+  ),
   emailChangeTitle: query<HTMLElement>("#email-change-title"),
   emailChangeRequestForm: query<HTMLFormElement>("#email-change-request-form"),
-  emailChangeNewEmailLabel: query<HTMLElement>('label[for="email-change-new-email-input"]'),
-  emailChangeNewEmailInput: query<HTMLInputElement>("#email-change-new-email-input"),
-  emailChangeRequestButton: query<HTMLButtonElement>("#email-change-request-button"),
+  emailChangeNewEmailLabel: query<HTMLElement>(
+    'label[for="email-change-new-email-input"]',
+  ),
+  emailChangeNewEmailInput: query<HTMLInputElement>(
+    "#email-change-new-email-input",
+  ),
+  emailChangeRequestButton: query<HTMLButtonElement>(
+    "#email-change-request-button",
+  ),
   emailChangeConfirmForm: query<HTMLFormElement>("#email-change-confirm-form"),
-  emailChangeCodeLabel: query<HTMLElement>('label[for="email-change-code-input"]'),
+  emailChangeCodeLabel: query<HTMLElement>(
+    'label[for="email-change-code-input"]',
+  ),
   emailChangeCodeInput: query<HTMLInputElement>("#email-change-code-input"),
-  emailChangeConfirmButton: query<HTMLButtonElement>("#email-change-confirm-button"),
+  emailChangeConfirmButton: query<HTMLButtonElement>(
+    "#email-change-confirm-button",
+  ),
   emailChangeMessage: query<HTMLElement>("#email-change-message"),
   changePasswordEyebrow: query<HTMLElement>("#change-password-eyebrow"),
   changePasswordPageTitle: query<HTMLElement>("#change-password-page-title"),
@@ -1123,10 +1219,14 @@ const dom = {
   changePasswordStep1: query<HTMLElement>("#change-password-step-1"),
   changePasswordStep2: query<HTMLElement>("#change-password-step-2"),
   changePasswordStep3: query<HTMLElement>("#change-password-step-3"),
-  backFromChangePasswordButton: query<HTMLButtonElement>("#back-from-change-password-button"),
+  backFromChangePasswordButton: query<HTMLButtonElement>(
+    "#back-from-change-password-button",
+  ),
   passwordCardTitle: query<HTMLElement>("#password-card-title"),
   passwordUpdateForm: query<HTMLFormElement>("#password-update-form"),
-  passwordCurrentLabel: query<HTMLElement>('label[for="current-password-input"]'),
+  passwordCurrentLabel: query<HTMLElement>(
+    'label[for="current-password-input"]',
+  ),
   passwordCurrentInput: query<HTMLInputElement>("#current-password-input"),
   passwordNewLabel: query<HTMLElement>('label[for="new-password-input"]'),
   passwordNewInput: query<HTMLInputElement>("#new-password-input"),
@@ -1138,21 +1238,39 @@ const dom = {
   profileEmailPreview: query<HTMLElement>("#profile-email-preview"),
   profileAboutPreview: query<HTMLElement>("#profile-about-preview"),
   passwordResetTitle: query<HTMLElement>("#password-reset-title"),
-  passwordResetRequestForm: query<HTMLFormElement>("#password-reset-request-form"),
-  passwordResetEmailLabel: query<HTMLElement>('label[for="password-reset-email-input"]'),
-  passwordResetEmailInput: query<HTMLInputElement>("#password-reset-email-input"),
-  passwordResetRequestButton: query<HTMLButtonElement>("#password-reset-request-button"),
-  passwordResetConfirmForm: query<HTMLFormElement>("#password-reset-confirm-form"),
-  passwordResetCodeLabel: query<HTMLElement>('label[for="password-reset-code-input"]'),
+  passwordResetRequestForm: query<HTMLFormElement>(
+    "#password-reset-request-form",
+  ),
+  passwordResetEmailLabel: query<HTMLElement>(
+    'label[for="password-reset-email-input"]',
+  ),
+  passwordResetEmailInput: query<HTMLInputElement>(
+    "#password-reset-email-input",
+  ),
+  passwordResetRequestButton: query<HTMLButtonElement>(
+    "#password-reset-request-button",
+  ),
+  passwordResetConfirmForm: query<HTMLFormElement>(
+    "#password-reset-confirm-form",
+  ),
+  passwordResetCodeLabel: query<HTMLElement>(
+    'label[for="password-reset-code-input"]',
+  ),
   passwordResetCodeInput: query<HTMLInputElement>("#password-reset-code-input"),
-  passwordResetNewPasswordLabel: query<HTMLElement>('label[for="password-reset-new-password-input"]'),
-  passwordResetNewPasswordInput: query<HTMLInputElement>("#password-reset-new-password-input"),
-  passwordResetConfirmButton: query<HTMLButtonElement>("#password-reset-confirm-button"),
+  passwordResetNewPasswordLabel: query<HTMLElement>(
+    'label[for="password-reset-new-password-input"]',
+  ),
+  passwordResetNewPasswordInput: query<HTMLInputElement>(
+    "#password-reset-new-password-input",
+  ),
+  passwordResetConfirmButton: query<HTMLButtonElement>(
+    "#password-reset-confirm-button",
+  ),
   passwordResetMessage: query<HTMLElement>("#password-reset-message"),
   goalLabelText: query<HTMLElement>("#goal-label-text"),
   gradeLabelText: query<HTMLElement>("#grade-label-text"),
   intensityLabelText: query<HTMLElement>("#intensity-label-text"),
-  topicsLegendText: query<HTMLElement>("#topics-legend-text")
+  topicsLegendText: query<HTMLElement>("#topics-legend-text"),
 };
 
 const state: {
@@ -1184,7 +1302,7 @@ const state: {
   authToken: initialAuthToken,
   account: initialAccount,
   profile: createEmptyProfile(),
-  activeTrackId: "lang"
+  activeTrackId: "lang",
 };
 
 let topicRecords: ApiTopic[] = seedTopics.slice();
@@ -1251,8 +1369,12 @@ function bindEvents(): void {
   });
   dom.navKurzButton.addEventListener("click", () => openExamTrack("kurz"));
   dom.navLangButton.addEventListener("click", () => openExamTrack("lang"));
-  dom.openKurzTrackButton.addEventListener("click", () => openExamTrack("kurz"));
-  dom.openLangTrackButton.addEventListener("click", () => openExamTrack("lang"));
+  dom.openKurzTrackButton.addEventListener("click", () =>
+    openExamTrack("kurz"),
+  );
+  dom.openLangTrackButton.addEventListener("click", () =>
+    openExamTrack("lang"),
+  );
   queryAll<HTMLButtonElement>("[data-home-path]").forEach((button) => {
     button.addEventListener("click", () => {
       const path = button.dataset.homePath;
@@ -1264,7 +1386,9 @@ function bindEvents(): void {
     });
   });
   dom.admissionZapLink.addEventListener("click", () => navigateTo("gymi"));
-  dom.admissionBrochureLink.addEventListener("click", () => navigateTo("topics"));
+  dom.admissionBrochureLink.addEventListener("click", () =>
+    navigateTo("topics"),
+  );
   dom.admissionLangLink.addEventListener("click", () => openExamTrack("lang"));
   dom.admissionKurzLink.addEventListener("click", () => openExamTrack("kurz"));
   dom.admissionUnterLink.addEventListener("click", () => navigateTo("topics"));
@@ -1316,10 +1440,18 @@ function bindEvents(): void {
   dom.profileResetButton.addEventListener("click", async () => {
     await removeAccount();
   });
-  dom.openChangeEmailButton.addEventListener("click", () => navigateTo("change-email"));
-  dom.openChangePasswordButton.addEventListener("click", () => navigateTo("change-password"));
-  dom.backFromChangeEmailButton.addEventListener("click", () => navigateTo("profile"));
-  dom.backFromChangePasswordButton.addEventListener("click", () => navigateTo("profile"));
+  dom.openChangeEmailButton.addEventListener("click", () =>
+    navigateTo("change-email"),
+  );
+  dom.openChangePasswordButton.addEventListener("click", () =>
+    navigateTo("change-password"),
+  );
+  dom.backFromChangeEmailButton.addEventListener("click", () =>
+    navigateTo("profile"),
+  );
+  dom.backFromChangePasswordButton.addEventListener("click", () =>
+    navigateTo("profile"),
+  );
 
   dom.emailChangeRequestForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -1347,15 +1479,24 @@ function bindEvents(): void {
   });
 
   dom.markCompleteButton.addEventListener("click", async () => {
-    if (!state.selectedTopicId || state.completedTopicIds.includes(state.selectedTopicId)) {
+    if (
+      !state.selectedTopicId ||
+      state.completedTopicIds.includes(state.selectedTopicId)
+    ) {
       return;
     }
 
-    state.completedTopicIds = [...state.completedTopicIds, state.selectedTopicId];
+    state.completedTopicIds = [
+      ...state.completedTopicIds,
+      state.selectedTopicId,
+    ];
     persistCompletedTopics();
     renderTopicsArea();
     renderPlanArea();
-    setTopicFeedback(withUserName(translations[state.language].topicCompletedMessage), "success");
+    setTopicFeedback(
+      withUserName(translations[state.language].topicCompletedMessage),
+      "success",
+    );
 
     if (state.account && state.authToken) {
       await saveProgressToApi("completed", state.selectedTopicId);
@@ -1365,12 +1506,14 @@ function bindEvents(): void {
   dom.studyPlanForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const topicIds = queryAll<HTMLInputElement>('input[name="plan-topic"]:checked').map((checkbox) => checkbox.value);
+    const topicIds = queryAll<HTMLInputElement>(
+      'input[name="plan-topic"]:checked',
+    ).map((checkbox) => checkbox.value);
     state.studyPlan = {
       goal: toGoal(dom.goalSelect.value),
       grade: dom.gradeSelect.value,
       intensity: toIntensity(dom.intensitySelect.value),
-      topicIds
+      topicIds,
     };
 
     persistStudyPlan();
@@ -1399,7 +1542,7 @@ async function hydrateContentFromApi(): Promise<void> {
   const [topicsResult, tracksResult, examsResult] = await Promise.allSettled([
     fetchJson<ApiTopic[]>("/api/topics"),
     fetchJson<ApiGymiTrack[]>("/api/gymi/tracks"),
-    fetchJson<ApiMockExam[]>("/api/gymi/mock-exams")
+    fetchJson<ApiMockExam[]>("/api/gymi/mock-exams"),
   ]);
 
   if (topicsResult.status === "fulfilled" && topicsResult.value.length > 0) {
@@ -1443,24 +1586,44 @@ function renderShell(): void {
   document.title = t.documentTitle;
   dom.html.lang = state.language;
   dom.languageSwitcher.setAttribute("aria-label", t.languageSwitcherLabel);
-  dom.langActiveButton.textContent = state.language === "en" ? "🇬🇧" : "🇩🇪";
-  dom.langActiveButton.setAttribute("aria-label", state.language === "en" ? "English" : "Deutsch");
-  dom.langOtherButton.textContent = state.language === "en" ? "🇩🇪" : "🇬🇧";
-  dom.langOtherButton.setAttribute("aria-label", state.language === "en" ? "Deutsch" : "English");
-  dom.navHome.textContent = t.navHome;
-  dom.navTopics.textContent = t.navLearn;
-  dom.navPlan.textContent = t.navPlan;
-  dom.navGymi.textContent = t.navGymi;
-  dom.navHome.hidden = true;
-  dom.navTopics.hidden = true;
-  dom.navPlan.hidden = true;
-  dom.openAuthButton.textContent = state.account && state.authToken ? t.logoutButton : t.loginButton;
+  dom.languageCurrentLabel.textContent =
+    state.language === "en" ? "English" : "Deutsch";
+  dom.languageOptionEnglish.setAttribute(
+    "aria-pressed",
+    String(state.language === "en"),
+  );
+  dom.languageOptionGerman.setAttribute(
+    "aria-pressed",
+    String(state.language === "de"),
+  );
+  if (dom.navHome) {
+    dom.navHome.textContent = t.navHome;
+    dom.navHome.hidden = true;
+  }
+
+  if (dom.navTopics) {
+    dom.navTopics.textContent = t.navLearn;
+    dom.navTopics.hidden = true;
+  }
+
+  if (dom.navPlan) {
+    dom.navPlan.textContent = t.navPlan;
+    dom.navPlan.hidden = true;
+  }
+
+  if (dom.navGymi) {
+    dom.navGymi.textContent = t.navGymi;
+  }
+  dom.openAuthButton.textContent =
+    state.account && state.authToken ? t.logoutButton : t.loginButton;
   dom.openProfileButton.textContent = t.avatarProfile;
   dom.avatarLogoutButton.textContent = t.avatarLogout;
-  dom.topicsCount.textContent = String(getTracks().length);
-  dom.practiceCount.textContent = String(getMockExams().length);
-  dom.trackCount.textContent = String(getTracks().length);
-  dom.views.forEach((view) => view.classList.toggle("active", view.dataset.view === state.currentView));
+  setText("#topics-count", String(getTopics().length));
+  setText("#practice-count", String(getMockExams().length));
+  setText("#track-count", String(getTracks().length));
+  dom.views.forEach((view) =>
+    view.classList.toggle("active", view.dataset.view === state.currentView),
+  );
   dom.avatarShell.hidden = true;
   renderAvatar();
   updateStaticTexts();
@@ -1472,12 +1635,24 @@ function updateStaticTexts(): void {
 
   setText(".view[data-view='home'] h1", t.homeTitle);
   setText(".view[data-view='home'] .hero-text", t.homeText);
-  setText(".view[data-view='home'] .hero-actions .primary-button", t.homeOpenTopics);
-  setText(".view[data-view='home'] .hero-actions .secondary-button", t.homeCreateAccount);
-  setText(".view[data-view='home'] .panel-card-accent .panel-kicker", t.appIncludes);
+  setText(
+    ".view[data-view='home'] .hero-actions .primary-button",
+    t.homeOpenTopics,
+  );
+  setText(
+    ".view[data-view='home'] .hero-actions .secondary-button",
+    t.homeCreateAccount,
+  );
+  setText(
+    ".view[data-view='home'] .panel-card-accent .panel-kicker",
+    t.appIncludes,
+  );
   setText(".view[data-view='home'] .panel-card-accent h2", t.appIncludesTitle);
   setText("#focus-topic-description", t.appIncludesText);
-  setText(".view[data-view='home'] .hero-panel .panel-card:last-child .panel-kicker", t.currentLearner);
+  setText(
+    ".view[data-view='home'] .hero-panel .panel-card:last-child .panel-kicker",
+    t.currentLearner,
+  );
   setText(".view[data-view='home'] .section-heading .eyebrow", t.mainSections);
   setText(".view[data-view='home'] .section-heading h2", t.openSectionTitle);
   setText(".view[data-view='home'] .section-heading p", t.openSectionText);
@@ -1489,14 +1664,26 @@ function updateStaticTexts(): void {
   setText(".landing-card:nth-child(2) h3", t.planCardTitle);
   setText(".landing-card:nth-child(2) p:nth-of-type(2)", t.planCardText);
   setText(".landing-card:nth-child(2) .primary-button", t.planCardButton);
-  setText(".view[data-view='topics'] .section-heading .eyebrow", t.topicsEyebrow);
+  setText(
+    ".view[data-view='topics'] .section-heading .eyebrow",
+    t.topicsEyebrow,
+  );
   setText(".view[data-view='topics'] .section-heading h2", t.topicsTitle);
   setText(".view[data-view='topics'] .section-heading p", t.topicsText);
   setText(".view[data-view='topics'] .viewer-label", t.topicsViewerLabel);
   setText(".view[data-view='topics'] .theory-card h4", t.theoryTitle);
-  setText(".view[data-view='topics'] .practice-column:nth-child(1) h4", t.practiceStart);
-  setText(".view[data-view='topics'] .practice-column:nth-child(2) h4", t.practiceMiddle);
-  setText(".view[data-view='topics'] .practice-column:nth-child(3) h4", t.practiceHard);
+  setText(
+    ".view[data-view='topics'] .practice-column:nth-child(1) h4",
+    t.practiceStart,
+  );
+  setText(
+    ".view[data-view='topics'] .practice-column:nth-child(2) h4",
+    t.practiceMiddle,
+  );
+  setText(
+    ".view[data-view='topics'] .practice-column:nth-child(3) h4",
+    t.practiceHard,
+  );
   setText(".view[data-view='plan'] .section-heading .eyebrow", t.planEyebrow);
   setText(".view[data-view='plan'] .section-heading h2", t.planTitle);
   setText(".view[data-view='plan'] .section-heading p", t.planText);
@@ -1506,24 +1693,48 @@ function updateStaticTexts(): void {
   dom.topicsLegendText.textContent = t.topicsLegend;
   setText(".view[data-view='plan'] .dashboard-card h3", t.progressTitle);
   setText(".view[data-view='plan'] .progress-ring-inner span", t.progressDone);
-  setText(".view[data-view='plan'] .dashboard-stats article:nth-child(1) span", t.topicsDone);
-  setText(".view[data-view='plan'] .dashboard-stats article:nth-child(2) span", t.topicsPicked);
-  setText(".view[data-view='plan'] .dashboard-stats article:nth-child(3) span", t.studyRhythm);
+  setText(
+    ".view[data-view='plan'] .dashboard-stats article:nth-child(1) span",
+    t.topicsDone,
+  );
+  setText(
+    ".view[data-view='plan'] .dashboard-stats article:nth-child(2) span",
+    t.topicsPicked,
+  );
+  setText(
+    ".view[data-view='plan'] .dashboard-stats article:nth-child(3) span",
+    t.studyRhythm,
+  );
   setText(".view[data-view='plan'] .saved-plan h4", t.savedPlan);
   setText(".view[data-view='gymi'] .section-heading .eyebrow", t.gymiEyebrow);
   setText(".view[data-view='gymi'] .section-heading h2", t.gymiTitle);
   setText(".view[data-view='gymi'] .section-heading p", t.gymiText);
-  setText(".view[data-view='gymi'] .mock-exam-header .viewer-label", t.mockExam);
-  setText(".view[data-view='profile'] .section-heading .eyebrow", t.profileEyebrow);
+  setText(
+    ".view[data-view='gymi'] .mock-exam-header .viewer-label",
+    t.mockExam,
+  );
+  setText(
+    ".view[data-view='profile'] .section-heading .eyebrow",
+    t.profileEyebrow,
+  );
   setText(".view[data-view='profile'] .section-heading h2", t.profileTitle);
   setText(".view[data-view='profile'] .section-heading p", t.profileText);
   setText(".view[data-view='auth'] .section-heading .eyebrow", t.authEyebrow);
   setText(".view[data-view='auth'] .section-heading h2", t.authTitle);
   setText(".view[data-view='auth'] .section-heading p", t.authText);
   setText(".view[data-view='auth'] .auth-info-card h3", t.authWhyTitle);
-  setText(".view[data-view='auth'] .auth-info-card .mini-checklist li:nth-child(1)", t.authWhy1);
-  setText(".view[data-view='auth'] .auth-info-card .mini-checklist li:nth-child(2)", t.authWhy2);
-  setText(".view[data-view='auth'] .auth-info-card .mini-checklist li:nth-child(3)", t.authWhy3);
+  setText(
+    ".view[data-view='auth'] .auth-info-card .mini-checklist li:nth-child(1)",
+    t.authWhy1,
+  );
+  setText(
+    ".view[data-view='auth'] .auth-info-card .mini-checklist li:nth-child(2)",
+    t.authWhy2,
+  );
+  setText(
+    ".view[data-view='auth'] .auth-info-card .mini-checklist li:nth-child(3)",
+    t.authWhy3,
+  );
   setText("#switch-exam-button", t.nextMockExam);
 
   updateFormOptions();
@@ -1552,7 +1763,11 @@ function updateFormOptions(): void {
   updateSelectOption(dom.profileGradeInput, "9+", t.grade9Plus);
 }
 
-function updateSelectOption(select: HTMLSelectElement, value: string, text: string): void {
+function updateSelectOption(
+  select: HTMLSelectElement,
+  value: string,
+  text: string,
+): void {
   const option = select.querySelector(`option[value="${CSS.escape(value)}"]`);
   if (option) {
     option.textContent = text;
@@ -1582,8 +1797,8 @@ function renderFilters(): void {
         onClick: () => {
           state.gradeFilter = grade;
           renderTopicsArea();
-        }
-      })
+        },
+      }),
     );
   });
 
@@ -1595,13 +1810,17 @@ function renderFilters(): void {
         onClick: () => {
           state.categoryFilter = category;
           renderTopicsArea();
-        }
-      })
+        },
+      }),
     );
   });
 }
 
-function createFilterButton(args: { label: string; active: boolean; onClick: () => void }): HTMLButtonElement {
+function createFilterButton(args: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}): HTMLButtonElement {
   const button = document.createElement("button");
   button.type = "button";
   button.className = `filter-button${args.active ? " active" : ""}`;
@@ -1612,8 +1831,10 @@ function createFilterButton(args: { label: string; active: boolean; onClick: () 
 
 function getVisibleTopics(): TopicContent[] {
   return getTopics().filter((topic) => {
-    const gradeMatches = state.gradeFilter === "all" || topic.grade === state.gradeFilter;
-    const categoryMatches = state.categoryFilter === "all" || topic.category === state.categoryFilter;
+    const gradeMatches =
+      state.gradeFilter === "all" || topic.grade === state.gradeFilter;
+    const categoryMatches =
+      state.categoryFilter === "all" || topic.category === state.categoryFilter;
     return gradeMatches && categoryMatches;
   });
 }
@@ -1651,7 +1872,8 @@ function renderTopicList(): void {
 
 function renderSelectedTopic(): void {
   const topics = getTopics();
-  const topic = topics.find((item) => item.id === state.selectedTopicId) ?? topics[0];
+  const topic =
+    topics.find((item) => item.id === state.selectedTopicId) ?? topics[0];
 
   if (!topic) {
     return;
@@ -1661,11 +1883,16 @@ function renderSelectedTopic(): void {
   dom.selectedTopicMeta.textContent = `${topic.grade} • ${topic.category} • ${topic.duration}`;
   dom.selectedTopicSummary.textContent = topic.summary;
 
-  if (!dom.topicFeedback.classList.contains("success") && !dom.topicFeedback.classList.contains("error")) {
+  if (
+    !dom.topicFeedback.classList.contains("success") &&
+    !dom.topicFeedback.classList.contains("error")
+  ) {
     setTopicFeedback(translations[state.language].topicFeedback);
   }
 
-  dom.markCompleteButton.textContent = state.completedTopicIds.includes(topic.id)
+  dom.markCompleteButton.textContent = state.completedTopicIds.includes(
+    topic.id,
+  )
     ? translations[state.language].topicFinishedAlready
     : translations[state.language].topicsFinishButton;
 
@@ -1724,7 +1951,10 @@ function renderPlanArea(): void {
   dom.plannedTopicsCount.textContent = String(planTopicIds.length);
   dom.weeklyPlanLabel.textContent = intensityToLabel(state.studyPlan.intensity);
   dom.progressRing.style.setProperty("--progress", String(completionRate));
-  dom.progressMessage.textContent = progressMessageFor(completionRate, completedCount);
+  dom.progressMessage.textContent = progressMessageFor(
+    completionRate,
+    completedCount,
+  );
   dom.savedPlanSummary.innerHTML = `
     <p><strong>${escapeHtml(t.goalLabel)}</strong> ${escapeHtml(goalToLabel(state.studyPlan.goal))}</p>
     <p><strong>${escapeHtml(t.gradeLabel)}</strong> ${escapeHtml(gradeLabel(state.studyPlan.grade))}</p>
@@ -1796,10 +2026,12 @@ function renderGymiArea(): void {
       <button class="primary-button" type="button">${state.language === "de" ? "Thema öffnen" : "Open topic"}</button>
     `;
 
-    topicCard.querySelector<HTMLButtonElement>("button")?.addEventListener("click", () => {
-      navigateTo("lang-topic");
-      renderLangTopicPage();
-    });
+    topicCard
+      .querySelector<HTMLButtonElement>("button")
+      ?.addEventListener("click", () => {
+        navigateTo("lang-topic");
+        renderLangTopicPage();
+      });
 
     dom.gymiTopicCards.appendChild(topicCard);
   }
@@ -1845,14 +2077,17 @@ function renderAuthPage(): void {
   dom.logInTab.classList.toggle("active", state.authMode === "log-in");
   dom.authDisplayNameField.hidden = true;
   dom.authGradeField.hidden = true;
-  dom.authSubmitButton.textContent = state.authMode === "sign-up" ? t.authCreateAccount : t.authLogIn;
-  dom.authSwitchButton.textContent = state.authMode === "sign-up" ? t.authAlready : t.authNeedNew;
+  dom.authSubmitButton.textContent =
+    state.authMode === "sign-up" ? t.authCreateAccount : t.authLogIn;
+  dom.authSwitchButton.textContent =
+    state.authMode === "sign-up" ? t.authAlready : t.authNeedNew;
   dom.authDisplayNameLabel.textContent = t.authName;
   dom.authDisplayNameInput.placeholder = t.authNamePlaceholder;
   dom.authEmailLabel.textContent = t.authEmail;
   dom.authPasswordLabel.textContent = t.authPassword;
   dom.authPasswordInput.placeholder = t.authPasswordPlaceholder;
-  dom.authPasswordInput.autocomplete = state.authMode === "sign-up" ? "new-password" : "current-password";
+  dom.authPasswordInput.autocomplete =
+    state.authMode === "sign-up" ? "new-password" : "current-password";
   dom.authGradeLabel.textContent = t.authLevel;
   dom.authMessage.className = "auth-message learner-note";
   dom.authMessage.textContent = isSignedIn ? t.authSignedIn : t.authHelper;
@@ -1862,7 +2097,10 @@ function renderAuthPage(): void {
   dom.passwordResetNewPasswordLabel.textContent = t.passwordNew;
   dom.passwordResetRequestButton.textContent = t.authResetRequestButton;
   dom.passwordResetConfirmButton.textContent = t.authResetConfirmButton;
-  if (!dom.passwordResetMessage.classList.contains("success") && !dom.passwordResetMessage.classList.contains("error")) {
+  if (
+    !dom.passwordResetMessage.classList.contains("success") &&
+    !dom.passwordResetMessage.classList.contains("error")
+  ) {
     dom.passwordResetMessage.textContent = t.authResetHint;
   }
 }
@@ -1931,12 +2169,19 @@ function renderProfilePage(): void {
   dom.profileAboutInput.value = state.profile.about;
   dom.profileNamePreview.textContent = state.profile.displayName;
   dom.profileEmailPreview.textContent = state.account.email;
-  dom.profileAboutPreview.textContent = state.profile.about || t.profileEmptyAbout;
+  dom.profileAboutPreview.textContent =
+    state.profile.about || t.profileEmptyAbout;
   dom.profileMessage.textContent = t.profileMessageSaved;
-  if (!dom.emailChangeMessage.classList.contains("success") && !dom.emailChangeMessage.classList.contains("error")) {
+  if (
+    !dom.emailChangeMessage.classList.contains("success") &&
+    !dom.emailChangeMessage.classList.contains("error")
+  ) {
     dom.emailChangeMessage.textContent = t.emailChangeHint;
   }
-  if (!dom.passwordUpdateMessage.classList.contains("success") && !dom.passwordUpdateMessage.classList.contains("error")) {
+  if (
+    !dom.passwordUpdateMessage.classList.contains("success") &&
+    !dom.passwordUpdateMessage.classList.contains("error")
+  ) {
     dom.passwordUpdateMessage.textContent = t.passwordUpdateHint;
   }
   renderAvatar();
@@ -2010,17 +2255,20 @@ async function submitAuthForm(): Promise<void> {
   const t = translations[state.language];
   const email = dom.authEmailInput.value.trim();
   const password = dom.authPasswordInput.value;
-  const endpoint = state.authMode === "sign-up" ? "/api/auth/register" : "/api/auth/login";
-  const payload = state.authMode === "sign-up" ? { email, password } : { email, password };
+  const endpoint =
+    state.authMode === "sign-up" ? "/api/auth/register" : "/api/auth/login";
+  const payload =
+    state.authMode === "sign-up" ? { email, password } : { email, password };
 
   dom.authMessage.className = "auth-message learner-note";
-  dom.authMessage.textContent = state.authMode === "sign-up" ? t.authCreating : t.authLoggingIn;
+  dom.authMessage.textContent =
+    state.authMode === "sign-up" ? t.authCreating : t.authLoggingIn;
 
   try {
     const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     const result = (await response.json()) as {
@@ -2046,7 +2294,8 @@ async function submitAuthForm(): Promise<void> {
     navigateTo("home");
   } catch (error: unknown) {
     dom.authMessage.className = "auth-message learner-note error";
-    dom.authMessage.textContent = error instanceof Error ? error.message : t.authHelper;
+    dom.authMessage.textContent =
+      error instanceof Error ? error.message : t.authHelper;
   }
 }
 
@@ -2057,7 +2306,7 @@ async function hydrateAccountFromApi(): Promise<void> {
 
   try {
     const response = await fetch("/api/auth/me", {
-      headers: { Authorization: `Bearer ${state.authToken}` }
+      headers: { Authorization: `Bearer ${state.authToken}` },
     });
 
     if (!response.ok) {
@@ -2086,11 +2335,11 @@ async function hydrateLearnerDataFromApi(): Promise<void> {
   try {
     const [planResponse, progressResponse] = await Promise.all([
       fetch("/api/me/plan", {
-        headers: { Authorization: `Bearer ${state.authToken}` }
+        headers: { Authorization: `Bearer ${state.authToken}` },
       }),
       fetch("/api/me/progress", {
-        headers: { Authorization: `Bearer ${state.authToken}` }
-      })
+        headers: { Authorization: `Bearer ${state.authToken}` },
+      }),
     ]);
 
     if (planResponse.ok) {
@@ -2101,14 +2350,20 @@ async function hydrateLearnerDataFromApi(): Promise<void> {
           goal: toGoal(plan.goal ?? state.studyPlan.goal),
           grade: plan.grade_band ?? state.studyPlan.grade,
           intensity: toIntensity(plan.intensity ?? state.studyPlan.intensity),
-          topicIds
+          topicIds,
         };
       }
     }
 
     if (progressResponse.ok) {
       const progress = (await progressResponse.json()) as ApiProgressEntry[];
-      const completedTopicIds = [...new Set(progress.filter((entry) => entry.status === "completed").map((entry) => entry.topic_slug))];
+      const completedTopicIds = [
+        ...new Set(
+          progress
+            .filter((entry) => entry.status === "completed")
+            .map((entry) => entry.topic_slug),
+        ),
+      ];
       if (completedTopicIds.length > 0) {
         state.completedTopicIds = completedTopicIds;
       }
@@ -2134,15 +2389,15 @@ async function syncCurrentLearnerDataToApi(): Promise<void> {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.authToken}`
+          Authorization: `Bearer ${state.authToken}`,
         },
         body: JSON.stringify({
           goal: state.studyPlan.goal,
           gradeBand: state.studyPlan.grade,
           intensity: state.studyPlan.intensity,
-          topicSlugs: state.studyPlan.topicIds
-        })
-      })
+          topicSlugs: state.studyPlan.topicIds,
+        }),
+      }),
     );
   }
 
@@ -2152,10 +2407,10 @@ async function syncCurrentLearnerDataToApi(): Promise<void> {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.authToken}`
+          Authorization: `Bearer ${state.authToken}`,
         },
-        body: JSON.stringify({ topicSlug, status: "completed" })
-      })
+        body: JSON.stringify({ topicSlug, status: "completed" }),
+      }),
     );
   });
 
@@ -2186,8 +2441,8 @@ async function removeAccount(): Promise<void> {
     const response = await fetch("/api/me/account", {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${state.authToken}`
-      }
+        Authorization: `Bearer ${state.authToken}`,
+      },
     });
 
     const result = (await response.json()) as { error?: string };
@@ -2202,7 +2457,8 @@ async function removeAccount(): Promise<void> {
     navigateTo("auth");
   } catch (error: unknown) {
     dom.profileMessage.className = "auth-message learner-note error";
-    dom.profileMessage.textContent = error instanceof Error ? error.message : t.profileRemove;
+    dom.profileMessage.textContent =
+      error instanceof Error ? error.message : t.profileRemove;
   }
 }
 
@@ -2223,12 +2479,12 @@ async function updatePassword(): Promise<void> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${state.authToken}`
+        Authorization: `Bearer ${state.authToken}`,
       },
       body: JSON.stringify({
         currentPassword: dom.passwordCurrentInput.value,
-        newPassword: dom.passwordNewInput.value
-      })
+        newPassword: dom.passwordNewInput.value,
+      }),
     });
 
     const result = (await response.json()) as { error?: string };
@@ -2241,7 +2497,8 @@ async function updatePassword(): Promise<void> {
     dom.passwordUpdateMessage.textContent = t.passwordUpdateSuccess;
   } catch (error: unknown) {
     dom.passwordUpdateMessage.className = "auth-message learner-note error";
-    dom.passwordUpdateMessage.textContent = error instanceof Error ? error.message : t.passwordUpdateHint;
+    dom.passwordUpdateMessage.textContent =
+      error instanceof Error ? error.message : t.passwordUpdateHint;
   }
 }
 
@@ -2262,24 +2519,29 @@ async function requestEmailChange(): Promise<void> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${state.authToken}`
+        Authorization: `Bearer ${state.authToken}`,
       },
       body: JSON.stringify({
-        newEmail: dom.emailChangeNewEmailInput.value.trim()
-      })
+        newEmail: dom.emailChangeNewEmailInput.value.trim(),
+      }),
     });
 
-    const result = (await response.json()) as { error?: string; message?: string };
+    const result = (await response.json()) as {
+      error?: string;
+      message?: string;
+    };
     if (!response.ok) {
       throw new Error(result.error ?? "Could not send the confirmation code.");
     }
 
     dom.emailChangeCodeInput.value = "";
     dom.emailChangeMessage.className = "auth-message learner-note success";
-    dom.emailChangeMessage.textContent = result.message ?? t.emailChangeRequestSuccess;
+    dom.emailChangeMessage.textContent =
+      result.message ?? t.emailChangeRequestSuccess;
   } catch (error: unknown) {
     dom.emailChangeMessage.className = "auth-message learner-note error";
-    dom.emailChangeMessage.textContent = error instanceof Error ? error.message : t.emailChangeHint;
+    dom.emailChangeMessage.textContent =
+      error instanceof Error ? error.message : t.emailChangeHint;
   }
 }
 
@@ -2300,12 +2562,12 @@ async function confirmEmailChange(): Promise<void> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${state.authToken}`
+        Authorization: `Bearer ${state.authToken}`,
       },
       body: JSON.stringify({
         newEmail: dom.emailChangeNewEmailInput.value.trim(),
-        code: dom.emailChangeCodeInput.value.trim()
-      })
+        code: dom.emailChangeCodeInput.value.trim(),
+      }),
     });
 
     const result = (await response.json()) as {
@@ -2326,12 +2588,14 @@ async function confirmEmailChange(): Promise<void> {
     dom.profileEmailInput.value = result.account.email;
     dom.emailChangeConfirmForm.reset();
     dom.emailChangeMessage.className = "auth-message learner-note success";
-    dom.emailChangeMessage.textContent = result.message ?? t.emailChangeConfirmSuccess;
+    dom.emailChangeMessage.textContent =
+      result.message ?? t.emailChangeConfirmSuccess;
     renderShell();
     renderProfilePage();
   } catch (error: unknown) {
     dom.emailChangeMessage.className = "auth-message learner-note error";
-    dom.emailChangeMessage.textContent = error instanceof Error ? error.message : t.emailChangeHint;
+    dom.emailChangeMessage.textContent =
+      error instanceof Error ? error.message : t.emailChangeHint;
   }
 }
 
@@ -2344,10 +2608,13 @@ async function requestPasswordReset(): Promise<void> {
     const response = await fetch("/api/auth/password-reset/request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: dom.passwordResetEmailInput.value.trim() })
+      body: JSON.stringify({ email: dom.passwordResetEmailInput.value.trim() }),
     });
 
-    const result = (await response.json()) as { error?: string; message?: string };
+    const result = (await response.json()) as {
+      error?: string;
+      message?: string;
+    };
     if (!response.ok) {
       throw new Error(result.error ?? "Could not send a confirmation code.");
     }
@@ -2355,10 +2622,12 @@ async function requestPasswordReset(): Promise<void> {
     dom.passwordResetCodeInput.value = "";
     dom.passwordResetNewPasswordInput.value = "";
     dom.passwordResetMessage.className = "auth-message learner-note success";
-    dom.passwordResetMessage.textContent = result.message ?? t.authResetRequestSuccess;
+    dom.passwordResetMessage.textContent =
+      result.message ?? t.authResetRequestSuccess;
   } catch (error: unknown) {
     dom.passwordResetMessage.className = "auth-message learner-note error";
-    dom.passwordResetMessage.textContent = error instanceof Error ? error.message : t.authResetHint;
+    dom.passwordResetMessage.textContent =
+      error instanceof Error ? error.message : t.authResetHint;
   }
 }
 
@@ -2374,21 +2643,26 @@ async function confirmPasswordReset(): Promise<void> {
       body: JSON.stringify({
         email: dom.passwordResetEmailInput.value.trim(),
         code: dom.passwordResetCodeInput.value.trim(),
-        newPassword: dom.passwordResetNewPasswordInput.value
-      })
+        newPassword: dom.passwordResetNewPasswordInput.value,
+      }),
     });
 
-    const result = (await response.json()) as { error?: string; message?: string };
+    const result = (await response.json()) as {
+      error?: string;
+      message?: string;
+    };
     if (!response.ok) {
       throw new Error(result.error ?? "Could not reset the password.");
     }
 
     dom.passwordResetConfirmForm.reset();
     dom.passwordResetMessage.className = "auth-message learner-note success";
-    dom.passwordResetMessage.textContent = result.message ?? t.authResetConfirmSuccess;
+    dom.passwordResetMessage.textContent =
+      result.message ?? t.authResetConfirmSuccess;
   } catch (error: unknown) {
     dom.passwordResetMessage.className = "auth-message learner-note error";
-    dom.passwordResetMessage.textContent = error instanceof Error ? error.message : t.authResetHint;
+    dom.passwordResetMessage.textContent =
+      error instanceof Error ? error.message : t.authResetHint;
   }
 }
 
@@ -2403,7 +2677,7 @@ function clearCurrentLearnerState(): void {
     goal: "school",
     grade: "5-6",
     intensity: "light",
-    topicIds: ["fractions", "geometry"]
+    topicIds: ["fractions", "geometry"],
   };
   persistAuthState();
   localStorage.removeItem(storageKeys.completed);
@@ -2428,16 +2702,18 @@ function saveProfileForm(): void {
   }
 
   state.profile = {
-    displayName: dom.profileNameInput.value.trim() || state.account.display_name,
+    displayName:
+      dom.profileNameInput.value.trim() || state.account.display_name,
     photoUrl: dom.profilePhotoInput.value.trim(),
     gradeBand: dom.profileGradeInput.value,
-    about: dom.profileAboutInput.value.trim()
+    about: dom.profileAboutInput.value.trim(),
   };
 
   persistProfileForCurrentAccount();
   renderShell();
   renderProfilePage();
-  dom.profileMessage.textContent = translations[state.language].profileMessageSaved;
+  dom.profileMessage.textContent =
+    translations[state.language].profileMessageSaved;
 }
 
 async function savePlanToApi(): Promise<void> {
@@ -2446,29 +2722,32 @@ async function savePlanToApi(): Promise<void> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${state.authToken}`
+        Authorization: `Bearer ${state.authToken}`,
       },
       body: JSON.stringify({
         goal: state.studyPlan.goal,
         gradeBand: state.studyPlan.grade,
         intensity: state.studyPlan.intensity,
-        topicSlugs: state.studyPlan.topicIds
-      })
+        topicSlugs: state.studyPlan.topicIds,
+      }),
     });
   } catch {
     // Keep local state working even if the backend is temporarily unavailable.
   }
 }
 
-async function saveProgressToApi(status: string, topicSlug: string): Promise<void> {
+async function saveProgressToApi(
+  status: string,
+  topicSlug: string,
+): Promise<void> {
   try {
     await fetch("/api/me/progress", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${state.authToken}`
+        Authorization: `Bearer ${state.authToken}`,
       },
-      body: JSON.stringify({ topicSlug, status })
+      body: JSON.stringify({ topicSlug, status }),
     });
   } catch {
     // Local progress is still kept in the browser.
@@ -2480,7 +2759,7 @@ function createEmptyProfile(): ProfileState {
     displayName: "",
     photoUrl: "",
     gradeBand: "5-6",
-    about: ""
+    about: "",
   };
 }
 
@@ -2494,11 +2773,13 @@ function loadProfileForCurrentAccount(): void {
     displayName: state.account.display_name,
     photoUrl: "",
     gradeBand: state.account.grade_band,
-    about: ""
+    about: "",
   };
 
   try {
-    const stored = JSON.parse(localStorage.getItem(profileStorageKey(state.account.id)) ?? "null") as ProfileState | null;
+    const stored = JSON.parse(
+      localStorage.getItem(profileStorageKey(state.account.id)) ?? "null",
+    ) as ProfileState | null;
     state.profile = stored ?? fallbackProfile;
   } catch {
     state.profile = fallbackProfile;
@@ -2509,7 +2790,10 @@ function persistProfileForCurrentAccount(): void {
   if (!state.account) {
     return;
   }
-  localStorage.setItem(profileStorageKey(state.account.id), JSON.stringify(state.profile));
+  localStorage.setItem(
+    profileStorageKey(state.account.id),
+    JSON.stringify(state.profile),
+  );
 }
 
 function profileStorageKey(accountId: string): string {
@@ -2517,7 +2801,9 @@ function profileStorageKey(accountId: string): string {
 }
 
 function completedStorageKey(accountId?: string): string {
-  return accountId ? `${storageKeys.completed}-${accountId}` : storageKeys.completed;
+  return accountId
+    ? `${storageKeys.completed}-${accountId}`
+    : storageKeys.completed;
 }
 
 function planStorageKey(accountId?: string): string {
@@ -2526,14 +2812,19 @@ function planStorageKey(accountId?: string): string {
 
 function loadCompletedTopics(accountId?: string): string[] {
   try {
-    return JSON.parse(localStorage.getItem(completedStorageKey(accountId)) ?? "[]") as string[];
+    return JSON.parse(
+      localStorage.getItem(completedStorageKey(accountId)) ?? "[]",
+    ) as string[];
   } catch {
     return [];
   }
 }
 
 function persistCompletedTopics(): void {
-  localStorage.setItem(completedStorageKey(state.account?.id), JSON.stringify(state.completedTopicIds));
+  localStorage.setItem(
+    completedStorageKey(state.account?.id),
+    JSON.stringify(state.completedTopicIds),
+  );
 }
 
 function loadStudyPlan(accountId?: string): StudyPlanState {
@@ -2541,16 +2832,20 @@ function loadStudyPlan(accountId?: string): StudyPlanState {
     goal: "school",
     grade: "5-6",
     intensity: "light",
-    topicIds: ["fractions", "geometry"]
+    topicIds: ["fractions", "geometry"],
   };
 
   try {
-    const stored = JSON.parse(localStorage.getItem(planStorageKey(accountId)) ?? "null") as Partial<StudyPlanState> | null;
+    const stored = JSON.parse(
+      localStorage.getItem(planStorageKey(accountId)) ?? "null",
+    ) as Partial<StudyPlanState> | null;
     return {
       goal: toGoal(stored?.goal ?? fallback.goal),
       grade: stored?.grade ?? fallback.grade,
       intensity: toIntensity(stored?.intensity ?? fallback.intensity),
-      topicIds: Array.isArray(stored?.topicIds) ? stored?.topicIds : fallback.topicIds
+      topicIds: Array.isArray(stored?.topicIds)
+        ? stored?.topicIds
+        : fallback.topicIds,
     };
   } catch {
     return fallback;
@@ -2558,7 +2853,10 @@ function loadStudyPlan(accountId?: string): StudyPlanState {
 }
 
 function persistStudyPlan(): void {
-  localStorage.setItem(planStorageKey(state.account?.id), JSON.stringify(state.studyPlan));
+  localStorage.setItem(
+    planStorageKey(state.account?.id),
+    JSON.stringify(state.studyPlan),
+  );
 }
 
 function loadAuthToken(): string {
@@ -2567,7 +2865,9 @@ function loadAuthToken(): string {
 
 function loadAccount(): AccountState | null {
   try {
-    return JSON.parse(localStorage.getItem(storageKeys.account) ?? "null") as AccountState | null;
+    return JSON.parse(
+      localStorage.getItem(storageKeys.account) ?? "null",
+    ) as AccountState | null;
   } catch {
     return null;
   }
@@ -2598,19 +2898,29 @@ function setLanguage(language: Language): void {
 }
 
 function getTopics(): TopicContent[] {
-  return topicRecords.map((topic) => mapApiTopicToClientTopic(topic, state.language));
+  return topicRecords.map((topic) =>
+    mapApiTopicToClientTopic(topic, state.language),
+  );
 }
 
 function getTracks(): TrackContent[] {
-  return gymiTrackRecords.map((track) => mapApiTrackToClientTrack(track, state.language));
+  return gymiTrackRecords.map((track) =>
+    mapApiTrackToClientTrack(track, state.language),
+  );
 }
 
 function getMockExams(): MockExamContent[] {
-  return mockExamRecords.map((exam) => mapApiMockExamToClientMockExam(exam, state.language));
+  return mockExamRecords.map((exam) =>
+    mapApiMockExamToClientMockExam(exam, state.language),
+  );
 }
 
-function mapApiTopicToClientTopic(topic: ApiTopic, language: Language): TopicContent {
-  const override = language === "de" ? germanTopicContent[topic.slug] : undefined;
+function mapApiTopicToClientTopic(
+  topic: ApiTopic,
+  language: Language,
+): TopicContent {
+  const override =
+    language === "de" ? germanTopicContent[topic.slug] : undefined;
   return {
     id: topic.slug,
     title: override?.title ?? topic.title,
@@ -2623,8 +2933,8 @@ function mapApiTopicToClientTopic(topic: ApiTopic, language: Language): TopicCon
     practice: {
       easy: override?.practiceEasy ?? topic.practice_easy,
       medium: override?.practiceMedium ?? topic.practice_medium,
-      hard: override?.practiceHard ?? topic.practice_hard
-    }
+      hard: override?.practiceHard ?? topic.practice_hard,
+    },
   };
 }
 
@@ -2635,7 +2945,9 @@ function formulaForTopic(topicId: string, language: Language): string {
       : "Open brackets -> combine like terms -> reduce factors -> simplify completely";
   }
   if (topicId === "equations") {
-    return language === "de" ? "x + a = b -> x = b - a" : "x + a = b -> x = b - a";
+    return language === "de"
+      ? "x + a = b -> x = b - a"
+      : "x + a = b -> x = b - a";
   }
   if (topicId === "geometry") {
     return language === "de"
@@ -2647,32 +2959,46 @@ function formulaForTopic(topicId: string, language: Language): string {
     : "Percentage = fraction x 100; Part = percentage x whole";
 }
 
-function mapApiTrackToClientTrack(track: ApiGymiTrack, language: Language): TrackContent {
+function mapApiTrackToClientTrack(
+  track: ApiGymiTrack,
+  language: Language,
+): TrackContent {
   const baseDetails = trackFallbackDetails[track.code] ?? {
-    pillars: language === "de" ? ["Fokus", "Routine", "Strategie"] : ["Focus", "Routine", "Strategy"],
+    pillars:
+      language === "de"
+        ? ["Fokus", "Routine", "Strategie"]
+        : ["Focus", "Routine", "Strategy"],
     diagnostics:
       language === "de"
         ? "Nutze diesen Track, wenn du ein klares Gymi-Ziel verfolgen willst."
-        : "Use this track when you want a clear Gymi study path."
+        : "Use this track when you want a clear Gymi study path.",
   };
-  const override = language === "de" ? germanTrackContent[track.code] : undefined;
+  const override =
+    language === "de" ? germanTrackContent[track.code] : undefined;
 
   return {
     id: track.code,
     title: override?.title ?? track.title,
     audience: override?.audience ?? track.audience,
     pillars: override?.pillars ?? baseDetails.pillars,
-    diagnostics: override?.diagnostics ?? override?.description ?? track.description ?? baseDetails.diagnostics
+    diagnostics:
+      override?.diagnostics ??
+      override?.description ??
+      track.description ??
+      baseDetails.diagnostics,
   };
 }
 
-function mapApiMockExamToClientMockExam(exam: ApiMockExam, language: Language): MockExamContent {
+function mapApiMockExamToClientMockExam(
+  exam: ApiMockExam,
+  language: Language,
+): MockExamContent {
   const override = language === "de" ? germanExamContent[exam.slug] : undefined;
   return {
     id: exam.slug,
     title: override?.title ?? exam.title,
     description: override?.description ?? exam.description,
-    tasks: override?.tasks ?? exam.tasks
+    tasks: override?.tasks ?? exam.tasks,
   };
 }
 
@@ -2696,7 +3022,7 @@ function goalToLabel(goal: Goal): string {
   const labels: Record<Goal, string> = {
     school: t.goalSchool,
     confidence: t.goalConfidence,
-    gymi: t.goalGymi
+    gymi: t.goalGymi,
   };
   return labels[goal];
 }
@@ -2706,12 +3032,15 @@ function intensityToLabel(intensity: Intensity): string {
   const labels: Record<Intensity, string> = {
     light: t.intensityLight,
     steady: t.intensitySteady,
-    focus: t.intensityFocus
+    focus: t.intensityFocus,
   };
   return labels[intensity];
 }
 
-function progressMessageFor(completionRate: number, completedCount: number): string {
+function progressMessageFor(
+  completionRate: number,
+  completedCount: number,
+): string {
   if (completionRate >= 80) {
     return state.language === "de"
       ? "Großartige Arbeit. Du baust richtig Schwung auf."
@@ -2723,9 +3052,13 @@ function progressMessageFor(completionRate: number, completedCount: number): str
       : "You are doing well. Keep going one topic at a time.";
   }
   if (completedCount > 0) {
-    return state.language === "de" ? "Guter Start. Jeder kleine Schritt zählt." : "Nice start. Every small step counts.";
+    return state.language === "de"
+      ? "Guter Start. Jeder kleine Schritt zählt."
+      : "Nice start. Every small step counts.";
   }
-  return state.language === "de" ? "Wähle einen einfachen Anfang und starte." : "Pick one easy win and begin.";
+  return state.language === "de"
+    ? "Wähle einen einfachen Anfang und starte."
+    : "Pick one easy win and begin.";
 }
 
 function gradeLabel(value: string): string {
@@ -2764,7 +3097,10 @@ function durationLabel(minutes: number): string {
   return state.language === "de" ? `${minutes} Minuten` : `${minutes} minutes`;
 }
 
-function setTopicFeedback(message: string, variant: "default" | "success" | "error" = "default"): void {
+function setTopicFeedback(
+  message: string,
+  variant: "default" | "success" | "error" = "default",
+): void {
   dom.topicFeedback.className = "feedback-banner";
   if (variant !== "default") {
     dom.topicFeedback.classList.add(variant);
@@ -2773,7 +3109,9 @@ function setTopicFeedback(message: string, variant: "default" | "success" | "err
 }
 
 function withUserName(message: string): string {
-  return state.account ? message.replace("!", `, ${getDisplayName()}!`) : message;
+  return state.account
+    ? message.replace("!", `, ${getDisplayName()}!`)
+    : message;
 }
 
 function setText(selector: string, value: string): void {
