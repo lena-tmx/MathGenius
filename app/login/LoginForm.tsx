@@ -14,6 +14,12 @@ function setAuthCookie(token: string): void {
   document.cookie = `mathgenius.authToken=${encodeURIComponent(token)}; Path=/; Max-Age=${maxAgeSeconds}; SameSite=Lax`;
 }
 
+function getAuthFailureMessage(mode: Mode): string {
+  return mode === "login"
+    ? "Login failed. Please check your email and password and try again."
+    : "Create account failed. Please check your details and try again.";
+}
+
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -51,8 +57,8 @@ export default function LoginForm() {
       setAuthCookie(response.token);
       router.push(nextPath);
       router.refresh();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Authentication failed");
+    } catch {
+      setMessage(getAuthFailureMessage(mode));
     } finally {
       setLoading(false);
     }
