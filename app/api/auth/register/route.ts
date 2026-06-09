@@ -1,4 +1,4 @@
-import { createAuthToken, hashPassword, toSafeAccount } from "@/src/security/auth";
+import { createAuthToken, hashPassword, toSafeAccount } from "@/lib/server/api-auth";
 import {
   isReasonableEmail,
   isReasonablePassword,
