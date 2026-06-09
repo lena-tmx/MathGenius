@@ -1,4 +1,4 @@
-import { createAuthToken, toSafeAccount, verifyPassword } from "@/src/security/auth";
+import { createAuthToken, toSafeAccount, verifyPassword } from "@/lib/server/api-auth";
 import { isReasonableEmail, sanitizeEmail } from "@/src/security/sanitize";
 import { getApiStore, jsonError } from "@/lib/server/api-store";
 
