@@ -29,6 +29,7 @@ export default function ExerciseWidget({ exercises, backHref }: Props) {
   const [inputVal, setInputVal] = useState("");
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [selfRevealed, setSelfRevealed] = useState(false);
+  const [selfCheckText, setSelfCheckText] = useState("");
   const [results, setResults] = useState<boolean[]>([]);
   const [done, setDone] = useState(false);
 
@@ -45,6 +46,7 @@ export default function ExerciseWidget({ exercises, backHref }: Props) {
     setInputVal("");
     setSelectedChoice(null);
     setSelfRevealed(false);
+    setSelfCheckText("");
   }, []);
 
   const advance = useCallback(
@@ -187,14 +189,56 @@ export default function ExerciseWidget({ exercises, backHref }: Props) {
         )}
 
         {ex.type === "self-check" && !selfRevealed && (
-          <div className={s.selfRow}>
-            <button className="btn-primary" onClick={() => setSelfRevealed(true)}>
-              {t.exercise.steps}
-            </button>
+          <div className={s.selfWriteArea}>
+            <textarea
+              className={s.selfTextarea}
+              placeholder={t.exercise.selfCheckPlaceholder}
+              value={selfCheckText}
+              onChange={(e) => setSelfCheckText(e.target.value)}
+              rows={4}
+            />
+            <div className={s.selfRow}>
+              <button
+                className="btn-primary"
+                onClick={() => setSelfRevealed(true)}
+                disabled={!selfCheckText.trim()}
+              >
+                {t.exercise.steps}
+              </button>
+              <Link href={backHref} className="btn-ghost">{t.exercise.back}</Link>
+            </div>
           </div>
         )}
 
-        {hint && (
+        {ex.type === "self-check" && selfRevealed && (
+          <div className={s.selfCompare}>
+            <div className={s.selfBlock}>
+              <span className={s.selfLabel}>{t.exercise.selfCheckYourAnswer}</span>
+              <div className={s.selfAttempt}>{selfCheckText}</div>
+            </div>
+            <div className={s.selfBlock}>
+              <span className={s.selfLabel}>{t.exercise.selfCheckModelAnswer}</span>
+              <div className={s.selfModel}>{String(ex.answer ?? "")}</div>
+            </div>
+            {steps && steps.length > 0 && (
+              <div className={s.steps}>
+                {steps.map((step, i) => (
+                  <div key={i} className={s.step}>{step}</div>
+                ))}
+              </div>
+            )}
+            <div className={s.selfRow}>
+              <button className="btn-primary" onClick={() => handleSelfReveal(true)}>
+                {t.exercise.reveal}
+              </button>
+              <button className="btn-secondary" onClick={() => handleSelfReveal(false)}>
+                {t.exercise.notYet}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {hint && !selfRevealed && (
           <>
             <button
               className="btn-ghost"
@@ -207,18 +251,16 @@ export default function ExerciseWidget({ exercises, backHref }: Props) {
           </>
         )}
 
-        {steps && steps.length > 0 && (ex.type !== "self-check" || selfRevealed) && (
+        {steps && steps.length > 0 && ex.type !== "self-check" && (
           <>
-            {ex.type !== "self-check" && (
-              <button
-                className="btn-ghost"
-                onClick={() => setStepsOpen((v) => !v)}
-                style={{ alignSelf: "flex-start", padding: "4px 0" }}
-              >
-                {stepsOpen ? t.exercise.hideHint : t.exercise.steps}
-              </button>
-            )}
-            {(stepsOpen || ex.type === "self-check") && (
+            <button
+              className="btn-ghost"
+              onClick={() => setStepsOpen((v) => !v)}
+              style={{ alignSelf: "flex-start", padding: "4px 0" }}
+            >
+              {stepsOpen ? t.exercise.hideHint : t.exercise.steps}
+            </button>
+            {stepsOpen && (
               <div className={s.steps}>
                 {steps.map((step, i) => (
                   <div key={i} className={s.step}>{step}</div>
@@ -231,17 +273,6 @@ export default function ExerciseWidget({ exercises, backHref }: Props) {
         {phase === "checked" && ex.type !== "self-check" && (
           <div className={`${s.feedback} ${feedbackCorrect ? s.ok : s.err}`}>
             {feedbackCorrect ? "✓ Richtig!" : `✗ Falsch — Antwort: ${ex.answer}${ex.unit ? ` ${ex.unit}` : ""}`}
-          </div>
-        )}
-
-        {ex.type === "self-check" && selfRevealed && (
-          <div className={s.selfRow}>
-            <button className="btn-primary" onClick={() => handleSelfReveal(true)}>
-              {t.exercise.reveal}
-            </button>
-            <button className="btn-secondary" onClick={() => handleSelfReveal(false)}>
-              {t.exercise.notYet}
-            </button>
           </div>
         )}
 

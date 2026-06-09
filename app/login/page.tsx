@@ -1,7 +1,12 @@
 import Link from "next/link";
 
-export default function LoginPage({ searchParams }: { searchParams?: { next?: string } }) {
-  const nextPath = searchParams?.next ?? "/dashboard";
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function LoginPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const nextPath = typeof params?.next === "string" ? params.next : "/dashboard";
 
   return (
     <div className="section-heading section-block">
