@@ -43,7 +43,9 @@ async function request<T>(
   });
 
   if (!response.ok) {
-    let message = `Request failed with status ${response.status}`;
+    let message = response.status === 404
+      ? "This feature is not available yet. Please try again later."
+      : `Request failed with status ${response.status}`;
 
     try {
       const errorBody = (await response.json()) as { error?: string };
