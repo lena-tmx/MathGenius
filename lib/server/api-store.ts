@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { verifyAuthToken } from "@/src/security/auth";
+import { verifyAuthToken } from "@/lib/server/api-auth";
 import type { Account, ActivityEvent, ProgressEntry, StudyPlan } from "@/src/types/domain";
 
 interface DemoApiStore {
