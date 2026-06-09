@@ -1,0 +1,88 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sessionPanel {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.timerCard,
+.taskRow {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.timerCard {
+  padding: 28px;
+  position: sticky;
+  top: 24px;
+}
+
+.timerValue {
+  display: block;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.timerLabel {
+  display: block;
+  color: var(--text-soft);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  margin-bottom: 18px;
+}
+
+.timerCard p {
+  color: var(--text-soft);
+}
+
+.taskList {
+  display: grid;
+  gap: 14px;
+}
+
+.taskRow {
+  padding: 18px 20px;
+  display: grid;
+  gap: 6px;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.taskRow:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.taskRow span {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.taskRow strong {
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .sessionPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .timerCard {
+    position: static;
+  }
+}
