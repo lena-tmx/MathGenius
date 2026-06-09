@@ -1,4 +1,4 @@
-import { toSafeAccount } from "@/src/security/auth";
+import { toSafeAccount } from "@/lib/server/api-auth";
 import { jsonError, resolveAccountFromRequest } from "@/lib/server/api-store";
 
 export async function GET(request: Request) {
