@@ -8,7 +8,61 @@ import s from "./page.module.css";
 
 type Mode = "login" | "register";
 
-function getAuthFailureMessage(mode: Mode): string {
+function getAppUrl(): string {
+  return process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin;
+}
+
+function isEmailNotConfirmedError(error: {
+  code?: string;
+  message?: string;
+}): boolean {
+  return (
+    error.code === "email_not_confirmed" ||
+    error.message?.toLowerCase().includes("email not confirmed") === true
+  );
+}
+
+function isEmailRateLimitError(error: {
+  code?: string;
+  message?: string;
+}): boolean {
+  return (
+    error.code === "over_email_send_rate_limit" ||
+    error.message?.toLowerCase().includes("email rate limit") === true ||
+    error.message?.toLowerCase().includes("rate limit") === true
+  );
+}
+
+function isExistingUserError(error: {
+  code?: string;
+  message?: string;
+}): boolean {
+  const message = error.message?.toLowerCase() ?? "";
+
+  return (
+    error.code === "user_already_exists" ||
+    message.includes("already registered") ||
+    message.includes("already exists") ||
+    message.includes("user already")
+  );
+}
+
+function getAuthFailureMessage(
+  mode: Mode,
+  error?: { code?: string; message?: string },
+): string {
+  if (error && isEmailNotConfirmedError(error)) {
+    return "Your email address is not confirmed yet. Please check your inbox and confirm your MathGenius account before logging in.";
+  }
+
+  if (error && isEmailRateLimitError(error)) {
+    return "Too many confirmation emails were requested. Please wait a while before trying again.";
+  }
+
+  if (error && isExistingUserError(error)) {
+    return "An account with this email already exists. Please log in instead.";
+  }
+
   return mode === "login"
     ? "Login failed. Please check your email and password and try again."
     : "Create account failed. Please check your details and try again.";
@@ -18,13 +72,16 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const nextPath = searchParams.get("next") || "/dashboard";
+
   const [mode, setMode] = useState<Mode>("login");
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gradeBand, setGradeBand] = useState("5-6");
   const [message, setMessage] = useState<string | null>(null);
+  const [showResendConfirmation, setShowResendConfirmation] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
 
   const title = useMemo(
     () =>
@@ -34,9 +91,14 @@ export default function LoginForm() {
     [mode],
   );
 
+  function resetStatus() {
+    setMessage(null);
+    setShowResendConfirmation(false);
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage(null);
+    resetStatus();
 
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
@@ -50,16 +112,14 @@ export default function LoginForm() {
 
     try {
       const supabase = createSupabaseBrowserClient();
+      const appUrl = getAppUrl();
 
       if (mode === "register") {
-        const appUrl =
-          process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin;
-
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/dashboard`,
+            emailRedirectTo: `${appUrl}/dashboard`,
             data: {
               display_name:
                 displayName.trim() || email.split("@")[0] || "Learner",
@@ -69,12 +129,31 @@ export default function LoginForm() {
         });
 
         if (error) {
+          const authError = error as { code?: string; message?: string };
+
+          if (isExistingUserError(authError)) {
+            setMode("login");
+            setMessage(
+              "An account with this email already exists. Please log in instead.",
+            );
+            return;
+          }
+
           throw error;
         }
 
+        if (data.user?.identities?.length === 0) {
+          setMode("login");
+          setMessage(
+            "An account with this email already exists. Please log in instead.",
+          );
+          return;
+        }
+
         setMessage(
-          "Account created. Please check your email to confirm your account before logging in.",
+          "Account created. Please check your email and confirm your MathGenius account before logging in.",
         );
+        setShowResendConfirmation(true);
         return;
       }
 
@@ -84,15 +163,69 @@ export default function LoginForm() {
       });
 
       if (error) {
+        const authError = error as { code?: string; message?: string };
+
+        if (isEmailNotConfirmedError(authError)) {
+          setShowResendConfirmation(true);
+        }
+
         throw error;
       }
 
       router.push(nextPath);
       router.refresh();
-    } catch {
-      setMessage(getAuthFailureMessage(mode));
+    } catch (error) {
+      const authError = error as { code?: string; message?: string };
+      setMessage(getAuthFailureMessage(mode, authError));
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function resendConfirmationEmail() {
+    const emailError = validateEmail(email);
+
+    if (emailError) {
+      setMessage(emailError);
+      return;
+    }
+
+    setResending(true);
+    setMessage(null);
+
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const appUrl = getAppUrl();
+
+      const { error } = await supabase.auth.resend({
+        type: "signup",
+        email,
+        options: {
+          emailRedirectTo: `${appUrl}/dashboard`,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setMessage("Confirmation email sent. Please check your inbox.");
+      setShowResendConfirmation(false);
+    } catch (error) {
+      const authError = error as { code?: string; message?: string };
+
+      if (isEmailRateLimitError(authError)) {
+        setMessage(
+          "Too many confirmation emails were requested. Please wait a while before trying again.",
+        );
+        return;
+      }
+
+      setMessage(
+        "Confirmation email could not be sent. Please try again later.",
+      );
+    } finally {
+      setResending(false);
     }
   }
 
@@ -104,17 +237,18 @@ export default function LoginForm() {
           className={mode === "login" ? s.activeTab : s.tab}
           onClick={() => {
             setMode("login");
-            setMessage(null);
+            resetStatus();
           }}
         >
           Log in
         </button>
+
         <button
           type="button"
           className={mode === "register" ? s.activeTab : s.tab}
           onClick={() => {
             setMode("register");
-            setMessage(null);
+            resetStatus();
           }}
         >
           Create account
@@ -181,6 +315,17 @@ export default function LoginForm() {
           <p className={s.message} role="alert">
             {message}
           </p>
+        )}
+
+        {showResendConfirmation && (
+          <button
+            className="btn-secondary"
+            type="button"
+            onClick={resendConfirmationEmail}
+            disabled={resending}
+          >
+            {resending ? "Sending…" : "Resend confirmation email"}
+          </button>
         )}
 
         <button className="btn-primary" type="submit" disabled={loading}>
