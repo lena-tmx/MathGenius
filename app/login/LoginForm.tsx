@@ -52,11 +52,14 @@ export default function LoginForm() {
       const supabase = createSupabaseBrowserClient();
 
       if (mode === "register") {
+        const appUrl =
+          process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin;
+
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/dashboard`,
+            emailRedirectTo: `${appUrl}/dashboard`,
             data: {
               display_name:
                 displayName.trim() || email.split("@")[0] || "Learner",
