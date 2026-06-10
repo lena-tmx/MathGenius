@@ -2,89 +2,154 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { apiClient } from "@/lib/i18n/api-client";
-import { clearStoredAuthToken, getStoredAuthToken } from "@/lib/i18n/auth";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { TOPIC_CONFIGS } from "@/types/exercises";
-import type { ProgressResponse, StudyPlanResponse } from "@/types/api";
 import s from "./page.module.css";
 
 type LoadState = "loading" | "ready" | "signed-out" | "error";
+type TopicProgressStatus = "started" | "practicing" | "completed";
 
-function clearAuthCookie(): void {
-  document.cookie = "mathgenius.authToken=; Path=/; Max-Age=0; SameSite=Lax";
+interface UserTopicProgress {
+  id: string;
+  user_id: string;
+  topic_slug: string;
+  status: TopicProgressStatus;
+  completed_count: number;
+  total_count: number;
+  score: number;
+  completed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface UserProfile {
+  id: string;
+  email: string;
+  displayName: string;
 }
 
 export default function DashboardClient() {
   const [state, setState] = useState<LoadState>("loading");
-  const [token, setToken] = useState<string | null>(null);
-  const [accountName, setAccountName] = useState("Learner");
-  const [progress, setProgress] = useState<ProgressResponse>([]);
-  const [plan, setPlan] = useState<StudyPlanResponse | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [progress, setProgress] = useState<UserTopicProgress[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedToken = getStoredAuthToken();
+    const supabase = createSupabaseBrowserClient();
 
-    if (!storedToken) {
-      setState("signed-out");
-      return;
+    async function loadDashboard() {
+      setState("loading");
+      setMessage(null);
+
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+
+      if (userError || !userData.user) {
+        setState("signed-out");
+        return;
+      }
+
+      const displayName =
+        typeof userData.user.user_metadata?.display_name === "string"
+          ? userData.user.user_metadata.display_name
+          : (userData.user.email ?? "Learner");
+
+      setUser({
+        id: userData.user.id,
+        email: userData.user.email ?? "",
+        displayName,
+      });
+
+      const { data, error } = await supabase
+        .from("user_topic_progress")
+        .select("*")
+        .eq("user_id", userData.user.id)
+        .order("updated_at", { ascending: false });
+
+      if (error) {
+        setMessage("Could not load your progress. Please try again.");
+        setState("error");
+        return;
+      }
+
+      setProgress((data ?? []) as UserTopicProgress[]);
+      setState("ready");
     }
 
-    setToken(storedToken);
-
-    Promise.all([
-      apiClient.me(storedToken),
-      apiClient.listProgress(storedToken),
-      apiClient.getStudyPlan(storedToken).catch(() => null),
-    ])
-      .then(([me, progressResponse, planResponse]) => {
-        setAccountName(me.account.display_name || me.account.email);
-        setProgress(progressResponse);
-        setPlan(planResponse);
-        setState("ready");
-      })
-      .catch((error) => {
-        setMessage(error instanceof Error ? error.message : "Dashboard loading failed");
-        setState("error");
-      });
+    loadDashboard();
   }, []);
 
   const completedSlugs = useMemo(
-    () => new Set(progress.filter((entry) => entry.status === "completed").map((entry) => entry.topic_slug)),
+    () =>
+      new Set(
+        progress
+          .filter((entry) => entry.status === "completed")
+          .map((entry) => entry.topic_slug),
+      ),
     [progress],
   );
 
   const practicingSlugs = useMemo(
-    () => new Set(progress.filter((entry) => entry.status === "practicing" || entry.status === "started").map((entry) => entry.topic_slug)),
+    () =>
+      new Set(
+        progress
+          .filter(
+            (entry) =>
+              entry.status === "practicing" || entry.status === "started",
+          )
+          .map((entry) => entry.topic_slug),
+      ),
     [progress],
   );
 
-  const completionRate = TOPIC_CONFIGS.length === 0 ? 0 : Math.round((completedSlugs.size / TOPIC_CONFIGS.length) * 100);
+  const completionRate =
+    TOPIC_CONFIGS.length === 0
+      ? 0
+      : Math.round((completedSlugs.size / TOPIC_CONFIGS.length) * 100);
 
   async function markCompleted(topicSlug: string) {
-    if (!token) return;
+    if (!user) return;
 
+    const supabase = createSupabaseBrowserClient();
     setMessage(null);
 
-    try {
-      const entry = await apiClient.addProgress(token, {
-        topicSlug,
-        status: "completed",
-        score: 100,
-      });
+    const totalCount = 0;
 
-      setProgress((current) => [
-        ...current.filter((item) => item.topic_slug !== topicSlug),
-        entry,
-      ]);
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Could not save progress");
+    const { data, error } = await supabase
+      .from("user_topic_progress")
+      .upsert(
+        {
+          user_id: user.id,
+          topic_slug: topicSlug,
+          status: "completed",
+          completed_count: totalCount,
+          total_count: totalCount,
+          score: 100,
+          completed_at: new Date().toISOString(),
+        },
+        {
+          onConflict: "user_id,topic_slug",
+        },
+      )
+      .select()
+      .single();
+
+    if (error) {
+      setMessage("Progress could not be saved. Please try again.");
+      return;
     }
+
+    const updatedEntry = data as UserTopicProgress;
+
+    setProgress((current) => [
+      updatedEntry,
+      ...current.filter((item) => item.topic_slug !== topicSlug),
+    ]);
   }
 
-  function handleLogout() {
-    clearStoredAuthToken();
-    clearAuthCookie();
+  async function handleLogout() {
+    const supabase = createSupabaseBrowserClient();
+    await supabase.auth.signOut();
     window.location.href = "/login";
   }
 
@@ -104,7 +169,9 @@ export default function DashboardClient() {
         <span className="eyebrow">Account required</span>
         <h1>Please log in first</h1>
         <p>Your progress is saved only when you are signed in.</p>
-        <Link className="btn-primary" href="/login?next=/dashboard">Go to login</Link>
+        <Link className="btn-primary" href="/login?next=/dashboard">
+          Go to login
+        </Link>
       </div>
     );
   }
@@ -114,8 +181,10 @@ export default function DashboardClient() {
       <div className="section-heading section-block">
         <span className="eyebrow">Error</span>
         <h1>Could not load dashboard</h1>
-        <p>{message ?? "Please log in again."}</p>
-        <Link className="btn-primary" href="/login?next=/dashboard">Go to login</Link>
+        <p>{message ?? "Please try again."}</p>
+        <Link className="btn-primary" href="/login?next=/dashboard">
+          Go to login
+        </Link>
       </div>
     );
   }
@@ -125,10 +194,12 @@ export default function DashboardClient() {
       <section className={s.header}>
         <div>
           <span className="eyebrow">Dashboard</span>
-          <h1>Welcome, {accountName}</h1>
-          <p>Your progress is loaded from the backend and saved per account.</p>
+          <h1>Welcome, {user?.displayName ?? "Learner"}</h1>
+          <p>Your progress is loaded from Supabase and saved per account.</p>
         </div>
-        <button className="btn-secondary" type="button" onClick={handleLogout}>Log out</button>
+        <button className="btn-secondary" type="button" onClick={handleLogout}>
+          Log out
+        </button>
       </section>
 
       <section className={s.statsGrid}>
@@ -141,8 +212,8 @@ export default function DashboardClient() {
           <span className={s.statLabel}>Finished topics</span>
         </article>
         <article className={s.statCard}>
-          <span className={s.statValue}>{plan?.topic_slugs?.length ?? 0}</span>
-          <span className={s.statLabel}>Planned topics</span>
+          <span className={s.statValue}>{progress.length}</span>
+          <span className={s.statLabel}>Saved topics</span>
         </article>
       </section>
 
@@ -163,11 +234,24 @@ export default function DashboardClient() {
               <article key={topic.slug} className={s.topicRow}>
                 <div>
                   <h3>{topic.title_de}</h3>
-                  <p>{completed ? "Completed" : active ? "In progress" : "Not started"}</p>
+                  <p>
+                    {completed
+                      ? "Completed"
+                      : active
+                        ? "In progress"
+                        : "Not started"}
+                  </p>
                 </div>
                 <div className={s.topicActions}>
-                  <Link className="btn-secondary" href={href}>Practice</Link>
-                  <button className="btn-primary" type="button" onClick={() => markCompleted(topic.slug)} disabled={completed}>
+                  <Link className="btn-secondary" href={href}>
+                    Practice
+                  </Link>
+                  <button
+                    className="btn-primary"
+                    type="button"
+                    onClick={() => markCompleted(topic.slug)}
+                    disabled={completed}
+                  >
                     {completed ? "Saved" : "Mark done"}
                   </button>
                 </div>
