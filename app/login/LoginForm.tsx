@@ -59,7 +59,7 @@ export default function LoginForm() {
           email,
           password,
           options: {
-            emailRedirectTo: `${appUrl}/dashboard`,
+            emailRedirectTo: `${window.location.origin}/dashboard`,
             data: {
               display_name:
                 displayName.trim() || email.split("@")[0] || "Learner",
