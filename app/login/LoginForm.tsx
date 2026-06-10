@@ -2,17 +2,11 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { apiClient } from "@/lib/i18n/api-client";
-import { storeAuthToken } from "@/lib/i18n/auth";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { validateEmail, validatePassword } from "@/lib/i18n/validation";
 import s from "./page.module.css";
 
 type Mode = "login" | "register";
-
-function setAuthCookie(token: string): void {
-  const maxAgeSeconds = 60 * 60 * 12;
-  document.cookie = `mathgenius.authToken=${encodeURIComponent(token)}; Path=/; Max-Age=${maxAgeSeconds}; SameSite=Lax`;
-}
 
 function getAuthFailureMessage(mode: Mode): string {
   return mode === "login"
@@ -32,7 +26,13 @@ export default function LoginForm() {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const title = useMemo(() => mode === "login" ? "Log in to MathGenius" : "Create your MathGenius account", [mode]);
+  const title = useMemo(
+    () =>
+      mode === "login"
+        ? "Log in to MathGenius"
+        : "Create your MathGenius account",
+    [mode],
+  );
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -49,12 +49,41 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      const response = mode === "login"
-        ? await apiClient.login({ email, password })
-        : await apiClient.register({ email, password, displayName, gradeBand });
+      const supabase = createSupabaseBrowserClient();
 
-      storeAuthToken(response.token);
-      setAuthCookie(response.token);
+      if (mode === "register") {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/dashboard`,
+            data: {
+              display_name:
+                displayName.trim() || email.split("@")[0] || "Learner",
+              grade_band: gradeBand,
+            },
+          },
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        setMessage(
+          "Account created. Please check your email to confirm your account before logging in.",
+        );
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
       router.push(nextPath);
       router.refresh();
     } catch {
@@ -67,8 +96,26 @@ export default function LoginForm() {
   return (
     <section className={s.card}>
       <div className={s.tabs} role="tablist" aria-label="Authentication mode">
-        <button type="button" className={mode === "login" ? s.activeTab : s.tab} onClick={() => setMode("login")}>Log in</button>
-        <button type="button" className={mode === "register" ? s.activeTab : s.tab} onClick={() => setMode("register")}>Create account</button>
+        <button
+          type="button"
+          className={mode === "login" ? s.activeTab : s.tab}
+          onClick={() => {
+            setMode("login");
+            setMessage(null);
+          }}
+        >
+          Log in
+        </button>
+        <button
+          type="button"
+          className={mode === "register" ? s.activeTab : s.tab}
+          onClick={() => {
+            setMode("register");
+            setMessage(null);
+          }}
+        >
+          Create account
+        </button>
       </div>
 
       <form className={s.form} onSubmit={handleSubmit} noValidate>
@@ -81,24 +128,45 @@ export default function LoginForm() {
         {mode === "register" && (
           <label className={s.field}>
             <span>Name</span>
-            <input value={displayName} onChange={(event) => setDisplayName(event.target.value)} placeholder="Learner name" />
+            <input
+              value={displayName}
+              onChange={(event) => setDisplayName(event.target.value)}
+              placeholder="Learner name"
+            />
           </label>
         )}
 
         <label className={s.field}>
           <span>Email</span>
-          <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@example.com" autoComplete="email" />
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="name@example.com"
+            autoComplete="email"
+          />
         </label>
 
         <label className={s.field}>
           <span>Password</span>
-          <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="At least 8 characters" autoComplete={mode === "login" ? "current-password" : "new-password"} />
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="At least 8 characters"
+            autoComplete={
+              mode === "login" ? "current-password" : "new-password"
+            }
+          />
         </label>
 
         {mode === "register" && (
           <label className={s.field}>
             <span>Grade band</span>
-            <select value={gradeBand} onChange={(event) => setGradeBand(event.target.value)}>
+            <select
+              value={gradeBand}
+              onChange={(event) => setGradeBand(event.target.value)}
+            >
               <option value="4-5">4-5</option>
               <option value="5-6">5-6</option>
               <option value="7-8">7-8</option>
@@ -106,10 +174,18 @@ export default function LoginForm() {
           </label>
         )}
 
-        {message && <p className={s.message} role="alert">{message}</p>}
+        {message && (
+          <p className={s.message} role="alert">
+            {message}
+          </p>
+        )}
 
         <button className="btn-primary" type="submit" disabled={loading}>
-          {loading ? "Please wait…" : mode === "login" ? "Log in" : "Create account"}
+          {loading
+            ? "Please wait…"
+            : mode === "login"
+              ? "Log in"
+              : "Create account"}
         </button>
       </form>
     </section>
