@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { validateEmail, validatePassword } from "@/lib/i18n/validation";
@@ -9,7 +9,52 @@ import s from "./page.module.css";
 type Mode = "login" | "register";
 
 function getAppUrl(): string {
-  return process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin;
+  const browserOrigin = window.location.origin;
+  const configuredAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
+
+  if (!configuredAppUrl) {
+    return browserOrigin;
+  }
+
+  try {
+    const configuredUrl = new URL(configuredAppUrl);
+    const browserUrl = new URL(browserOrigin);
+    const localHosts = new Set(["localhost", "127.0.0.1", "::1"]);
+    const configuredIsLocal = localHosts.has(configuredUrl.hostname);
+    const browserIsLocal = localHosts.has(browserUrl.hostname);
+
+    if (configuredIsLocal && !browserIsLocal) {
+      return browserOrigin;
+    }
+
+    return configuredUrl.origin;
+  } catch {
+    return browserOrigin;
+  }
+}
+
+function getSafeNextPath(value: string | null): string {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) {
+    return "/dashboard";
+  }
+
+  return value;
+}
+
+function getLoginRedirectUrl(email: string, nextPath: string): string {
+  const params = new URLSearchParams({
+    existing: "1",
+    email,
+    next: nextPath,
+  });
+
+  return `/login?${params.toString()}`;
+}
+
+function getConfirmRedirectUrl(appUrl: string, nextPath: string): string {
+  const url = new URL("/auth/confirm", appUrl);
+  url.searchParams.set("next", nextPath);
+  return url.toString();
 }
 
 function isEmailNotConfirmedError(error: {
@@ -71,11 +116,11 @@ function getAuthFailureMessage(
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const nextPath = searchParams.get("next") || "/dashboard";
+  const nextPath = getSafeNextPath(searchParams.get("next"));
 
   const [mode, setMode] = useState<Mode>("login");
   const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(searchParams.get("email") ?? "");
   const [password, setPassword] = useState("");
   const [gradeBand, setGradeBand] = useState("5-6");
   const [message, setMessage] = useState<string | null>(null);
@@ -90,6 +135,30 @@ export default function LoginForm() {
         : "Create your MathGenius account",
     [mode],
   );
+
+  useEffect(() => {
+    const existingEmail = searchParams.get("email");
+
+    if (existingEmail) {
+      setEmail(existingEmail);
+    }
+
+    if (searchParams.get("existing") === "1") {
+      setMode("login");
+      setMessage(
+        "An account with this email already exists. Please log in instead.",
+      );
+      setShowResendConfirmation(false);
+    }
+
+    if (searchParams.get("confirm") === "failed") {
+      setMode("login");
+      setMessage(
+        "Email confirmation could not be completed. Please request a new confirmation email or log in if your account is already confirmed.",
+      );
+      setShowResendConfirmation(true);
+    }
+  }, [searchParams]);
 
   function resetStatus() {
     setMessage(null);
@@ -119,7 +188,7 @@ export default function LoginForm() {
           email,
           password,
           options: {
-            emailRedirectTo: `${appUrl}/dashboard`,
+            emailRedirectTo: getConfirmRedirectUrl(appUrl, nextPath),
             data: {
               display_name:
                 displayName.trim() || email.split("@")[0] || "Learner",
@@ -132,10 +201,7 @@ export default function LoginForm() {
           const authError = error as { code?: string; message?: string };
 
           if (isExistingUserError(authError)) {
-            setMode("login");
-            setMessage(
-              "An account with this email already exists. Please log in instead.",
-            );
+            router.replace(getLoginRedirectUrl(email, nextPath));
             return;
           }
 
@@ -143,10 +209,7 @@ export default function LoginForm() {
         }
 
         if (data.user?.identities?.length === 0) {
-          setMode("login");
-          setMessage(
-            "An account with this email already exists. Please log in instead.",
-          );
+          router.replace(getLoginRedirectUrl(email, nextPath));
           return;
         }
 
@@ -201,7 +264,7 @@ export default function LoginForm() {
         type: "signup",
         email,
         options: {
-          emailRedirectTo: `${appUrl}/dashboard`,
+          emailRedirectTo: getConfirmRedirectUrl(appUrl, nextPath),
         },
       });
 
