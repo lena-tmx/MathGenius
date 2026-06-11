@@ -9,46 +9,32 @@ import s from "./page.module.css";
 type Mode = "login" | "register";
 
 function getAppUrl(): string {
-  const browserOrigin = window.location.origin;
   const configuredAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
 
-  if (!configuredAppUrl) {
-    return browserOrigin;
-  }
-
-  try {
-    const configuredUrl = new URL(configuredAppUrl);
-    const browserUrl = new URL(browserOrigin);
-    const localHosts = new Set(["localhost", "127.0.0.1", "::1"]);
-    const configuredIsLocal = localHosts.has(configuredUrl.hostname);
-    const browserIsLocal = localHosts.has(browserUrl.hostname);
-
-    if (configuredIsLocal && !browserIsLocal) {
-      return browserOrigin;
+  if (configuredAppUrl) {
+    try {
+      return new URL(configuredAppUrl).origin;
+    } catch {
+      // Continue to safe production fallback.
     }
-
-    return configuredUrl.origin;
-  } catch {
-    return browserOrigin;
   }
+
+  return "https://math-genius-woad.vercel.app";
 }
 
 function getSafeNextPath(value: string | null): string {
-  if (!value || !value.startsWith("/") || value.startsWith("//")) {
+  if (
+    !value ||
+    !value.startsWith("/") ||
+    value.startsWith("//") ||
+    value.includes("\\") ||
+    value.includes("%5c") ||
+    value.includes("%5C")
+  ) {
     return "/dashboard";
   }
 
   return value;
-}
-
-function getLoginRedirectUrl(email: string, nextPath: string): string {
-  const params = new URLSearchParams({
-    existing: "1",
-    email,
-    next: nextPath,
-  });
-
-  return `/login?${params.toString()}`;
 }
 
 function getConfirmRedirectUrl(appUrl: string, nextPath: string): string {
@@ -120,7 +106,7 @@ export default function LoginForm() {
 
   const [mode, setMode] = useState<Mode>("login");
   const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState(searchParams.get("email") ?? "");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gradeBand, setGradeBand] = useState("5-6");
   const [message, setMessage] = useState<string | null>(null);
@@ -137,12 +123,6 @@ export default function LoginForm() {
   );
 
   useEffect(() => {
-    const existingEmail = searchParams.get("email");
-
-    if (existingEmail) {
-      setEmail(existingEmail);
-    }
-
     if (searchParams.get("existing") === "1") {
       setMode("login");
       setMessage(
@@ -201,7 +181,11 @@ export default function LoginForm() {
           const authError = error as { code?: string; message?: string };
 
           if (isExistingUserError(authError)) {
-            router.replace(getLoginRedirectUrl(email, nextPath));
+            setMode("login");
+            setMessage(
+              "An account with this email already exists. Please log in instead.",
+            );
+            setShowResendConfirmation(false);
             return;
           }
 
@@ -209,7 +193,11 @@ export default function LoginForm() {
         }
 
         if (data.user?.identities?.length === 0) {
-          router.replace(getLoginRedirectUrl(email, nextPath));
+          setMode("login");
+          setMessage(
+            "An account with this email already exists. Please log in instead.",
+          );
+          setShowResendConfirmation(false);
           return;
         }
 
